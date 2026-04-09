@@ -1,0 +1,8 @@
+node_modules
+dist
+db/database.sqlite
+db/database.sqlite-shm
+db/database.sqlite-wal
+db/import-upload.zip
+db/images/*
+!db/images/.gitkeep

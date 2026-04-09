@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "Morganite";
+  font-weight: 900;
+  src: url("./Morganite-Black.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}

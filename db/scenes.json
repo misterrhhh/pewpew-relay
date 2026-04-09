@@ -1,0 +1,35 @@
+{
+  "placeholder": {
+    "title": "Scene Placeholder",
+    "message": "Replace this scene with your final layout when it is ready.",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
+  },
+  "matches": {
+    "matchIds": [
+      "18118459-cdba-46ea-8788-b7c220ab582c",
+      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
+      "fde9526d-e252-4893-867d-474a3cc21e30"
+    ],
+    "visible": true,
+    "animation": "in",
+    "animationId": 1775576033306
+  },
+  "matchesCountdown": {
+    "matchIds": [
+      "18118459-cdba-46ea-8788-b7c220ab582c",
+      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
+      "fde9526d-e252-4893-867d-474a3cc21e30"
+    ],
+    "countdownMode": "fixedTime",
+    "fixedTime": "14:11",
+    "durationMinutes": 5,
+    "durationStartedAt": 1775581703093,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1775740233665
+  }
+}

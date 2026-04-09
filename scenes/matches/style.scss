@@ -1,0 +1,164 @@
+.matches-page {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background-image: url("./../../client/assets/images/background_today.png");
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.matches-list {
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	top: 600px;
+	display: grid;
+	gap: 50px;
+	align-content: center;
+	justify-content: center;
+	justify-items: center;
+	
+
+	&.count-1 {
+		grid-template-columns: max-content;
+	}
+
+	&.count-2 {
+		grid-template-columns: max-content;
+	}
+
+	&.count-3 {
+		grid-template-columns: repeat(2, max-content);
+	}
+
+	&.count-4 {
+		grid-template-columns: repeat(2, max-content);
+	}
+
+	&.count-3 .ms-card:nth-child(3) {
+		grid-column: 1 / span 2;
+		justify-self: center;
+	}
+
+	
+}
+
+.ms-card {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	&[data-animation="in"] {
+		animation: scene-in 500ms ease both;
+	}
+
+	&[data-animation="out"] {
+		animation: scene-out 450ms ease both;
+	}
+
+	.card-team {
+		display: flex;
+		flex-direction: column;
+
+		.card-logo {
+			width: 190px;
+			height: 190px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+
+			img {
+				max-width: 70%;
+				max-height: 80%;
+			}
+		}
+
+		.card-name {
+			width: 190px;
+			height: 45px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(0, 0, 0, 0.4);
+			color: white;
+			font-family: "IBM Plex Sans";
+			font-weight: 800;
+			font-size: 17px;
+			text-transform: uppercase;
+		}
+	}
+
+	.card-center {
+		display: flex;
+		flex-direction: column;
+		
+		.card-state {
+			width: 190px;
+			height: 190px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.score {
+				font-family: "Morganite";
+				color: white;
+				font-size: 120px;
+			}
+
+			.vs {
+				font-family: "Morganite";
+				color: white;
+				font-size: 80px;
+			}
+		}
+
+		.card-info {
+			width: 190px;
+			height: 45px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: "IBM Plex Sans";
+			font-weight: 800;
+			font-size: 24px;
+			text-transform: uppercase;
+
+			&.finished {
+				background-color: #363636;
+				color: white;
+			}
+
+			&.upcoming {
+				background-color: #ffdd00;
+				color: #141414;
+				font-size: 30px;
+			}
+
+			&.live {
+				background-color: #ffdd00;
+				color: #141414;
+				font-size: 30px;
+			}
+
+			&.next {
+				background-color: #ffdd00;
+				color: #141414;
+				font-size: 30px;
+			}
+		}
+
+		.card-mode {
+			width: 190px;
+			height: 30px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: white;
+			text-transform: uppercase;
+			font-family: "IBM Plex Sans";
+			font-weight: 800;
+		}
+	}
+}

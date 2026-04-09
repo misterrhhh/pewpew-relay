@@ -1,0 +1,693 @@
+{
+  "info": {
+    "_postman_id": "8d9f4a87-4f62-4cd2-b3d3-512de5fb5c50",
+    "name": "PewPewRelay API",
+    "description": "HTTP API collection for PewPewRelay. Team GET responses include roster players, and match GET responses include embedded teams plus expanded veto team references.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "sceneId",
+      "value": "placeholder"
+    },
+    {
+      "key": "playerId",
+      "value": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "key": "teamId",
+      "value": "22222222-2222-2222-2222-222222222222"
+    },
+    {
+      "key": "teamAId",
+      "value": "22222222-2222-2222-2222-222222222222"
+    },
+    {
+      "key": "teamBId",
+      "value": "33333333-3333-3333-3333-333333333333"
+    },
+    {
+      "key": "casterId",
+      "value": "44444444-4444-4444-4444-444444444444"
+    },
+    {
+      "key": "matchId",
+      "value": "55555555-5555-5555-5555-555555555555"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "GET /api/health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Players",
+      "item": [
+        {
+          "name": "GET /api/players",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "players"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/players/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/players/{{playerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "players",
+                "{{playerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/players",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{playerId}}\",\n  \"nickname\": \"ace\",\n  \"realname\": \"Alex Example\",\n  \"country\": \"PT\",\n  \"avatar\": null,\n  \"teamId\": \"{{teamId}}\",\n  \"steamid\": \"76561198000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/players",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "players"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/players/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"ace\",\n  \"realname\": \"Alex Example\",\n  \"country\": \"PT\",\n  \"avatar\": null,\n  \"teamId\": \"{{teamId}}\",\n  \"steamid\": \"76561198000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/players/{{playerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "players",
+                "{{playerId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/players/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/players/{{playerId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "players",
+                "{{playerId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Teams",
+      "item": [
+        {
+          "name": "GET /api/teams",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "teams"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/teams/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/teams/{{teamId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "teams",
+                "{{teamId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/teams",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{teamId}}\",\n  \"name\": \"Relay Esports\",\n  \"short\": \"RLY\",\n  \"logo\": null,\n  \"country\": \"PT\",\n  \"color\": \"#0ea5e9\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/teams",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "teams"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/teams/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Relay Esports\",\n  \"short\": \"RLY\",\n  \"logo\": null,\n  \"country\": \"PT\",\n  \"color\": \"#0ea5e9\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/teams/{{teamId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "teams",
+                "{{teamId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/teams/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/teams/{{teamId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "teams",
+                "{{teamId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Casters",
+      "item": [
+        {
+          "name": "GET /api/casters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/casters",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "casters"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/casters/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/casters/{{casterId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "casters",
+                "{{casterId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/casters",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{casterId}}\",\n  \"name\": \"Casey Commentator\",\n  \"nickname\": \"Casey\",\n  \"social\": \"@caseycasts\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/casters",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "casters"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/casters/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Casey Commentator\",\n  \"nickname\": \"Casey\",\n  \"social\": \"@caseycasts\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/casters/{{casterId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "casters",
+                "{{casterId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/casters/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/casters/{{casterId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "casters",
+                "{{casterId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Matches",
+      "item": [
+        {
+          "name": "GET /api/matches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/matches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "matches"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET /api/matches/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/matches/{{matchId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                "{{matchId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/matches",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{matchId}}\",\n  \"teamAId\": \"{{teamAId}}\",\n  \"teamBId\": \"{{teamBId}}\",\n  \"state\": \"upcoming\",\n  \"time\": \"2026-04-07 19:30\",\n  \"mode\": \"bo3\",\n  \"title\": \"Upper Bracket Final\",\n  \"subtitle\": \"Main Stage\",\n  \"scoreA\": 0,\n  \"scoreB\": 0,\n  \"vetos\": [\n    {\n      \"map\": \"Ancient\",\n      \"pickerId\": \"{{teamAId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 1,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Inferno\",\n      \"pickerId\": \"{{teamBId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 2,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Mirage\",\n      \"pickerId\": \"{{teamAId}}\",\n      \"type\": \"pick\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 3,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Nuke\",\n      \"pickerId\": \"{{teamBId}}\",\n      \"type\": \"pick\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 4,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Dust2\",\n      \"pickerId\": \"{{teamAId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 5,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Train\",\n      \"pickerId\": \"{{teamBId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 6,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Anubis\",\n      \"pickerId\": null,\n      \"type\": \"decider\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 7,\n      \"state\": \"visible\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/matches",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "matches"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT /api/matches/:id",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"teamAId\": \"{{teamAId}}\",\n  \"teamBId\": \"{{teamBId}}\",\n  \"state\": \"live\",\n  \"time\": \"2026-04-07 19:30\",\n  \"mode\": \"bo3\",\n  \"title\": \"Upper Bracket Final\",\n  \"subtitle\": \"Main Stage\",\n  \"scoreA\": 1,\n  \"scoreB\": 0,\n  \"vetos\": [\n    {\n      \"map\": \"Ancient\",\n      \"pickerId\": \"{{teamAId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 1,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Inferno\",\n      \"pickerId\": \"{{teamBId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 2,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Mirage\",\n      \"pickerId\": \"{{teamAId}}\",\n      \"type\": \"pick\",\n      \"winnerId\": \"{{teamAId}}\",\n      \"score\": \"13-8\",\n      \"order\": 3,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Nuke\",\n      \"pickerId\": \"{{teamBId}}\",\n      \"type\": \"pick\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 4,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Dust2\",\n      \"pickerId\": \"{{teamAId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 5,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Train\",\n      \"pickerId\": \"{{teamBId}}\",\n      \"type\": \"ban\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 6,\n      \"state\": \"visible\"\n    },\n    {\n      \"map\": \"Anubis\",\n      \"pickerId\": null,\n      \"type\": \"decider\",\n      \"winnerId\": null,\n      \"score\": null,\n      \"order\": 7,\n      \"state\": \"visible\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/matches/{{matchId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                "{{matchId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE /api/matches/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/matches/{{matchId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "matches",
+                "{{matchId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scenes",
+      "item": [
+        {
+          "name": "GET /api/scenes/:id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/scenes/{{sceneId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "scenes",
+                "{{sceneId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/scenes/:id",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"playerAId\": \"{{playerId}}\",\n  \"playerBId\": null,\n  \"visible\": true,\n  \"animation\": \"fade\",\n  \"animationId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/scenes/{{sceneId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "scenes",
+                "{{sceneId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Upload",
+      "item": [
+        {
+          "name": "POST /api/upload",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "{{teamId}}",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/upload",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "upload"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "GET /api/system/export",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/system/export",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "system",
+                "export"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST /api/system/import",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "archive",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/system/import",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "system",
+                "import"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
