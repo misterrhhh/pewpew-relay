@@ -55,16 +55,16 @@
     "animationId": 1775764730272
   },
   "headToHead": {
-    "title": "april 2026 stats",
+    "title": "last 3 months",
     "left": {
       "playerId": "ae2a9eab-bce4-49e1-9862-0eed7fe8af2c",
       "kills": 25,
       "deaths": 19,
-      "adr": 96,
-      "rating3": 1.44
+      "adr": 95.9,
+      "rating3": 1.38
     },
     "right": {
-      "playerId": "e5cfff61-69b3-49c6-bf78-afff4930b1bd",
+      "playerId": "b19c4916-f81c-4bd4-a242-1bcd1188b4ff",
       "kills": 22,
       "deaths": 20,
       "adr": 75,
@@ -72,6 +72,6 @@
     },
     "visible": true,
     "animation": "in",
-    "animationId": 1775871517975
+    "animationId": 1775947325351
   }
 }
