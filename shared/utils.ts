@@ -1,3 +1,5 @@
+import type { MatchMode, VetoType } from "./types.js";
+
 export function formatMatchTime(dateValue: string) {
   if (!dateValue) {
     return "";
@@ -59,4 +61,32 @@ export function getNextFixedTimeTimestamp(timeValue: string, now = Date.now()) {
   }
 
   return target.getTime();
+}
+
+export function getTypeByVetoIndexAndMode(mode: MatchMode, index: number): VetoType {
+  if (index >= 6) {
+    return "decider";
+  }
+
+  if (mode === "bo1") {
+    return "ban";
+  }
+
+  if (mode === "bo3") {
+    return index === 2 || index === 3 ? "pick" : "ban";
+  }
+
+  if (mode === "bo5") {
+    return index >= 2 && index <= 5 ? "pick" : "ban";
+  }
+
+  return "ban";
+}
+
+export function formatStat(value: number | null, fractionDigits: number) {
+	if (value === null) {
+		return "TBD";
+	}
+
+	return value.toFixed(fractionDigits);
 }

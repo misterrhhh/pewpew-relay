@@ -1,4 +1,4 @@
-import type { Caster, MatchesCountdownSceneState, MatchesSceneState, MatchResponse, PlaceholderSceneState, PlayerResponse, TeamResponse } from "../shared/types";
+import type { Caster, GameMap, HeadToHeadSceneState, MatchesCountdownSceneState, MatchesSceneState, MatchResponse, PipCountdownSceneState, PlaceholderSceneState, PlayerResponse, TeamResponse, VetoSceneState } from "../shared/types";
 
 async function request<T>(input: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers);
@@ -34,6 +34,10 @@ export const api = {
   createTeam: (payload: unknown) => request<TeamResponse>("/api/teams", { method: "POST", body: JSON.stringify(payload) }),
   updateTeam: (id: string, payload: unknown) => request<TeamResponse>(`/api/teams/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
   deleteTeam: (id: string) => request<void>(`/api/teams/${id}`, { method: "DELETE" }),
+  listMaps: () => request<GameMap[]>("/api/maps"),
+  createMap: (payload: unknown) => request<GameMap>("/api/maps", { method: "POST", body: JSON.stringify(payload) }),
+  updateMap: (id: string, payload: unknown) => request<GameMap>(`/api/maps/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
+  deleteMap: (id: string) => request<void>(`/api/maps/${id}`, { method: "DELETE" }),
   listCasters: () => request<Caster[]>("/api/casters"),
   createCaster: (payload: unknown) => request<Caster>("/api/casters", { method: "POST", body: JSON.stringify(payload) }),
   updateCaster: (id: string, payload: unknown) => request<Caster>(`/api/casters/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
@@ -51,6 +55,15 @@ export const api = {
   getMatchesCountdownScene: () => request<MatchesCountdownSceneState>("/api/scenes/matchesCountdown"),
   updateMatchesCountdownScene: (payload: Partial<MatchesCountdownSceneState>) =>
     request<MatchesCountdownSceneState>("/api/scenes/matchesCountdown", { method: "POST", body: JSON.stringify(payload) }),
+  getPipCountdownScene: () => request<PipCountdownSceneState>("/api/scenes/pipCountdown"),
+  updatePipCountdownScene: (payload: Partial<PipCountdownSceneState>) =>
+    request<PipCountdownSceneState>("/api/scenes/pipCountdown", { method: "POST", body: JSON.stringify(payload) }),
+  getVetoScene: () => request<VetoSceneState>("/api/scenes/veto"),
+  updateVetoScene: (payload: Partial<VetoSceneState>) =>
+    request<VetoSceneState>("/api/scenes/veto", { method: "POST", body: JSON.stringify(payload) }),
+  getHeadToHeadScene: () => request<HeadToHeadSceneState>("/api/scenes/headToHead"),
+  updateHeadToHeadScene: (payload: Partial<HeadToHeadSceneState>) =>
+    request<HeadToHeadSceneState>("/api/scenes/headToHead", { method: "POST", body: JSON.stringify(payload) }),
 };
 
 export async function uploadImage(id: string, file: File) {

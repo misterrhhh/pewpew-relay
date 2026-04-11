@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { api } from "../../client/api";
-import type { MatchesCountdownSceneState, MatchResponse } from "../../shared/types";
+import type { MatchResponse, PipCountdownSceneState } from "../../shared/types";
 import { compareMatchDateValues } from "../../shared/utils";
 import { useStatus } from "../components/useStatus";
 
-const defaultSceneState: MatchesCountdownSceneState = {
+const defaultSceneState: PipCountdownSceneState = {
   matchIds: [],
   countdownMode: "fixedTime",
   fixedTime: "18:00",
@@ -19,19 +19,19 @@ function matchLabel(match: MatchResponse) {
   return `${match.title ?? "Untitled match"} - ${match.teamA?.name ?? "Unknown"} vs ${match.teamB?.name ?? "Unknown"}`;
 }
 
-export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[] }) {
-  const [scene, setScene] = useState<MatchesCountdownSceneState>(defaultSceneState);
+export function PipCountdownScenePage({ matches }: { matches: MatchResponse[] }) {
+  const [scene, setScene] = useState<PipCountdownSceneState>(defaultSceneState);
   const status = useStatus();
 
   useEffect(() => {
-    api.getMatchesCountdownScene()
+    api.getPipCountdownScene()
       .then(setScene)
       .catch((error) => status.show((error as Error).message));
   }, []);
 
-  async function pushUpdate(next: Partial<MatchesCountdownSceneState>) {
+  async function pushUpdate(next: Partial<PipCountdownSceneState>) {
     try {
-      const response = await api.updateMatchesCountdownScene(next);
+      const response = await api.updatePipCountdownScene(next);
       setScene(response);
       status.show("Scene updated.");
     } catch (error) {
@@ -71,15 +71,15 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
     });
   }
 
+  const previewUrl = `${window.location.origin}/scenes/pip-countdown`;
   const selectedMatches = scene.matchIds
     .map((matchId) => matches.find((match) => match.id === matchId) ?? null)
     .filter((match): match is MatchResponse => match !== null)
     .sort((left, right) => compareMatchDateValues(left.time, right.time));
-  const previewUrl = `${window.location.origin}/scenes/matches-countdown`;
 
   return (
     <section className="page">
-      <h2>Matches Countdown Scene</h2>
+      <h2>PIP Countdown Scene</h2>
       <div className="card-grid scene-dashboard-grid">
         <div className="panel">
           <h3>Controls</h3>
@@ -103,7 +103,7 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
                 value={scene.countdownMode}
                 onChange={(event) => setScene({
                   ...scene,
-                  countdownMode: event.target.value as MatchesCountdownSceneState["countdownMode"],
+                  countdownMode: event.target.value as PipCountdownSceneState["countdownMode"],
                 })}
               >
                 <option value="fixedTime">Fixed Time</option>
@@ -131,7 +131,7 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
               </div>
             )}
             <div className="actions">
-              <button type="button" onClick={handleShow}>
+              <button type="button" className="secondary" onClick={handleShow}>
                 Show
               </button>
               <button type="button" className="secondary" onClick={handleHide}>

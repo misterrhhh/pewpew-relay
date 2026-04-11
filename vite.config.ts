@@ -11,6 +11,9 @@ export default defineConfig({
       input: {
         dashboard: resolve(__dirname, "dashboard/index.html"),
         placeholder: resolve(__dirname, "scenes/placeholder/index.html"),
+        headToHead: resolve(__dirname, "scenes/head-to-head/index.html"),
+        pipCountdown: resolve(__dirname, "scenes/pip-countdown/index.html"),
+        veto: resolve(__dirname, "scenes/veto/index.html"),
         matches: resolve(__dirname, "scenes/matches/index.html"),
         matchesCountdown: resolve(__dirname, "scenes/matches-countdown/index.html"),
       },

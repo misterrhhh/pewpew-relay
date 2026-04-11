@@ -2,6 +2,7 @@ export type MatchState = "finished" | "upcoming" | "next" | "live" | null;
 export type MatchMode = "bo1" | "bo3" | "bo5";
 export type VetoType = "ban" | "pick" | "decider";
 export type VetoVisibility = "hidden" | "visible";
+export type Side = "CT" | "T";
 
 export interface Player {
   id: string;
@@ -31,6 +32,13 @@ export interface TeamResponse extends Team {
   players: PlayerResponse[];
 }
 
+export interface GameMap {
+  id: string;
+  name: string;
+  code: string;
+  state: boolean;
+}
+
 export interface Caster {
   id: string;
   name: string;
@@ -41,6 +49,7 @@ export interface Caster {
 export interface Veto {
   map: string | null;
   pickerId: string | null;
+  pickerSide: Side | null;
   type: VetoType;
   winnerId: string | null;
   score: string | null;
@@ -99,11 +108,50 @@ export interface MatchesCountdownSceneState {
   animationId: number;
 }
 
+export interface PipCountdownSceneState {
+  matchIds: string[];
+  countdownMode: "fixedTime" | "duration";
+  fixedTime: string;
+  durationMinutes: number;
+  durationStartedAt: number | null;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
+export interface VetoSceneState {
+  matchId: string | null;
+  currentIndex: number;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
+export interface HeadToHeadPlayerState {
+  playerId: string | null;
+  kills: number | null;
+  deaths: number | null;
+  adr: number | null;
+  rating3: number | null;
+}
+
+export interface HeadToHeadSceneState {
+  title: string;
+  left: HeadToHeadPlayerState;
+  right: HeadToHeadPlayerState;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
 export interface SceneStateMap {
   placeholder: PlaceholderSceneState;
   matches: MatchesSceneState;
   matchesCountdown: MatchesCountdownSceneState;
-  [key: string]: Record<string, unknown> | PlaceholderSceneState | MatchesSceneState | MatchesCountdownSceneState;
+  pipCountdown: PipCountdownSceneState;
+  veto: VetoSceneState;
+  headToHead: HeadToHeadSceneState;
+  [key: string]: Record<string, unknown> | PlaceholderSceneState | MatchesSceneState | MatchesCountdownSceneState | PipCountdownSceneState | VetoSceneState | HeadToHeadSceneState;
 }
 
 export interface SceneUpdateMessage<T = unknown> {
@@ -115,6 +163,7 @@ export interface SceneUpdateMessage<T = unknown> {
 export type EntityCollection = {
   players: Player;
   teams: Team;
+  maps: GameMap;
   casters: Caster;
   matches: Match;
 };
@@ -122,6 +171,7 @@ export type EntityCollection = {
 export type EntityResponseCollection = {
   players: PlayerResponse;
   teams: TeamResponse;
+  maps: GameMap;
   casters: Caster;
   matches: MatchResponse;
 };

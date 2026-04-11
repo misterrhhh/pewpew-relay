@@ -42,6 +42,13 @@ function createConnection() {
       social TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS maps (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      code TEXT NOT NULL,
+      state INTEGER NOT NULL DEFAULT 1
+    );
+
     CREATE TABLE IF NOT EXISTS matches (
       id TEXT PRIMARY KEY,
       teamAId TEXT NOT NULL,
@@ -58,6 +65,33 @@ function createConnection() {
       FOREIGN KEY (teamBId) REFERENCES teams(id)
     );
   `);
+
+  const mapsCountRow = connection.prepare("SELECT COUNT(*) AS count FROM maps").get() as { count?: number } | undefined;
+  const mapsCount = Number(mapsCountRow?.count ?? 0);
+  if (mapsCount === 0) {
+    connection.prepare(`
+      INSERT INTO maps (id, name, code, state) VALUES
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?),
+      (?, ?, ?, ?)
+    `).run(
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1001", "inferno", "de_inferno", 1,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1002", "mirage", "de_mirage", 1,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1003", "dust2", "de_dust2", 1,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1004", "nuke", "de_nuke", 1,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1005", "ancient", "de_ancient", 1,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1006", "anubis", "de_anubis", 1,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1007", "train", "de_train", 0,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1008", "overpass", "de_overpass", 0,
+      "3a278010-6f7c-4ec5-bebd-2f0fc77d1009", "vertigo", "de_vertigo", 0,
+    );
+  }
 
   return connection;
 }

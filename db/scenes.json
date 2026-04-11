@@ -2,9 +2,9 @@
   "placeholder": {
     "title": "Scene Placeholder",
     "message": "Replace this scene with your final layout when it is ready.",
-    "visible": false,
-    "animation": "idle",
-    "animationId": 0
+    "visible": true,
+    "animation": "in",
+    "animationId": 1775740748744
   },
   "matches": {
     "matchIds": [
@@ -31,5 +31,47 @@
     "visible": true,
     "animation": "in",
     "animationId": 1775740233665
+  },
+  "pipCountdown": {
+    "matchIds": [
+      "18118459-cdba-46ea-8788-b7c220ab582c",
+      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
+      "fde9526d-e252-4893-867d-474a3cc21e30"
+    ],
+    "countdownMode": "fixedTime",
+    "fixedTime": "15:00",
+    "durationMinutes": 5,
+    "durationStartedAt": null,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1775742345342
+  },
+  "veto": {
+    "matchId": "18118459-cdba-46ea-8788-b7c220ab582c",
+    "currentIndex": 7,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1775764730272
+  },
+  "headToHead": {
+    "title": "april 2026 stats",
+    "left": {
+      "playerId": "ae2a9eab-bce4-49e1-9862-0eed7fe8af2c",
+      "kills": 25,
+      "deaths": 19,
+      "adr": 96,
+      "rating3": 1.44
+    },
+    "right": {
+      "playerId": "e5cfff61-69b3-49c6-bf78-afff4930b1bd",
+      "kills": 22,
+      "deaths": 20,
+      "adr": 75,
+      "rating3": 1.05
+    },
+    "visible": true,
+    "animation": "in",
+    "animationId": 1775871517975
   }
 }

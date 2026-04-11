@@ -39,6 +39,7 @@ function createVeto(order: number): Veto {
 	return {
 		map: null,
 		pickerId: null,
+		pickerSide: null,
 		type: order === 7 ? "decider" : "ban",
 		winnerId: null,
 		score: null,

@@ -1,10 +1,10 @@
 import { Router, type Request } from "express";
 import { validate as isUuid } from "uuid";
 import type { Database } from "better-sqlite3";
-import type { Caster, Match, MatchMode, MatchState, Player, Team, Veto, VetoType, VetoVisibility } from "../../shared/types.js";
+import type { Caster, GameMap, Match, MatchMode, MatchState, Player, Side, Team, Veto, VetoType, VetoVisibility } from "../../shared/types.js";
 import { parseVetos, serializeMatch, serializePlayer, serializeTeamWithPlayers, type SerializationContext } from "../services/serializers.js";
 
-type ResourceName = "players" | "teams" | "casters" | "matches";
+type ResourceName = "players" | "teams" | "maps" | "casters" | "matches";
 
 type ResourceConfig<TOutput, TStorage> = {
   table: string;
@@ -88,6 +88,11 @@ function validateVeto(input: unknown, index: number): Veto {
     throw new Error(`vetos[${index}].state is invalid.`);
   }
 
+  const pickerSide = optionalString(veto.pickerSide) as Side | null;
+  if (pickerSide && !["CT", "T"].includes(pickerSide)) {
+    throw new Error(`vetos[${index}].pickerSide is invalid.`);
+  }
+
   const order = Number(veto.order);
   if (!Number.isInteger(order)) {
     throw new Error(`vetos[${index}].order must be an integer.`);
@@ -96,6 +101,7 @@ function validateVeto(input: unknown, index: number): Veto {
   return {
     map: optionalString(veto.map),
     pickerId: optionalUuid(veto.pickerId, `vetos[${index}].pickerId`),
+    pickerSide,
     type,
     winnerId: optionalUuid(veto.winnerId, `vetos[${index}].winnerId`),
     score: optionalString(veto.score),
@@ -151,6 +157,20 @@ function normalizeCaster(body: unknown): Caster {
   };
 }
 
+function normalizeMap(body: unknown): GameMap {
+  if (typeof body !== "object" || body === null) {
+    throw new Error("Invalid map payload.");
+  }
+
+  const input = body as Record<string, unknown>;
+  return {
+    id: requireUuid(input.id, "id"),
+    name: requireString(input.name, "name"),
+    code: requireString(input.code, "code"),
+    state: Boolean(input.state),
+  };
+}
+
 function normalizeMatch(body: unknown): Match {
   if (typeof body !== "object" || body === null) {
     throw new Error("Invalid match payload.");
@@ -199,6 +219,15 @@ const resourceConfigs: Record<ResourceName, ResourceConfig<any, any>> = {
     normalize: normalizeTeam,
     serialize: (req, row, context) => serializeTeamWithPlayers(req, row as Team, context.playersByTeamId?.get((row as Team).id) ?? []),
   },
+  maps: {
+    table: "maps",
+    fields: ["id", "name", "code", "state"],
+    normalize: normalizeMap,
+    serialize: (_req, row) => ({
+      ...(row as Omit<GameMap, "state"> & { state: number | boolean }),
+      state: Boolean((row as Omit<GameMap, "state"> & { state: number | boolean }).state),
+    }),
+  },
   casters: {
     table: "casters",
     fields: ["id", "name", "nickname", "social"],
@@ -224,7 +253,15 @@ function getConfig(resource: string) {
   return resourceConfigs[resource as ResourceName];
 }
 
-function buildStorageRecord(resource: ResourceName, payload: Player | Team | Caster | Match) {
+function buildStorageRecord(resource: ResourceName, payload: Player | Team | GameMap | Caster | Match) {
+  if (resource === "maps") {
+    const map = payload as GameMap;
+    return {
+      ...map,
+      state: map.state ? 1 : 0,
+    };
+  }
+
   if (resource !== "matches") {
     return payload;
   }

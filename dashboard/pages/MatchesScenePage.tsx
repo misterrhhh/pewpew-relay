@@ -73,7 +73,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
   return (
     <section className="page">
       <h2>Matches Scene</h2>
-      <div className="card-grid">
+      <div className="card-grid scene-dashboard-grid">
         <div className="panel">
           <h3>Controls</h3>
           <div className="form-grid">
@@ -102,7 +102,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
           <div className="status">{status.message}</div>
         </div>
 
-        <div className="panel">
+        <div className="panel scene-preview-panel">
           <h3>Preview</h3>
           <p>{previewUrl}</p>
           {selectedMatches.length > 0 ? (

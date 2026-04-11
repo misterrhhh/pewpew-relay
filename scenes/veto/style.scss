@@ -1,0 +1,265 @@
+.veto-page {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background-image: url("./../../client/assets/images/BG_VETO.png");
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	.veto-list {
+		position: absolute;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 17px;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 155px;
+
+		.veto-step {
+			position: relative;
+			width: 247px;
+			height: 686px;
+
+			&.show {
+				.veto-content {
+					transition-delay: 600ms;
+					clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+				}
+
+				.veto-glow {
+					opacity: .2;
+				}
+			}
+
+			&.hide {
+				.veto-content {
+					transition-delay: 0ms;
+					clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+				}
+
+				.veto-glow {
+					opacity: 0;
+				}
+			}
+
+			.veto-empty {
+				position: absolute;
+				z-index: 1;
+				inset: 0;
+				background-color: rgba(16, 16, 16, 0.60);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				gap: 25px;
+
+				.ve-logo {
+					width: 140px;
+					height: 200px;
+					background-color: rgba(255, 255, 255, 0.466);
+					mask-image: url("./../../client/assets/images/cct.png");
+					mask-size: 100%;
+					mask-position: center;
+					mask-repeat: no-repeat;
+				}
+
+				.ve-type {
+					position: relative;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					font-family: "IBM Plex Sans";
+					font-weight: 800;
+					text-transform: uppercase;
+					background-color: rgb(0, 0, 0);
+					color: white;
+					padding: 3px 15px;
+					opacity: .6;
+				}
+			}
+
+			.veto-glow {
+				position: absolute;
+				z-index: 2;
+				inset: 0;
+				transition: opacity 300ms;
+
+				&.ban {
+					background: radial-gradient(circle, transparent, red);
+				}
+
+				&.pick {
+					background: radial-gradient(circle, transparent, green);
+				}
+
+				&.decider {
+					background: radial-gradient(circle, transparent, white);
+				}
+			}
+
+			.veto-content {
+				position: absolute;
+				z-index: 3;
+				inset: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				transition: clip-path 500ms;
+
+
+
+				.vc-background {
+					position: absolute;
+					z-index: 1;
+					inset: 0;
+					background-size: auto 100%;
+					background-position: center;
+					background-repeat: no-repeat;
+
+					&.overpass {
+						background-image: url("./../../client/assets/maps/de_overpass.png");
+					}
+
+					&.anubis {
+						background-image: url("./../../client/assets/maps/de_anubis.png");
+					}
+
+					&.ancient {
+						background-image: url("./../../client/assets/maps/de_ancient.png");
+					}
+
+					&.nuke {
+						background-image: url("./../../client/assets/maps/de_nuke.png");
+					}
+
+					&.dust2 {
+						background-image: url("./../../client/assets/maps/de_dust2.png");
+					}
+
+					&.mirage {
+						background-image: url("./../../client/assets/maps/de_mirage.png");
+					}
+
+					&.inferno {
+						background-image: url("./../../client/assets/maps/de_inferno.png");
+					}
+
+
+				}
+
+				.vc-glass {
+					position: absolute;
+					z-index: 2;
+					inset: 0;
+					background-color: rgba(0, 0, 0, 0.185);
+				}
+
+				.vc-picker {
+					position: absolute;
+					z-index: 3;
+					top: 196px;
+					width: 85px;
+					height: 85px;
+					background-color: rgba(0, 0, 0, 0.7);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					overflow: hidden;
+
+					img {
+						max-height: 80%;
+						max-width: 100%;
+					}
+				}
+
+				.vc-name {
+					position: absolute;
+					top: 330px;
+					z-index: 3;
+					font-family: "Morganite";
+					font-weight: 800;
+					color: white;
+					font-size: 105px;
+					text-transform: uppercase;
+					text-shadow: 1px 1px 7px black;
+				}
+
+				.vc-type {
+					position: absolute;
+					top: 415px;
+					z-index: 4;
+					font-family: "IBM Plex Sans";
+					font-weight: 800;
+					text-transform: uppercase;
+					width: 85px;
+					height: 25px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					box-sizing: border-box;
+					padding-bottom: 1px;
+					box-shadow: 0 0 4px black;
+
+					&.ban {
+						background-color: #C62C2C;
+						color: white;
+					}
+
+					&.pick {
+						background-color: #2BC63C;
+						color: white;
+					}
+
+					&.decider {
+						background-color: white;
+						color: black
+					}
+				}
+
+				.vc-side-team {
+					position: absolute;
+					z-index: 3;
+					width: 50px;
+					height: 50px;
+					bottom: 140px;
+					background-color: rgba(0, 0, 0, 0.7);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					overflow: hidden;
+
+					img {
+						max-height: 80%;
+						max-width: 100%;
+					}
+				}
+
+				.vc-side-icon {
+					position: absolute;
+					z-index: 3;
+					width: 30px;
+					height: 30px;
+					bottom: 95px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					overflow: hidden;
+					background-size: 100%;
+					background-position: center;
+					background-repeat: no-repeat;
+
+					&.T {
+						background-image: url("./../../client/assets/misc/icon-t.png");
+					}
+
+					&.CT {
+						background-image: url("./../../client/assets/misc/icon-ct.png");
+					}
+				}
+			}
+		}
+	}
+}
