@@ -39,10 +39,11 @@ export interface GameMap {
   state: boolean;
 }
 
-export interface Caster {
+export interface Talent {
   id: string;
   name: string;
   nickname: string;
+  role: string;
   social: string;
 }
 
@@ -158,15 +159,37 @@ export interface LowerBracketSceneState {
   animationId: number;
 }
 
+export interface TalentCamsSceneState {
+  title: string;
+  talentIds: Array<string | null>;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
+export type TalentDeskSceneState = TalentCamsSceneState;
+
+export interface MatchAnalysisSceneState {
+  talentIds: Array<string | null>;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
 export interface SceneStateMap {
   placeholder: PlaceholderSceneState;
   matches: MatchesSceneState;
   matchesCountdown: MatchesCountdownSceneState;
   pipCountdown: PipCountdownSceneState;
   veto: VetoSceneState;
+  vetoL3: VetoSceneState;
   headToHead: HeadToHeadSceneState;
   upperBracket: UpperBracketSceneState;
   lowerBracket: LowerBracketSceneState;
+  talentCams1: TalentCamsSceneState;
+  talentCams2: TalentCamsSceneState;
+  talentCams3: TalentCamsSceneState;
+  matchAnalysis: MatchAnalysisSceneState;
   [key: string]:
     | Record<string, unknown>
     | PlaceholderSceneState
@@ -176,7 +199,9 @@ export interface SceneStateMap {
     | VetoSceneState
     | HeadToHeadSceneState
     | UpperBracketSceneState
-    | LowerBracketSceneState;
+    | LowerBracketSceneState
+    | TalentCamsSceneState
+    | MatchAnalysisSceneState;
 }
 
 export interface SceneUpdateMessage<T = unknown> {
@@ -189,7 +214,7 @@ export type EntityCollection = {
   players: Player;
   teams: Team;
   maps: GameMap;
-  casters: Caster;
+  talent: Talent;
   matches: Match;
 };
 
@@ -197,6 +222,6 @@ export type EntityResponseCollection = {
   players: PlayerResponse;
   teams: TeamResponse;
   maps: GameMap;
-  casters: Caster;
+  talent: Talent;
   matches: MatchResponse;
 };

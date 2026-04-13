@@ -1,10 +1,10 @@
 import { Router, type Request } from "express";
 import { validate as isUuid } from "uuid";
 import type { Database } from "better-sqlite3";
-import type { Caster, GameMap, Match, MatchMode, MatchState, Player, Side, Team, Veto, VetoType, VetoVisibility } from "../../shared/types.js";
+import type { GameMap, Match, MatchMode, MatchState, Player, Side, Talent, Team, Veto, VetoType, VetoVisibility } from "../../shared/types.js";
 import { parseVetos, serializeMatch, serializePlayer, serializeTeamWithPlayers, type SerializationContext } from "../services/serializers.js";
 
-type ResourceName = "players" | "teams" | "maps" | "casters" | "matches";
+type ResourceName = "players" | "teams" | "maps" | "talent" | "matches";
 
 type ResourceConfig<TOutput, TStorage> = {
   table: string;
@@ -143,9 +143,9 @@ function normalizeTeam(body: unknown): Team {
   };
 }
 
-function normalizeCaster(body: unknown): Caster {
+function normalizeTalent(body: unknown): Talent {
   if (typeof body !== "object" || body === null) {
-    throw new Error("Invalid caster payload.");
+    throw new Error("Invalid talent payload.");
   }
 
   const input = body as Record<string, unknown>;
@@ -153,6 +153,7 @@ function normalizeCaster(body: unknown): Caster {
     id: requireUuid(input.id, "id"),
     name: requireString(input.name, "name"),
     nickname: requireString(input.nickname, "nickname"),
+    role: requireString(input.role, "role"),
     social: requireString(input.social, "social"),
   };
 }
@@ -228,11 +229,11 @@ const resourceConfigs: Record<ResourceName, ResourceConfig<any, any>> = {
       state: Boolean((row as Omit<GameMap, "state"> & { state: number | boolean }).state),
     }),
   },
-  casters: {
-    table: "casters",
-    fields: ["id", "name", "nickname", "social"],
-    normalize: normalizeCaster,
-    serialize: (_req, row) => row as Caster,
+  talent: {
+    table: "talent",
+    fields: ["id", "name", "nickname", "role", "social"],
+    normalize: normalizeTalent,
+    serialize: (_req, row) => row as Talent,
   },
   matches: {
     table: "matches",
@@ -253,7 +254,7 @@ function getConfig(resource: string) {
   return resourceConfigs[resource as ResourceName];
 }
 
-function buildStorageRecord(resource: ResourceName, payload: Player | Team | GameMap | Caster | Match) {
+function buildStorageRecord(resource: ResourceName, payload: Player | Team | GameMap | Talent | Match) {
   if (resource === "maps") {
     const map = payload as GameMap;
     return {

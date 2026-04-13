@@ -28,6 +28,10 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Veto</span>
 					</NavLink>
+					<NavLink className="nav-link" to="/scenes/veto-l3">
+						<Clapperboard />
+						<span>Vetos L3</span>
+					</NavLink>
 					<NavLink className="nav-link" to="/scenes/matches">
 						<Clapperboard />
 						<span>Matches</span>
@@ -43,6 +47,22 @@ export function Sidebar() {
 					<NavLink className="nav-link" to="/scenes/lower-bracket">
 						<Clapperboard />
 						<span>Lower Bracket</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/match-analysis">
+						<Clapperboard />
+						<span>Match Analysis</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/talent-cams-3">
+						<Clapperboard />
+						<span>Talent Cams 3</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/talent-cams-2">
+						<Clapperboard />
+						<span>Talent Cams 2</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/talent-cams-1">
+						<Clapperboard />
+						<span>Talent Cams 1</span>
 					</NavLink>
 				</nav>
 			</div>
@@ -62,9 +82,9 @@ export function Sidebar() {
 						<Map />
 						Maps
 					</NavLink>
-					<NavLink className="nav-link" to="/casters">
+					<NavLink className="nav-link" to="/talent">
 						<MicVocal />
-						Casters
+						Talent
 					</NavLink>
 					<NavLink className="nav-link" to="/matches">
 						<Swords />

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { api, uploadImage } from "../../client/api";
 import type { PlayerResponse, TeamResponse } from "../../shared/types";
+import { createClientId } from "../../shared/utils";
 import { ImageDropField } from "../components/ImageDropField";
 import { useStatus } from "../components/useStatus";
 
@@ -16,7 +17,7 @@ type PlayerFormState = {
 
 function createPlayerForm(): PlayerFormState {
   return {
-    id: crypto.randomUUID(),
+    id: createClientId(),
     nickname: "",
     realname: "",
     country: "",

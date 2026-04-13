@@ -35,10 +35,11 @@ function createConnection() {
       FOREIGN KEY (teamId) REFERENCES teams(id) ON DELETE SET NULL
     );
 
-    CREATE TABLE IF NOT EXISTS casters (
+    CREATE TABLE IF NOT EXISTS talent (
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       nickname TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'caster',
       social TEXT NOT NULL
     );
 
@@ -65,6 +66,30 @@ function createConnection() {
       FOREIGN KEY (teamBId) REFERENCES teams(id)
     );
   `);
+
+  const talentColumns = connection.prepare("PRAGMA table_info(talent)").all() as Array<{ name: string }>;
+  if (talentColumns.length > 0 && !talentColumns.some((column) => column.name === "role")) {
+    connection.exec("ALTER TABLE talent ADD COLUMN role TEXT NOT NULL DEFAULT 'caster';");
+  }
+
+  const legacyCastersTable = connection.prepare(`
+    SELECT name
+    FROM sqlite_master
+    WHERE type = 'table' AND name = 'casters'
+  `).get() as { name?: string } | undefined;
+
+  if (legacyCastersTable) {
+    const talentCountRow = connection.prepare("SELECT COUNT(*) AS count FROM talent").get() as { count?: number } | undefined;
+    const talentCount = Number(talentCountRow?.count ?? 0);
+
+    if (talentCount === 0) {
+      connection.exec(`
+        INSERT INTO talent (id, name, nickname, role, social)
+        SELECT id, name, nickname, 'caster', social
+        FROM casters
+      `);
+    }
+  }
 
   const mapsCountRow = connection.prepare("SELECT COUNT(*) AS count FROM maps").get() as { count?: number } | undefined;
   const mapsCount = Number(mapsCountRow?.count ?? 0);

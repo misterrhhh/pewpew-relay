@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { api } from "../../client/api";
 import type { Match, MatchResponse, TeamResponse, Veto } from "../../shared/types";
-import { formatMatchTime } from "../../shared/utils";
+import { createClientId, formatMatchTime } from "../../shared/utils";
 import { useStatus } from "../components/useStatus";
 
 type MatchFormState = {
@@ -50,7 +50,7 @@ function createVeto(order: number): Veto {
 
 function createMatchForm(): MatchFormState {
 	return {
-		id: crypto.randomUUID(),
+		id: createClientId(),
 		teamAId: "",
 		teamBId: "",
 		state: "upcoming" as Match["state"],

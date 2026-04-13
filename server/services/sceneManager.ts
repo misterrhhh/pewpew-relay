@@ -44,6 +44,13 @@ const defaultScenes: SceneStateMap = {
 		animation: "idle",
 		animationId: 0,
 	},
+	vetoL3: {
+		matchId: null,
+		currentIndex: 0,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
 	headToHead: {
 		title: "Head to Head",
 		left: {
@@ -72,6 +79,33 @@ const defaultScenes: SceneStateMap = {
 	},
 	lowerBracket: {
 		matchIds: [],
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	talentCams1: {
+		title: "Broadcast Talent",
+		talentIds: [null],
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	talentCams2: {
+		title: "Broadcast Talent",
+		talentIds: [null, null],
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	talentCams3: {
+		title: "Broadcast Talent",
+		talentIds: [null, null, null],
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	matchAnalysis: {
+		talentIds: [null, null],
 		visible: false,
 		animation: "idle",
 		animationId: 0,
@@ -272,6 +306,72 @@ function normalizeHeadToHeadScene(input: unknown) {
 	};
 }
 
+function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talentCams1"] | SceneStateMap["talentCams2"] | SceneStateMap["talentCams3"], count: number) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(fallback);
+	}
+
+	const legacy = input as {
+		title?: unknown;
+		talentIds?: unknown;
+		casterIds?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	const idsSource = Array.isArray(legacy.talentIds)
+		? legacy.talentIds
+		: Array.isArray(legacy.casterIds)
+			? legacy.casterIds
+			: [];
+
+	const talentIds = Array.from({ length: count }, (_, index) => {
+		const value = idsSource[index];
+		return typeof value === "string" && value.trim() !== "" ? value : null;
+	});
+
+	return {
+		title: typeof legacy.title === "string" ? legacy.title : fallback.title,
+		talentIds,
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : fallback.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : fallback.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : fallback.animationId,
+	};
+}
+
+function normalizeMatchAnalysisScene(input: unknown) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.matchAnalysis);
+	}
+
+	const legacy = input as {
+		talentIds?: unknown;
+		casterIds?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	const idsSource = Array.isArray(legacy.talentIds)
+		? legacy.talentIds
+		: Array.isArray(legacy.casterIds)
+			? legacy.casterIds
+			: [];
+
+	const talentIds = Array.from({ length: 2 }, (_, index) => {
+		const value = idsSource[index];
+		return typeof value === "string" && value.trim() !== "" ? value : null;
+	});
+
+	return {
+		talentIds,
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.matchAnalysis.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.matchAnalysis.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.matchAnalysis.animationId,
+	};
+}
+
 export class SceneManager {
 	private state: SceneStateMap;
 
@@ -325,7 +425,16 @@ export class SceneManager {
 			matchesCountdown: normalizeMatchesCountdownScene(parsed.matchesCountdown),
 			pipCountdown: normalizePipCountdownScene(parsed.pipCountdown),
 			veto: normalizeVetoScene(parsed.veto),
+			vetoL3: normalizeVetoScene((parsed as Record<string, unknown>).vetoL3),
 			headToHead: normalizeHeadToHeadScene(parsed.headToHead),
+			talentCams1: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams1, defaultScenes.talentCams1, 1),
+			talentCams2: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams2, defaultScenes.talentCams2, 2),
+			talentCams3: normalizeTalentCamsScene(
+				(parsed as Record<string, unknown>).talentCams3 ?? (parsed as Record<string, unknown>).talentDesk ?? (parsed as Record<string, unknown>).casterDesk,
+				defaultScenes.talentCams3,
+				3,
+			),
+			matchAnalysis: normalizeMatchAnalysisScene((parsed as Record<string, unknown>).matchAnalysis),
 		};
 
 		if (JSON.stringify(parsed) !== JSON.stringify(nextState)) {

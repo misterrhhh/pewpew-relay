@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { api } from "../../client/api";
 import type { GameMap } from "../../shared/types";
+import { createClientId } from "../../shared/utils";
 import { useStatus } from "../components/useStatus";
 
 function createMapForm(): GameMap {
   return {
-    id: crypto.randomUUID(),
+    id: createClientId(),
     name: "",
     code: "",
     state: true,

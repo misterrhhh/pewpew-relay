@@ -1,19 +1,23 @@
 import { useState, type FormEvent } from "react";
 import { api } from "../../client/api";
-import type { Caster } from "../../shared/types";
+import type { Talent } from "../../shared/types";
+import { createClientId } from "../../shared/utils";
 import { useStatus } from "../components/useStatus";
 
-function createCasterForm(): Caster {
+function createTalentForm(): Talent {
   return {
-    id: crypto.randomUUID(),
+    id: createClientId(),
     name: "",
     nickname: "",
+    role: "",
     social: "",
   };
 }
 
-export function CastersPage({ casters, refresh }: { casters: Caster[]; refresh: () => Promise<void> }) {
-  const [form, setForm] = useState<Caster>(createCasterForm);
+const suggestedRoles = ["Caster", "Analyst", "Host", "Observer", "Interviewer", "Desk Host"];
+
+export function TalentPage({ talent, refresh }: { talent: Talent[]; refresh: () => Promise<void> }) {
+  const [form, setForm] = useState<Talent>(createTalentForm);
   const [editingId, setEditingId] = useState<string | null>(null);
   const status = useStatus();
 
@@ -21,15 +25,15 @@ export function CastersPage({ casters, refresh }: { casters: Caster[]; refresh: 
     event.preventDefault();
     try {
       if (editingId) {
-        await api.updateCaster(editingId, form);
-        status.show("Caster updated.");
+        await api.updateTalent(editingId, form);
+        status.show("Talent updated.");
       } else {
-        await api.createCaster(form);
-        status.show("Caster created.");
+        await api.createTalent(form);
+        status.show("Talent created.");
       }
 
       setEditingId(null);
-      setForm(createCasterForm());
+      setForm(createTalentForm());
       await refresh();
     } catch (error) {
       status.show((error as Error).message);
@@ -38,8 +42,8 @@ export function CastersPage({ casters, refresh }: { casters: Caster[]; refresh: 
 
   async function handleDelete(id: string) {
     try {
-      await api.deleteCaster(id);
-      status.show("Caster deleted.");
+      await api.deleteTalent(id);
+      status.show("Talent deleted.");
       await refresh();
     } catch (error) {
       status.show((error as Error).message);
@@ -48,10 +52,10 @@ export function CastersPage({ casters, refresh }: { casters: Caster[]; refresh: 
 
   return (
     <section className="page">
-      <h2>Casters</h2>
+      <h2>Talent</h2>
       <div className="card-grid">
         <div className="panel">
-          <h3>{editingId ? "Edit caster" : "Create caster"}</h3>
+          <h3>{editingId ? "Edit talent" : "Create talent"}</h3>
           <form className="form-grid" onSubmit={handleSubmit}>
             <div className="field">
               <label>Name</label>
@@ -62,17 +66,31 @@ export function CastersPage({ casters, refresh }: { casters: Caster[]; refresh: 
               <input value={form.nickname} onChange={(event) => setForm({ ...form, nickname: event.target.value })} required />
             </div>
             <div className="field">
+              <label>Role</label>
+              <input
+                list="talent-role-options"
+                value={form.role}
+                onChange={(event) => setForm({ ...form, role: event.target.value })}
+                required
+              />
+              <datalist id="talent-role-options">
+                {suggestedRoles.map((role) => (
+                  <option key={role} value={role} />
+                ))}
+              </datalist>
+            </div>
+            <div className="field">
               <label>Social</label>
               <input value={form.social} onChange={(event) => setForm({ ...form, social: event.target.value })} required />
             </div>
             <div className="actions">
-              <button type="submit">{editingId ? "Save caster" : "Create caster"}</button>
+              <button type="submit">{editingId ? "Save talent" : "Create talent"}</button>
               <button
                 className="secondary"
                 type="button"
                 onClick={() => {
                   setEditingId(null);
-                  setForm(createCasterForm());
+                  setForm(createTalentForm());
                 }}
               >
                 Reset
@@ -83,35 +101,37 @@ export function CastersPage({ casters, refresh }: { casters: Caster[]; refresh: 
         </div>
 
         <div className="panel">
-          <h3>Caster Desk</h3>
+          <h3>Talent Desk</h3>
           <table className="entity-table">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Nickname</th>
+                <th>Role</th>
                 <th>Social</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {casters.map((caster) => (
-                <tr key={caster.id}>
-                  <td>{caster.name}</td>
-                  <td>{caster.nickname}</td>
-                  <td>{caster.social}</td>
+              {talent.map((person) => (
+                <tr key={person.id}>
+                  <td>{person.name}</td>
+                  <td>{person.nickname}</td>
+                  <td>{person.role}</td>
+                  <td>{person.social}</td>
                   <td>
                     <div className="actions">
                       <button
                         className="secondary"
                         type="button"
                         onClick={() => {
-                          setEditingId(caster.id);
-                          setForm(caster);
+                          setEditingId(person.id);
+                          setForm(person);
                         }}
                       >
                         Edit
                       </button>
-                      <button className="danger" type="button" onClick={() => handleDelete(caster.id)}>
+                      <button className="danger" type="button" onClick={() => handleDelete(person.id)}>
                         Delete
                       </button>
                     </div>

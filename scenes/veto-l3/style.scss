@@ -1,0 +1,232 @@
+.veto-page {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+
+	.veto-list {
+		position: absolute;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		gap: 17px;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 45px;
+
+		.veto-step {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			width: 247px;
+			height: 217px;
+			transition: clip-path 500ms;
+
+			&.show {
+				transition-delay: 600ms;
+				clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+			}
+
+			&.hide {
+				transition-delay: 0ms;
+				clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+			}
+
+			
+
+			.veto-side {
+				position: absolute;
+				z-index: 3;
+				display: flex;
+				flex-direction: row;
+				top: 0px;
+				left: 50%;
+				transform: translateX(-50%);
+				gap: 5px;
+
+				.team {
+					z-index: 3;
+					width: 40px;
+					height: 40px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					overflow: hidden;
+
+					img {
+						max-height: 80%;
+						max-width: 100%;
+					}
+				}
+
+				.icon {
+					z-index: 3;
+					width: 40px;
+					height: 40px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					overflow: hidden;
+					background-size: 80%;
+					background-position: center;
+					background-repeat: no-repeat;
+
+					&.T {
+						background-image: url("./../../client/assets/misc/icon-t.png");
+					}
+
+					&.CT {
+						background-image: url("./../../client/assets/misc/icon-ct.png");
+					}
+				}
+			}
+
+			.veto-content {
+				position: absolute;
+				z-index: 3;
+				width: 100%;
+				height: 167px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				transition: clip-path 500ms;
+
+				.vc-background {
+					position: absolute;
+					z-index: 1;
+					inset: 0;
+					background-size: auto 150%;
+					background-position: center;
+					background-repeat: no-repeat;
+
+					&.overpass {
+						background-image: url("./../../client/assets/maps/de_overpass.png");
+					}
+
+					&.anubis {
+						background-image: url("./../../client/assets/maps/de_anubis.png");
+					}
+
+					&.ancient {
+						background-image: url("./../../client/assets/maps/de_ancient.png");
+					}
+
+					&.nuke {
+						background-image: url("./../../client/assets/maps/de_nuke.png");
+					}
+
+					&.dust2 {
+						background-image: url("./../../client/assets/maps/de_dust2.png");
+					}
+
+					&.mirage {
+						background-image: url("./../../client/assets/maps/de_mirage.png");
+					}
+
+					&.inferno {
+						background-image: url("./../../client/assets/maps/de_inferno.png");
+					}
+				}
+
+				.vc-glass {
+					position: absolute;
+					z-index: 2;
+					inset: 0;
+					background-color: rgba(0, 0, 0, 0.3);
+				}
+
+				.vc-info {
+					position: absolute;
+					z-index: 3;
+					width: 100%;
+					height: 40px;
+					background-color: rgba(28, 28, 28, 0.95);
+					top: 0;
+					display: flex;
+					flex-direction: row;
+
+					.vc-logo {
+						z-index: 1;
+						width: 40px;
+						height: 40px;
+						background-color: rgba(54, 54, 54, 0.84);
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						overflow: hidden;
+
+						img {
+							max-height: 80%;
+							max-width: 100%;
+						}
+					}
+
+					.vc-team {
+						z-index: 2;
+						width: 207px;
+						height: 40px;
+						display: flex;
+						justify-content: flex-start;
+						padding: 15px;
+						align-items: center;
+						font-family: "IBM Plex Sans";
+						text-transform: uppercase;
+						color: white;
+						font-weight: 800;
+						white-space: nowrap;
+						overflow: hidden;
+					}
+				}
+
+
+
+				.vc-name {
+					position: absolute;
+					bottom: 16px;
+					z-index: 3;
+					font-family: "Morganite";
+					font-weight: 800;
+					color: white;
+					font-size: 105px;
+					text-transform: uppercase;
+					text-shadow: 1px 1px 7px black;
+				}
+
+				.vc-type {
+					position: absolute;
+					bottom: 17px;
+					z-index: 4;
+					font-family: "IBM Plex Sans";
+					font-weight: 800;
+					text-transform: uppercase;
+					width: 85px;
+					height: 25px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					box-sizing: border-box;
+					padding-bottom: 1px;
+					box-shadow: 0 0 4px black;
+
+					&.ban {
+						background-color: #C62C2C;
+						color: white;
+					}
+
+					&.pick {
+						background-color: #2BC63C;
+						color: white;
+					}
+
+					&.decider {
+						background-color: white;
+						color: black;
+					}
+				}
+
+			
+			}
+		}
+	}
+}

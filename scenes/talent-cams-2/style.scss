@@ -1,0 +1,133 @@
+.talent-cams-page {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background-image: url("./../../client/assets/images/BG_CAMS.png");
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.talent-title-wrapper {
+	position: absolute;
+	z-index: 3;
+	top: 100px;
+	left: 31px;
+}
+
+.talent-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 68px;
+	min-height: 332px;
+	padding: 18px 12px 26px;
+	font-family: "IBM Plex Sans";
+	color: white;
+	text-transform: uppercase;
+	font-weight: 900;
+	font-size: 22px;
+	line-height: 1;
+	letter-spacing: 0.04em;
+	writing-mode: vertical-rl;
+	transform: rotate(0deg);
+}
+
+.talent-card {
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+
+	&.t-1 {
+		left: 143px;
+		top: 43px;
+
+		.card-identity {
+			left: 2px;
+			align-items: flex-start;
+		}
+
+		.card-role {
+			justify-content: flex-start;
+		}
+	}
+
+	&.t-2 {
+		left: 1021px;
+		top: 43px;
+
+		.card-identity {
+			right: 2px;
+			align-items: flex-end;
+		}
+
+		.card-role {
+			justify-content: flex-end;
+		}
+	}
+
+	.card-content {
+		position: relative;
+		width: 755px;
+		height: 860px;
+
+		.card-frame {
+			position: absolute;
+			z-index: 1;
+			inset: 0;
+			border: 2px solid #ffdd00;
+		}
+
+		.card-identity {
+			position: absolute;
+			z-index: 2;
+			width: 363px;
+			height: 88px;
+			bottom: 2px;
+			background: rgba(1, 5, 7, .7);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			
+			font-family: "IBM Plex Sans";
+			padding: 25px;
+			box-sizing: border-box;
+			white-space: nowrap;
+
+			.name {
+				color: white;
+				font-weight: 900;
+				font-size: 30px;
+				line-height: 1;
+			}
+
+			.social {
+				color: #ffdd00;
+				font-weight: 500;
+				font-size: 15px;
+				margin-top: 3px;
+				opacity: 0.8;
+				transition: opacity 0.3s;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.card-role {
+		position: relative;
+		width: 755px;
+		height: 50px;
+		font-family: "IBM Plex Sans";
+		display: flex;
+		align-items: center;
+		color: white;
+		text-transform: uppercase;
+		font-weight: 900;
+		font-size: 35px;
+		white-space: nowrap;
+	}
+}

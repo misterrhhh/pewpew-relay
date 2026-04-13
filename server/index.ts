@@ -76,6 +76,10 @@ if (fs.existsSync(clientDistDirectory)) {
     res.sendFile(path.join(clientDistDirectory, "scenes", "veto", "index.html"));
   });
 
+  app.get(["/scenes/veto-l3", "/scenes/veto-l3/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "veto-l3", "index.html"));
+  });
+
   app.get(["/scenes/matches", "/scenes/matches/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "matches", "index.html"));
   });
@@ -90,6 +94,26 @@ if (fs.existsSync(clientDistDirectory)) {
 
   app.get(["/scenes/lower-bracket", "/scenes/lower-bracket/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "lower-bracket", "index.html"));
+  });
+
+  app.get(["/scenes/match-analysis", "/scenes/match-analysis/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "match-analysis", "index.html"));
+  });
+
+  app.get(["/scenes/talent-cams-3", "/scenes/talent-cams-3/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "talent-cams-3", "index.html"));
+  });
+
+  app.get(["/scenes/talent-cams-2", "/scenes/talent-cams-2/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "talent-cams-2", "index.html"));
+  });
+
+  app.get(["/scenes/talent-cams-1", "/scenes/talent-cams-1/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "talent-cams-1", "index.html"));
+  });
+
+  app.get(["/scenes/talent-desk", "/scenes/talent-desk/"], (_req, res) => {
+    res.redirect("/scenes/talent-cams-3");
   });
 }
 

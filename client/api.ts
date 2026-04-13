@@ -1,14 +1,16 @@
 import type {
-  Caster,
   GameMap,
   HeadToHeadSceneState,
   LowerBracketSceneState,
+  MatchAnalysisSceneState,
   MatchesCountdownSceneState,
   MatchesSceneState,
   MatchResponse,
   PipCountdownSceneState,
   PlaceholderSceneState,
   PlayerResponse,
+  Talent,
+  TalentCamsSceneState,
   TeamResponse,
   UpperBracketSceneState,
   VetoSceneState,
@@ -52,10 +54,10 @@ export const api = {
   createMap: (payload: unknown) => request<GameMap>("/api/maps", { method: "POST", body: JSON.stringify(payload) }),
   updateMap: (id: string, payload: unknown) => request<GameMap>(`/api/maps/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
   deleteMap: (id: string) => request<void>(`/api/maps/${id}`, { method: "DELETE" }),
-  listCasters: () => request<Caster[]>("/api/casters"),
-  createCaster: (payload: unknown) => request<Caster>("/api/casters", { method: "POST", body: JSON.stringify(payload) }),
-  updateCaster: (id: string, payload: unknown) => request<Caster>(`/api/casters/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
-  deleteCaster: (id: string) => request<void>(`/api/casters/${id}`, { method: "DELETE" }),
+  listTalent: () => request<Talent[]>("/api/talent"),
+  createTalent: (payload: unknown) => request<Talent>("/api/talent", { method: "POST", body: JSON.stringify(payload) }),
+  updateTalent: (id: string, payload: unknown) => request<Talent>(`/api/talent/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
+  deleteTalent: (id: string) => request<void>(`/api/talent/${id}`, { method: "DELETE" }),
   listMatches: () => request<MatchResponse[]>("/api/matches"),
   createMatch: (payload: unknown) => request<MatchResponse>("/api/matches", { method: "POST", body: JSON.stringify(payload) }),
   updateMatch: (id: string, payload: unknown) => request<MatchResponse>(`/api/matches/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
@@ -75,6 +77,9 @@ export const api = {
   getVetoScene: () => request<VetoSceneState>("/api/scenes/veto"),
   updateVetoScene: (payload: Partial<VetoSceneState>) =>
     request<VetoSceneState>("/api/scenes/veto", { method: "POST", body: JSON.stringify(payload) }),
+  getVetoL3Scene: () => request<VetoSceneState>("/api/scenes/vetoL3"),
+  updateVetoL3Scene: (payload: Partial<VetoSceneState>) =>
+    request<VetoSceneState>("/api/scenes/vetoL3", { method: "POST", body: JSON.stringify(payload) }),
   getHeadToHeadScene: () => request<HeadToHeadSceneState>("/api/scenes/headToHead"),
   updateHeadToHeadScene: (payload: Partial<HeadToHeadSceneState>) =>
     request<HeadToHeadSceneState>("/api/scenes/headToHead", { method: "POST", body: JSON.stringify(payload) }),
@@ -84,6 +89,21 @@ export const api = {
   getLowerBracketScene: () => request<LowerBracketSceneState>("/api/scenes/lowerBracket"),
   updateLowerBracketScene: (payload: Partial<LowerBracketSceneState>) =>
     request<LowerBracketSceneState>("/api/scenes/lowerBracket", { method: "POST", body: JSON.stringify(payload) }),
+  getTalentCams1Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams1"),
+  updateTalentCams1Scene: (payload: Partial<TalentCamsSceneState>) =>
+    request<TalentCamsSceneState>("/api/scenes/talentCams1", { method: "POST", body: JSON.stringify(payload) }),
+  getTalentCams2Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams2"),
+  updateTalentCams2Scene: (payload: Partial<TalentCamsSceneState>) =>
+    request<TalentCamsSceneState>("/api/scenes/talentCams2", { method: "POST", body: JSON.stringify(payload) }),
+  getTalentCams3Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams3"),
+  updateTalentCams3Scene: (payload: Partial<TalentCamsSceneState>) =>
+    request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
+  getMatchAnalysisScene: () => request<MatchAnalysisSceneState>("/api/scenes/matchAnalysis"),
+  updateMatchAnalysisScene: (payload: Partial<MatchAnalysisSceneState>) =>
+    request<MatchAnalysisSceneState>("/api/scenes/matchAnalysis", { method: "POST", body: JSON.stringify(payload) }),
+  getTalentDeskScene: () => request<TalentCamsSceneState>("/api/scenes/talentCams3"),
+  updateTalentDeskScene: (payload: Partial<TalentCamsSceneState>) =>
+    request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
 };
 
 export async function uploadImage(id: string, file: File) {

@@ -8,27 +8,29 @@
   },
   "matches": {
     "matchIds": [
-      "18118459-cdba-46ea-8788-b7c220ab582c",
-      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
-      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
-      "fde9526d-e252-4893-867d-474a3cc21e30"
+      "746d6423-0210-42f6-9512-40d932570314",
+      "60a122b4-e5da-40af-803e-d3149c1b4209",
+      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
+      "3727c22e-5952-4966-a002-9dde4b9183f5"
     ],
     "visible": true,
     "animation": "in",
-    "animationId": 1775576033306
+    "animationId": 1776108023576
   },
   "matchesCountdown": {
     "matchIds": [
-      "18118459-cdba-46ea-8788-b7c220ab582c",
-      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa"
+      "746d6423-0210-42f6-9512-40d932570314",
+      "60a122b4-e5da-40af-803e-d3149c1b4209",
+      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
+      "3727c22e-5952-4966-a002-9dde4b9183f5"
     ],
-    "countdownMode": "duration",
-    "fixedTime": "16:00",
+    "countdownMode": "fixedTime",
+    "fixedTime": "20:30",
     "durationMinutes": 1,
-    "durationStartedAt": 1776091182776,
+    "durationStartedAt": null,
     "visible": true,
     "animation": "in",
-    "animationId": 1776091182776
+    "animationId": 1776108081586
   },
   "pipCountdown": {
     "matchIds": [
@@ -46,11 +48,18 @@
     "animationId": 1775948522730
   },
   "veto": {
-    "matchId": "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
-    "currentIndex": 0,
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776091154317
+    "matchId": "746d6423-0210-42f6-9512-40d932570314",
+    "currentIndex": 7,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776109048353
+  },
+  "vetoL3": {
+    "matchId": "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+    "currentIndex": 7,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776105295213
   },
   "headToHead": {
     "title": "last 3 months",
@@ -70,28 +79,73 @@
     },
     "visible": true,
     "animation": "in",
-    "animationId": 1775947325351
+    "animationId": 1776105460689
   },
   "upperBracket": {
     "matchIds": [
-      "18118459-cdba-46ea-8788-b7c220ab582c",
-      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
-      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
-      "fde9526d-e252-4893-867d-474a3cc21e30",
-      "aefbfff7-fc8a-448e-be08-8cbc4ded690f"
+      "3fe0ba43-e705-4666-bb18-d44def0680b8",
+      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8",
+      "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
+      "36349e67-a067-4a4c-9e85-d8bb38c4f9f6",
+      "5c5f4a92-f910-4ffc-bcd9-4f1ffeb33ae4",
+      "d890fdb8-c016-451f-bcb8-91604369b70a",
+      "a72d4d76-44b1-4faa-82c9-14add063633d",
+      "746d6423-0210-42f6-9512-40d932570314"
     ],
     "visible": true,
     "animation": "in",
-    "animationId": 1776093887562
+    "animationId": 1776107193263
   },
   "lowerBracket": {
     "matchIds": [
-      "aefbfff7-fc8a-448e-be08-8cbc4ded690f",
-      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
-      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818"
+      "48a83a11-c984-436f-b8be-44cb36d92098",
+      "11d01357-673d-4691-a4c9-06db0468bc3d",
+      "741b6a2f-fd67-4dc7-a928-7e5e1c169ff1",
+      "3727c22e-5952-4966-a002-9dde4b9183f5",
+      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
+      "60a122b4-e5da-40af-803e-d3149c1b4209"
     ],
     "visible": true,
     "animation": "in",
-    "animationId": 1776095105167
+    "animationId": 1776107138333
+  },
+  "talentCams1": {
+    "title": "crazy",
+    "talentIds": [
+      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1"
+    ],
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776105629504
+  },
+  "talentCams2": {
+    "title": "asdasdadddddd",
+    "talentIds": [
+      "47679b4d-0395-4849-a138-5844942084cc",
+      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1"
+    ],
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776098620256
+  },
+  "talentCams3": {
+    "title": "analyst segment",
+    "talentIds": [
+      "5ad34f9d-b0de-4edd-a358-f87ec0b9b2c2",
+      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1",
+      "47679b4d-0395-4849-a138-5844942084cc"
+    ],
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776098115877
+  },
+  "matchAnalysis": {
+    "talentIds": [
+      "60157212-d165-4d49-88dd-8c081d800e1e",
+      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1"
+    ],
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776102555464
   }
 }

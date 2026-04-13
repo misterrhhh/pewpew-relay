@@ -94,7 +94,7 @@ button {
 .sidebar {
 	position: relative;
 	border-right: 1px solid rgba(var(--color-accent), .2);
-
+	
 	background: var(--color-panel-secondary);
 	backdrop-filter: blur(12px);
 }

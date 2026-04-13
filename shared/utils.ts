@@ -1,5 +1,15 @@
 import type { MatchMode, VetoType } from "./types.js";
 
+export function createClientId() {
+  const cryptoObject = globalThis.crypto as { randomUUID?: () => string } | undefined;
+
+  if (typeof cryptoObject?.randomUUID === "function") {
+    return cryptoObject.randomUUID();
+  }
+
+  return `id-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 export function formatMatchTime(dateValue: string) {
   if (!dateValue) {
     return "";
