@@ -332,6 +332,21 @@ button {
 	flex: 0 0 320px;
 }
 
+.scene-panel-form {
+	width: 100%;
+}
+
+.scene-panel-content--stack {
+	flex-direction: column !important;
+	align-items: stretch !important;
+}
+
+.scene-controls-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
 .field-group {
 	display: flex;
 	flex-direction: column;

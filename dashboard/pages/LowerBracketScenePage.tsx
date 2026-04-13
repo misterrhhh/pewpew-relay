@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
-import type { MatchesSceneState, MatchResponse } from "../../shared/types";
+import type { LowerBracketSceneState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
 import { useStatus } from "../components/useStatus";
 
-const defaultSceneState: MatchesSceneState = {
+const defaultSceneState: LowerBracketSceneState = {
 	matchIds: [],
 	visible: false,
 	animation: "idle",
@@ -16,19 +16,19 @@ function matchLabel(match: MatchResponse) {
 	return `${match.title ?? "Untitled match"} - ${match.teamA?.name ?? "Unknown"} vs ${match.teamB?.name ?? "Unknown"}`;
 }
 
-export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
-	const [scene, setScene] = useState<MatchesSceneState>(defaultSceneState);
+export function LowerBracketScenePage({ matches }: { matches: MatchResponse[] }) {
+	const [scene, setScene] = useState<LowerBracketSceneState>(defaultSceneState);
 	const status = useStatus();
 
 	useEffect(() => {
-		api.getMatchesScene()
+		api.getLowerBracketScene()
 			.then(setScene)
 			.catch((error) => status.show((error as Error).message));
 	}, []);
 
-	async function pushUpdate(next: Partial<MatchesSceneState>) {
+	async function pushUpdate(next: Partial<LowerBracketSceneState>) {
 		try {
-			const response = await api.updateMatchesScene(next);
+			const response = await api.updateLowerBracketScene(next);
 			setScene(response);
 			status.show("Scene updated.");
 		} catch (error) {
@@ -45,7 +45,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 			nextMatchIds.splice(index, 1);
 		}
 
-		const cleaned = Array.from(new Set(nextMatchIds.filter(Boolean))).slice(0, 4);
+		const cleaned = Array.from(new Set(nextMatchIds.filter(Boolean))).slice(0, 6);
 		setScene({ ...scene, matchIds: cleaned });
 	}
 
@@ -67,15 +67,12 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 		});
 	}
 
-	const selectedMatches = scene.matchIds
-		.map((matchId) => matches.find((match) => match.id === matchId) ?? null)
-		.filter((match): match is MatchResponse => match !== null);
-	const previewUrl = `${window.location.origin}/scenes/matches/`;
+	const previewUrl = `${window.location.origin}/scenes/lower-bracket/`;
 
 	return (
 		<section className="page">
 			<div className="page-header">
-				<div className="title">Matches Scene</div>
+				<div className="title">Lower Bracket Scene</div>
 				<div className="subtitle">broadcast scene</div>
 			</div>
 
@@ -107,7 +104,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 						<div className="panel-title">data</div>
 						<div className="panel-content">
 							<div className="form-grid scene-panel-form">
-								{[0, 1, 2, 3].map((slot) => (
+								{Array.from({ length: 6 }, (_, slot) => (
 									<div className="field" key={slot}>
 										<label>Match {slot + 1}</label>
 										<select value={scene.matchIds[slot] ?? ""} onChange={(event) => setSelectedMatch(slot, event.target.value)}>
@@ -128,8 +125,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 				<div className="page-preview">
 					<div className="panel">
 						<div className="panel-title">live preview</div>
-						<IframePreview title="Matches scene preview" src={previewUrl} />
-						
+						<IframePreview title="Lower bracket scene preview" src={previewUrl} />
 					</div>
 				</div>
 			</div>

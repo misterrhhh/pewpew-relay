@@ -83,6 +83,14 @@ if (fs.existsSync(clientDistDirectory)) {
   app.get(["/scenes/matches-countdown", "/scenes/matches-countdown/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "matches-countdown", "index.html"));
   });
+
+  app.get(["/scenes/upper-bracket", "/scenes/upper-bracket/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "upper-bracket", "index.html"));
+  });
+
+  app.get(["/scenes/lower-bracket", "/scenes/lower-bracket/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "lower-bracket", "index.html"));
+  });
 }
 
 server.listen(port, host, () => {

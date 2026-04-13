@@ -36,6 +36,14 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Matches Countdown</span>
 					</NavLink>
+					<NavLink className="nav-link" to="/scenes/upper-bracket">
+						<Clapperboard />
+						<span>Upper Bracket</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/lower-bracket">
+						<Clapperboard />
+						<span>Lower Bracket</span>
+					</NavLink>
 				</nav>
 			</div>
 

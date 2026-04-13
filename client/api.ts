@@ -1,4 +1,18 @@
-import type { Caster, GameMap, HeadToHeadSceneState, MatchesCountdownSceneState, MatchesSceneState, MatchResponse, PipCountdownSceneState, PlaceholderSceneState, PlayerResponse, TeamResponse, VetoSceneState } from "../shared/types";
+import type {
+  Caster,
+  GameMap,
+  HeadToHeadSceneState,
+  LowerBracketSceneState,
+  MatchesCountdownSceneState,
+  MatchesSceneState,
+  MatchResponse,
+  PipCountdownSceneState,
+  PlaceholderSceneState,
+  PlayerResponse,
+  TeamResponse,
+  UpperBracketSceneState,
+  VetoSceneState,
+} from "../shared/types";
 
 async function request<T>(input: string, init?: RequestInit): Promise<T> {
   const headers = new Headers(init?.headers);
@@ -64,6 +78,12 @@ export const api = {
   getHeadToHeadScene: () => request<HeadToHeadSceneState>("/api/scenes/headToHead"),
   updateHeadToHeadScene: (payload: Partial<HeadToHeadSceneState>) =>
     request<HeadToHeadSceneState>("/api/scenes/headToHead", { method: "POST", body: JSON.stringify(payload) }),
+  getUpperBracketScene: () => request<UpperBracketSceneState>("/api/scenes/upperBracket"),
+  updateUpperBracketScene: (payload: Partial<UpperBracketSceneState>) =>
+    request<UpperBracketSceneState>("/api/scenes/upperBracket", { method: "POST", body: JSON.stringify(payload) }),
+  getLowerBracketScene: () => request<LowerBracketSceneState>("/api/scenes/lowerBracket"),
+  updateLowerBracketScene: (payload: Partial<LowerBracketSceneState>) =>
+    request<LowerBracketSceneState>("/api/scenes/lowerBracket", { method: "POST", body: JSON.stringify(payload) }),
 };
 
 export async function uploadImage(id: string, file: File) {

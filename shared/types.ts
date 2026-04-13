@@ -144,6 +144,20 @@ export interface HeadToHeadSceneState {
   animationId: number;
 }
 
+export interface UpperBracketSceneState {
+  matchIds: string[];
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
+export interface LowerBracketSceneState {
+  matchIds: string[];
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
 export interface SceneStateMap {
   placeholder: PlaceholderSceneState;
   matches: MatchesSceneState;
@@ -151,7 +165,18 @@ export interface SceneStateMap {
   pipCountdown: PipCountdownSceneState;
   veto: VetoSceneState;
   headToHead: HeadToHeadSceneState;
-  [key: string]: Record<string, unknown> | PlaceholderSceneState | MatchesSceneState | MatchesCountdownSceneState | PipCountdownSceneState | VetoSceneState | HeadToHeadSceneState;
+  upperBracket: UpperBracketSceneState;
+  lowerBracket: LowerBracketSceneState;
+  [key: string]:
+    | Record<string, unknown>
+    | PlaceholderSceneState
+    | MatchesSceneState
+    | MatchesCountdownSceneState
+    | PipCountdownSceneState
+    | VetoSceneState
+    | HeadToHeadSceneState
+    | UpperBracketSceneState
+    | LowerBracketSceneState;
 }
 
 export interface SceneUpdateMessage<T = unknown> {

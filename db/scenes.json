@@ -20,17 +20,15 @@
   "matchesCountdown": {
     "matchIds": [
       "18118459-cdba-46ea-8788-b7c220ab582c",
-      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
-      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
-      "fde9526d-e252-4893-867d-474a3cc21e30"
+      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa"
     ],
-    "countdownMode": "fixedTime",
-    "fixedTime": "14:11",
-    "durationMinutes": 5,
-    "durationStartedAt": 1775581703093,
+    "countdownMode": "duration",
+    "fixedTime": "16:00",
+    "durationMinutes": 1,
+    "durationStartedAt": 1776091182776,
     "visible": true,
     "animation": "in",
-    "animationId": 1775740233665
+    "animationId": 1776091182776
   },
   "pipCountdown": {
     "matchIds": [
@@ -39,20 +37,20 @@
       "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
       "fde9526d-e252-4893-867d-474a3cc21e30"
     ],
-    "countdownMode": "fixedTime",
-    "fixedTime": "15:00",
-    "durationMinutes": 5,
-    "durationStartedAt": null,
+    "countdownMode": "duration",
+    "fixedTime": "00:22",
+    "durationMinutes": 15,
+    "durationStartedAt": 1775948522730,
     "visible": true,
     "animation": "in",
-    "animationId": 1775742345342
+    "animationId": 1775948522730
   },
   "veto": {
-    "matchId": "18118459-cdba-46ea-8788-b7c220ab582c",
-    "currentIndex": 7,
-    "visible": true,
-    "animation": "in",
-    "animationId": 1775764730272
+    "matchId": "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
+    "currentIndex": 0,
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776091154317
   },
   "headToHead": {
     "title": "last 3 months",
@@ -73,5 +71,27 @@
     "visible": true,
     "animation": "in",
     "animationId": 1775947325351
+  },
+  "upperBracket": {
+    "matchIds": [
+      "18118459-cdba-46ea-8788-b7c220ab582c",
+      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
+      "fde9526d-e252-4893-867d-474a3cc21e30",
+      "aefbfff7-fc8a-448e-be08-8cbc4ded690f"
+    ],
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776093887562
+  },
+  "lowerBracket": {
+    "matchIds": [
+      "aefbfff7-fc8a-448e-be08-8cbc4ded690f",
+      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818"
+    ],
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776095105167
   }
 }

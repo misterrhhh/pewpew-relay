@@ -5,6 +5,7 @@ import type { Caster, GameMap, MatchResponse, PlayerResponse, TeamResponse } fro
 import { HeadToHeadScenePage } from "./pages/HeadToHeadScenePage";
 import { Sidebar } from "./components/Sidebar";
 import { CastersPage } from "./pages/CastersPage";
+import { LowerBracketScenePage } from "./pages/LowerBracketScenePage";
 import { MapsPage } from "./pages/MapsPage";
 import { MatchesPage } from "./pages/MatchesPage";
 import { MatchesCountdownScenePage } from "./pages/MatchesCountdownScenePage";
@@ -14,6 +15,7 @@ import { PlaceholderScenePage } from "./pages/PlaceholderScenePage";
 import { PlayersPage } from "./pages/PlayersPage";
 import { SystemPage } from "./pages/SystemPage";
 import { TeamsPage } from "./pages/TeamsPage";
+import { UpperBracketScenePage } from "./pages/UpperBracketScenePage";
 import { VetoScenePage } from "./pages/VetoScenePage";
 
 export function App() {
@@ -70,6 +72,8 @@ export function App() {
 						<Route path="/scenes/veto" element={<VetoScenePage matches={matches} teams={teams} maps={maps} refresh={refresh} />} />
 						<Route path="/scenes/matches" element={<MatchesScenePage matches={matches} />} />
 						<Route path="/scenes/matches-countdown" element={<MatchesCountdownScenePage matches={matches} />} />
+						<Route path="/scenes/upper-bracket" element={<UpperBracketScenePage matches={matches} />} />
+						<Route path="/scenes/lower-bracket" element={<LowerBracketScenePage matches={matches} />} />
 						<Route path="/players" element={<PlayersPage players={players} teams={teams} refresh={refresh} />} />
 						<Route path="/teams" element={<TeamsPage teams={teams} refresh={refresh} />} />
 						<Route path="/maps" element={<MapsPage maps={maps} refresh={refresh} />} />

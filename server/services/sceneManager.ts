@@ -64,9 +64,25 @@ const defaultScenes: SceneStateMap = {
 		animation: "idle",
 		animationId: 0,
 	},
+	upperBracket: {
+		matchIds: [],
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	lowerBracket: {
+		matchIds: [],
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
 };
 
-function normalizeMatchListScene(input: unknown, fallback: SceneStateMap["matches"]) {
+function normalizeMatchListScene(
+	input: unknown,
+	fallback: SceneStateMap["matches"] | SceneStateMap["upperBracket"] | SceneStateMap["lowerBracket"],
+	maxMatches = 4,
+) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(fallback);
 	}
@@ -85,7 +101,7 @@ function normalizeMatchListScene(input: unknown, fallback: SceneStateMap["matche
 			? [legacy.matchId]
 			: [];
 
-	const matchIds = Array.from(new Set(matchIdsSource.filter((value): value is string => typeof value === "string" && value.trim() !== ""))).slice(0, 4);
+	const matchIds = Array.from(new Set(matchIdsSource.filter((value): value is string => typeof value === "string" && value.trim() !== ""))).slice(0, maxMatches);
 
 	return {
 		matchIds,
@@ -304,6 +320,8 @@ export class SceneManager {
 			...structuredClone(defaultScenes),
 			...parsed,
 			matches: normalizeMatchListScene(parsed.matches, defaultScenes.matches),
+			upperBracket: normalizeMatchListScene(parsed.upperBracket, defaultScenes.upperBracket, 8),
+			lowerBracket: normalizeMatchListScene(parsed.lowerBracket, defaultScenes.lowerBracket, 6),
 			matchesCountdown: normalizeMatchesCountdownScene(parsed.matchesCountdown),
 			pipCountdown: normalizePipCountdownScene(parsed.pipCountdown),
 			veto: normalizeVetoScene(parsed.veto),

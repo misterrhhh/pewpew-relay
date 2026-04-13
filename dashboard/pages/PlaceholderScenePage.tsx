@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { PlaceholderSceneState } from "../../shared/types";
+import { IframePreview } from "../components/IframePreview";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: PlaceholderSceneState = {
@@ -53,45 +55,59 @@ export function PlaceholderScenePage() {
 
   return (
     <section className="page">
-      <h2>Placeholder Scene</h2>
-      <div className="card-grid scene-dashboard-grid">
-        <div className="panel">
-          <h3>Controls</h3>
-          <div className="form-grid">
-            <div className="field">
-              <label>Title</label>
-              <input value={scene.title} onChange={(event) => setScene({ ...scene, title: event.target.value })} />
-            </div>
-            <div className="field">
-              <label>Message</label>
-              <textarea value={scene.message} onChange={(event) => setScene({ ...scene, message: event.target.value })} />
-            </div>
-            <div className="actions">
-              <button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
-                Apply
-              </button>
-              <button type="button" className="secondary" onClick={handleShow}>
-                Show
-              </button>
-              <button type="button" className="secondary" onClick={handleHide}>
-                Hide
-              </button>
+      <div className="page-header">
+        <div className="title">Placeholder Scene</div>
+        <div className="subtitle">broadcast scene</div>
+      </div>
+
+      <div className="page-content">
+        <div className="page-main">
+          <div className="panel">
+            <div className="panel-title">controls</div>
+            <div className="panel-content scene-panel-content--stack">
+              <div className="scene-controls-row">
+                <button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
+                  <Save />
+                  Apply
+                </button>
+                <button type="button" className="secondary" onClick={handleShow}>
+                  <Eye />
+                  Show
+                </button>
+                <button type="button" className="secondary" onClick={handleHide}>
+                  <EyeOff />
+                  Hide
+                </button>
+                <button type="button" onClick={() => window.open(previewUrl, "_blank")}>
+                  <ExternalLink />
+                  Open Scene
+                </button>
+              </div>
+              <div className="status">{status.message}</div>
             </div>
           </div>
-          <div className="status">{status.message}</div>
+
+          <div className="panel">
+            <div className="panel-title">data</div>
+            <div className="panel-content">
+              <div className="form-grid scene-panel-form">
+                <div className="field">
+                  <label>Title</label>
+                  <input value={scene.title} onChange={(event) => setScene({ ...scene, title: event.target.value })} />
+                </div>
+                <div className="field">
+                  <label>Message</label>
+                  <textarea value={scene.message} onChange={(event) => setScene({ ...scene, message: event.target.value })} />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className="panel scene-preview-panel">
-          <h3>Preview</h3>
-          <p>{previewUrl}</p>
-          <div className="form-grid">
-            <p><strong>{scene.title}</strong></p>
-            <p>{scene.message}</p>
-          </div>
-          <div className="actions">
-            <button type="button" onClick={() => window.open(previewUrl, "_blank")}>
-              Open Scene
-            </button>
+        <div className="page-preview">
+          <div className="panel">
+            <div className="panel-title">live preview</div>
+            <IframePreview title="Placeholder scene preview" src={previewUrl} />
           </div>
         </div>
       </div>

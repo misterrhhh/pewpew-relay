@@ -16,6 +16,8 @@ export default defineConfig({
         veto: resolve(__dirname, "scenes/veto/index.html"),
         matches: resolve(__dirname, "scenes/matches/index.html"),
         matchesCountdown: resolve(__dirname, "scenes/matches-countdown/index.html"),
+        upperBracket: resolve(__dirname, "scenes/upper-bracket/index.html"),
+        lowerBracket: resolve(__dirname, "scenes/lower-bracket/index.html"),
       },
     },
   },

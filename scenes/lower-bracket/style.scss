@@ -1,0 +1,134 @@
+.lower-bracket-page {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background-image: url("./../../client/assets/images/BG_LOWER.png");
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.bracket-card {
+	position: absolute;
+	z-index: 2;
+	display: flex;
+	flex-direction: row;
+
+	&[data-animation="in"] {
+		animation: scene-in 500ms ease both;
+	}
+
+	&[data-animation="out"] {
+		animation: scene-out 450ms ease both;
+	}
+
+	&.m-1 {
+		top: 401px;
+		left: 342px;
+	}
+
+	&.m-2 {
+		top: 779px;
+		left: 342px;
+	}
+
+	&.m-3 {
+		top: 306px;
+		left: 639px;
+	}
+
+	&.m-4 {
+		top: 695px;
+		left: 639px;
+	}
+
+	&.m-5 {
+		top: 498px;
+		left: 936px;
+	}
+
+	&.m-6 {
+		top: 405px;
+		left: 1233px;
+	}
+
+	&.empty {
+		.card-logo {
+			opacity: 0.6;
+		}
+	}
+
+	.card-label {
+		position: absolute;
+		left: 0;
+		top: -24px;
+		color: white;
+		font-family: "IBM Plex Sans";
+		font-size: 12px;
+		font-weight: 800;
+		text-transform: uppercase;
+	}
+
+	.card-team {
+		display: flex;
+		flex-direction: column;
+
+		.card-logo {
+			width: 100px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			background-color: rgba(54, 54, 54, 0.6);
+
+			img {
+				max-height: 80%;
+				max-width: 80%;
+			}
+		}
+
+		.card-name {
+			width: 100px;
+			height: 23px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(16, 16, 16, 0.4);
+			color: white;
+			font-family: "IBM Plex Sans";
+			font-weight: 800;
+			font-size: 13px;
+			text-transform: uppercase;
+		}
+	}
+
+	.card-center {
+		display: flex;
+		flex-direction: column;
+		background-color: rgba(16, 16, 16, 0.7);
+
+		.card-state {
+			width: 62px;
+			height: 100px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: "Morganite";
+			color: white;
+			font-size: 50px;
+		}
+
+		.card-info {
+			width: 62px;
+			height: 23px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-family: "IBM Plex Sans";
+			color: white;
+			font-weight: 800;
+			font-size: 14px;
+		}
+	}
+}
