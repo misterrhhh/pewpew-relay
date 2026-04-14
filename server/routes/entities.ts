@@ -196,6 +196,7 @@ function normalizeMatch(body: unknown): Match {
     id: requireUuid(input.id, "id"),
     teamAId: requireUuid(input.teamAId, "teamAId"),
     teamBId: requireUuid(input.teamBId, "teamBId"),
+    stakeId: optionalString(input.stakeId),
     state: state as MatchState,
     time: requireString(input.time, "time"),
     mode,
@@ -237,7 +238,7 @@ const resourceConfigs: Record<ResourceName, ResourceConfig<any, any>> = {
   },
   matches: {
     table: "matches",
-    fields: ["id", "teamAId", "teamBId", "state", "time", "mode", "title", "subtitle", "scoreA", "scoreB", "vetos"],
+    fields: ["id", "teamAId", "teamBId", "stakeId", "state", "time", "mode", "title", "subtitle", "scoreA", "scoreB", "vetos"],
     normalize: normalizeMatch,
     serialize: (req, row, context) => serializeMatch(req, {
       ...(row as MatchStorageRecord),

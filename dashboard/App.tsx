@@ -4,6 +4,7 @@ import { api } from "../client/api";
 import type { GameMap, MatchResponse, PlayerResponse, Talent, TeamResponse } from "../shared/types";
 import { Sidebar } from "./components/Sidebar";
 import { HeadToHeadScenePage } from "./pages/HeadToHeadScenePage";
+import { LineupsScenePage } from "./pages/LineupsScenePage";
 import { LowerBracketScenePage } from "./pages/LowerBracketScenePage";
 import { MapsPage } from "./pages/MapsPage";
 import { MatchAnalysisScenePage } from "./pages/MatchAnalysisScenePage";
@@ -14,6 +15,7 @@ import { PipCountdownScenePage } from "./pages/PipCountdownScenePage";
 import { PlaceholderScenePage } from "./pages/PlaceholderScenePage";
 import { PlayersPage } from "./pages/PlayersPage";
 import { SystemPage } from "./pages/SystemPage";
+import { StakeOddsScenePage } from "./pages/StakeOddsScenePage";
 import { TalentCams1ScenePage, TalentCams2ScenePage, TalentCams3ScenePage } from "./pages/TalentCamsScenePage";
 import { TalentPage } from "./pages/TalentPage";
 import { TeamsPage } from "./pages/TeamsPage";
@@ -78,6 +80,8 @@ export function App() {
 						<Route path="/scenes/matches-countdown" element={<MatchesCountdownScenePage matches={matches} />} />
 						<Route path="/scenes/upper-bracket" element={<UpperBracketScenePage matches={matches} />} />
 						<Route path="/scenes/lower-bracket" element={<LowerBracketScenePage matches={matches} />} />
+						<Route path="/scenes/stake-odds" element={<StakeOddsScenePage matches={matches} />} />
+						<Route path="/scenes/lineups" element={<LineupsScenePage teams={teams} />} />
 						<Route path="/scenes/match-analysis" element={<MatchAnalysisScenePage talent={talent} />} />
 						<Route path="/scenes/talent-cams-3" element={<TalentCams3ScenePage talent={talent} />} />
 						<Route path="/scenes/talent-cams-2" element={<TalentCams2ScenePage talent={talent} />} />

@@ -1,0 +1,166 @@
+.lineups-stage {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	padding: 112px 120px 96px;
+	background-image: url("./../../client/assets/images/BG_LINEUPS.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: white;
+	transition: opacity 350ms ease, transform 450ms ease;
+
+
+	&.show {
+
+		.lineups-player {
+			opacity: 1;
+			transform: translateY(0)
+		}
+
+		.lineups-team {
+			transform: translateY(0) translateX(-50%);
+			transition-delay: 500ms;
+		}
+	}
+
+	&.hide {
+
+		.lineups-player {
+			opacity: 0;
+			transform: translateY(30px)
+		}
+
+		.lineups-team {
+			transform: translateY(-220px) translateX(-50%)
+		}
+	}
+
+	.lineups-players {
+		position: absolute;
+		z-index: 2;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: flex-end;
+		left: 50%;
+		transform: translateX(-50%);
+		bottom: 150px;
+		gap: 20px;
+
+		.lineups-player {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			transition: opacity 500ms, transform 500ms;
+
+			&.p1 {
+				z-index: 1;
+				transition-delay: 300ms;
+			}
+
+			&.p2 {
+				z-index: 2;
+				transition-delay: 150ms;
+			}
+
+			&.p3 {
+				z-index: 3;
+				transition-delay: 0ms;
+			}
+
+			&.p4 {
+				z-index: 2;
+				transition-delay: 150ms;
+			}
+
+			&.p5 {
+				z-index: 1;
+				transition-delay: 300ms;
+			}
+
+			.player-avatar-wrapper {
+				position: relative;
+				width: 350px;
+				height: 583px;
+				
+
+				.player-avatar {
+					position: absolute;
+					left: 50%;
+					transform: translateX(-50%);
+					width: 410px;
+					height: 583px;
+					display: flex;
+					justify-content: center;
+					align-items: flex-start;
+
+					img {
+						height: 100%;
+					}
+				}
+			}
+
+			.player-identity {
+				position: relative;
+				width: 350px;
+				height: 135px;
+				background-color: rgba(54, 54, 54, 0.6);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				color: white;
+				text-transform: uppercase;
+				gap: 5px;
+				
+				.nickname {
+					font-family: "Morganite";
+					font-size: 90px;
+					line-height: 0.75;
+				}
+
+				.realname {
+					font-family: "IBM Plex Sans";
+					font-weight: 800;
+					line-height: 1;
+				}
+			}
+		}
+	}
+
+	.lineups-team {
+		position: absolute;
+		z-index: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 30px;
+		left: 50%;
+		transform: translateX(-50%);
+		top: 45px;
+		transition: transform 1000ms;
+
+		.logo {
+			width: 150px;
+			height: 150px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+
+			img {
+				max-width: 90%;
+				max-height: 90%;
+			}
+		}
+
+		.name {
+			font-family: "Morganite";
+			color: white;
+			text-transform: uppercase;
+			font-size: 130px;
+		}
+	}
+}

@@ -54,6 +54,7 @@ function createConnection() {
       id TEXT PRIMARY KEY,
       teamAId TEXT NOT NULL,
       teamBId TEXT NOT NULL,
+      stakeId TEXT,
       state TEXT,
       time TEXT NOT NULL,
       mode TEXT NOT NULL,
@@ -70,6 +71,11 @@ function createConnection() {
   const talentColumns = connection.prepare("PRAGMA table_info(talent)").all() as Array<{ name: string }>;
   if (talentColumns.length > 0 && !talentColumns.some((column) => column.name === "role")) {
     connection.exec("ALTER TABLE talent ADD COLUMN role TEXT NOT NULL DEFAULT 'caster';");
+  }
+
+  const matchColumns = connection.prepare("PRAGMA table_info(matches)").all() as Array<{ name: string }>;
+  if (matchColumns.length > 0 && !matchColumns.some((column) => column.name === "stakeId")) {
+    connection.exec("ALTER TABLE matches ADD COLUMN stakeId TEXT;");
   }
 
   const legacyCastersTable = connection.prepare(`

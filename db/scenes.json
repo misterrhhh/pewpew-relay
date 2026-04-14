@@ -55,23 +55,23 @@
     "animationId": 1776109048353
   },
   "vetoL3": {
-    "matchId": "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
+    "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "currentIndex": 7,
     "visible": true,
     "animation": "in",
-    "animationId": 1776105295213
+    "animationId": 1776164318131
   },
   "headToHead": {
     "title": "last 3 months",
     "left": {
-      "playerId": "ae2a9eab-bce4-49e1-9862-0eed7fe8af2c",
+      "playerId": "82fea7c8-8e50-414a-9262-8ccf62e17f97",
       "kills": 25,
       "deaths": 19,
       "adr": 95.9,
       "rating3": 1.38
     },
     "right": {
-      "playerId": "b19c4916-f81c-4bd4-a242-1bcd1188b4ff",
+      "playerId": "9fb0780a-2ec1-4a3a-b5b7-15139d3fbddd",
       "kills": 22,
       "deaths": 20,
       "adr": 75,
@@ -79,7 +79,7 @@
     },
     "visible": true,
     "animation": "in",
-    "animationId": 1776105460689
+    "animationId": 1776179674508
   },
   "upperBracket": {
     "matchIds": [
@@ -108,6 +108,17 @@
     "visible": true,
     "animation": "in",
     "animationId": 1776107138333
+  },
+  "stakeOdds": {
+    "matchId": "746d6423-0210-42f6-9512-40d932570314",
+    "swapSides": false,
+    "playId": 1776179706206
+  },
+  "lineups": {
+    "teamId": "5bd178d2-407a-487a-92a1-7228b3a003cb",
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776180021929
   },
   "talentCams1": {
     "title": "crazy",

@@ -8,6 +8,7 @@ type MatchFormState = {
 	id: string;
 	teamAId: string;
 	teamBId: string;
+	stakeId: string;
 	state: Match["state"];
 	time: string;
 	mode: Match["mode"];
@@ -53,6 +54,7 @@ function createMatchForm(): MatchFormState {
 		id: createClientId(),
 		teamAId: "",
 		teamBId: "",
+		stakeId: "",
 		state: "upcoming" as Match["state"],
 		time: "",
 		mode: "bo3" as Match["mode"],
@@ -84,6 +86,7 @@ export function MatchesPage({
 				id: form.id,
 				teamAId: form.teamAId,
 				teamBId: form.teamBId,
+				stakeId: form.stakeId || null,
 				state: form.state || null,
 				time: fromDateTimeLocalValue(form.time),
 				mode: form.mode,
@@ -157,6 +160,14 @@ export function MatchesPage({
 							<label>Score B</label>
 							<input type="number" value={form.scoreB} onChange={(event) => setForm({ ...form, scoreB: event.target.value })} />
 						</div>
+						<div className="field" style={{ gridColumn: "1 / -1" }}>
+							<label>Stake ID</label>
+							<input
+								value={form.stakeId}
+								onChange={(event) => setForm({ ...form, stakeId: event.target.value })}
+								placeholder="635221-team-vitality-g2-esports"
+							/>
+						</div>
 						<div className="field">
 							<label>State</label>
 							<select value={form.state ?? ""} onChange={(event) => setForm({ ...form, state: (event.target.value || null) as Match["state"] })}>
@@ -214,6 +225,7 @@ export function MatchesPage({
 								<th>Teams</th>
 								<th>State</th>
 								<th>Mode</th>
+								<th>Stake ID</th>
 								<th>Score</th>
 								<th>Actions</th>
 							</tr>
@@ -230,6 +242,7 @@ export function MatchesPage({
 									</td>
 									<td>{match.state ?? "None"}</td>
 									<td>{match.mode.toUpperCase()}</td>
+									<td>{match.stakeId ?? "-"}</td>
 									<td>
 										{match.scoreA ?? "-"} : {match.scoreB ?? "-"}
 									</td>
@@ -244,6 +257,7 @@ export function MatchesPage({
 														id: match.id,
 														teamAId: match.teamAId,
 														teamBId: match.teamBId,
+														stakeId: match.stakeId ?? "",
 														state: match.state,
 														time: toDateTimeLocalValue(match.time),
 														mode: match.mode,

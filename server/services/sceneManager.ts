@@ -83,6 +83,17 @@ const defaultScenes: SceneStateMap = {
 		animation: "idle",
 		animationId: 0,
 	},
+	stakeOdds: {
+		matchId: null,
+		swapSides: false,
+		playId: 0,
+	},
+	lineups: {
+		teamId: null,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
 	talentCams1: {
 		title: "Broadcast Talent",
 		talentIds: [null],
@@ -306,6 +317,44 @@ function normalizeHeadToHeadScene(input: unknown) {
 	};
 }
 
+function normalizeLineupsScene(input: unknown) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.lineups);
+	}
+
+	const legacy = input as {
+		teamId?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	return {
+		teamId: typeof legacy.teamId === "string" && legacy.teamId.trim() !== "" ? legacy.teamId : null,
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.lineups.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.lineups.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.lineups.animationId,
+	};
+}
+
+function normalizeStakeOddsScene(input: unknown) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.stakeOdds);
+	}
+
+	const legacy = input as {
+		matchId?: unknown;
+		swapSides?: unknown;
+		playId?: unknown;
+	};
+
+	return {
+		matchId: typeof legacy.matchId === "string" && legacy.matchId.trim() !== "" ? legacy.matchId : null,
+		swapSides: typeof legacy.swapSides === "boolean" ? legacy.swapSides : defaultScenes.stakeOdds.swapSides,
+		playId: typeof legacy.playId === "number" && Number.isFinite(legacy.playId) ? legacy.playId : defaultScenes.stakeOdds.playId,
+	};
+}
+
 function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talentCams1"] | SceneStateMap["talentCams2"] | SceneStateMap["talentCams3"], count: number) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(fallback);
@@ -427,6 +476,8 @@ export class SceneManager {
 			veto: normalizeVetoScene(parsed.veto),
 			vetoL3: normalizeVetoScene((parsed as Record<string, unknown>).vetoL3),
 			headToHead: normalizeHeadToHeadScene(parsed.headToHead),
+			stakeOdds: normalizeStakeOddsScene((parsed as Record<string, unknown>).stakeOdds),
+			lineups: normalizeLineupsScene((parsed as Record<string, unknown>).lineups),
 			talentCams1: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams1, defaultScenes.talentCams1, 1),
 			talentCams2: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams2, defaultScenes.talentCams2, 2),
 			talentCams3: normalizeTalentCamsScene(

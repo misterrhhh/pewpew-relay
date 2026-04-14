@@ -48,6 +48,14 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Lower Bracket</span>
 					</NavLink>
+					<NavLink className="nav-link" to="/scenes/stake-odds">
+						<Clapperboard />
+						<span>Stake Odds</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/lineups">
+						<Clapperboard />
+						<span>Lineups</span>
+					</NavLink>
 					<NavLink className="nav-link" to="/scenes/match-analysis">
 						<Clapperboard />
 						<span>Match Analysis</span>

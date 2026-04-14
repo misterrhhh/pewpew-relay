@@ -62,6 +62,7 @@ export interface Match {
   id: string;
   teamAId: string;
   teamBId: string;
+  stakeId: string | null;
   state: MatchState;
   time: string;
   mode: MatchMode;
@@ -159,6 +160,19 @@ export interface LowerBracketSceneState {
   animationId: number;
 }
 
+export interface StakeOddsSceneState {
+  matchId: string | null;
+  swapSides: boolean;
+  playId: number;
+}
+
+export interface LineupsSceneState {
+  teamId: string | null;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
 export interface TalentCamsSceneState {
   title: string;
   talentIds: Array<string | null>;
@@ -176,6 +190,18 @@ export interface MatchAnalysisSceneState {
   animationId: number;
 }
 
+export interface StakeOddsResponse {
+  matchId: string;
+  stakeId: string;
+  fixtureName: string | null;
+  marketName: string;
+  updatedAt: number | null;
+  teamAName: string;
+  teamBName: string;
+  teamAOdds: number | null;
+  teamBOdds: number | null;
+}
+
 export interface SceneStateMap {
   placeholder: PlaceholderSceneState;
   matches: MatchesSceneState;
@@ -186,6 +212,8 @@ export interface SceneStateMap {
   headToHead: HeadToHeadSceneState;
   upperBracket: UpperBracketSceneState;
   lowerBracket: LowerBracketSceneState;
+  stakeOdds: StakeOddsSceneState;
+  lineups: LineupsSceneState;
   talentCams1: TalentCamsSceneState;
   talentCams2: TalentCamsSceneState;
   talentCams3: TalentCamsSceneState;
@@ -200,6 +228,8 @@ export interface SceneStateMap {
     | HeadToHeadSceneState
     | UpperBracketSceneState
     | LowerBracketSceneState
+    | StakeOddsSceneState
+    | LineupsSceneState
     | TalentCamsSceneState
     | MatchAnalysisSceneState;
 }

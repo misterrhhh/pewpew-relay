@@ -7,6 +7,7 @@ import { clientDistDirectory, imagesDirectory, scenesFile } from "./services/pat
 import { SceneManager } from "./services/sceneManager.js";
 import { createEntityRouter } from "./routes/entities.js";
 import { createSceneRouter } from "./routes/scenes.js";
+import { createStakeOddsRouter } from "./routes/stakeOdds.js";
 import { createSystemRouter } from "./routes/system.js";
 import { createUploadRouter } from "./routes/upload.js";
 import { createWebSocketHub } from "./ws.js";
@@ -35,6 +36,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/scenes", createSceneRouter(sceneManager));
+app.use("/api/stake-odds", createStakeOddsRouter(getDatabase));
 app.use("/api/upload", createUploadRouter());
 app.use("/api/system", createSystemRouter(sceneManager, (sceneId, data) => {
   webSocketHub.broadcast({
@@ -94,6 +96,14 @@ if (fs.existsSync(clientDistDirectory)) {
 
   app.get(["/scenes/lower-bracket", "/scenes/lower-bracket/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "lower-bracket", "index.html"));
+  });
+
+  app.get(["/scenes/stake-odds", "/scenes/stake-odds/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "stake-odds", "index.html"));
+  });
+
+  app.get(["/scenes/lineups", "/scenes/lineups/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "lineups", "index.html"));
   });
 
   app.get(["/scenes/match-analysis", "/scenes/match-analysis/"], (_req, res) => {

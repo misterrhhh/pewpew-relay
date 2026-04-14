@@ -1,6 +1,7 @@
 import type {
   GameMap,
   HeadToHeadSceneState,
+  LineupsSceneState,
   LowerBracketSceneState,
   MatchAnalysisSceneState,
   MatchesCountdownSceneState,
@@ -9,6 +10,8 @@ import type {
   PipCountdownSceneState,
   PlaceholderSceneState,
   PlayerResponse,
+  StakeOddsResponse,
+  StakeOddsSceneState,
   Talent,
   TalentCamsSceneState,
   TeamResponse,
@@ -89,6 +92,12 @@ export const api = {
   getLowerBracketScene: () => request<LowerBracketSceneState>("/api/scenes/lowerBracket"),
   updateLowerBracketScene: (payload: Partial<LowerBracketSceneState>) =>
     request<LowerBracketSceneState>("/api/scenes/lowerBracket", { method: "POST", body: JSON.stringify(payload) }),
+  getStakeOddsScene: () => request<StakeOddsSceneState>("/api/scenes/stakeOdds"),
+  updateStakeOddsScene: (payload: Partial<StakeOddsSceneState>) =>
+    request<StakeOddsSceneState>("/api/scenes/stakeOdds", { method: "POST", body: JSON.stringify(payload) }),
+  getLineupsScene: () => request<LineupsSceneState>("/api/scenes/lineups"),
+  updateLineupsScene: (payload: Partial<LineupsSceneState>) =>
+    request<LineupsSceneState>("/api/scenes/lineups", { method: "POST", body: JSON.stringify(payload) }),
   getTalentCams1Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams1"),
   updateTalentCams1Scene: (payload: Partial<TalentCamsSceneState>) =>
     request<TalentCamsSceneState>("/api/scenes/talentCams1", { method: "POST", body: JSON.stringify(payload) }),
@@ -104,6 +113,7 @@ export const api = {
   getTalentDeskScene: () => request<TalentCamsSceneState>("/api/scenes/talentCams3"),
   updateTalentDeskScene: (payload: Partial<TalentCamsSceneState>) =>
     request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
+  getStakeOdds: (matchId: string) => request<StakeOddsResponse>(`/api/stake-odds/${matchId}`),
 };
 
 export async function uploadImage(id: string, file: File) {
