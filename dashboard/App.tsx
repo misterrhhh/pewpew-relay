@@ -4,6 +4,7 @@ import { api } from "../client/api";
 import type { GameMap, MatchResponse, PlayerResponse, Talent, TeamResponse } from "../shared/types";
 import { Sidebar } from "./components/Sidebar";
 import { HeadToHeadScenePage } from "./pages/HeadToHeadScenePage";
+import { GridScoreboardScenePage } from "./pages/GridScoreboardScenePage";
 import { LineupsScenePage } from "./pages/LineupsScenePage";
 import { LowerBracketScenePage } from "./pages/LowerBracketScenePage";
 import { MapsPage } from "./pages/MapsPage";
@@ -81,6 +82,7 @@ export function App() {
 						<Route path="/scenes/upper-bracket" element={<UpperBracketScenePage matches={matches} />} />
 						<Route path="/scenes/lower-bracket" element={<LowerBracketScenePage matches={matches} />} />
 						<Route path="/scenes/stake-odds" element={<StakeOddsScenePage matches={matches} />} />
+						<Route path="/scenes/grid-scoreboard" element={<GridScoreboardScenePage matches={matches} />} />
 						<Route path="/scenes/lineups" element={<LineupsScenePage teams={teams} />} />
 						<Route path="/scenes/match-analysis" element={<MatchAnalysisScenePage talent={talent} />} />
 						<Route path="/scenes/talent-cams-3" element={<TalentCams3ScenePage talent={talent} />} />

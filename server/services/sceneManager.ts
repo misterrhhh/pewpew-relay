@@ -88,6 +88,13 @@ const defaultScenes: SceneStateMap = {
 		swapSides: false,
 		playId: 0,
 	},
+	gridScoreboard: {
+		matchId: null,
+		swapSides: false,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
 	lineups: {
 		teamId: null,
 		visible: false,
@@ -355,6 +362,28 @@ function normalizeStakeOddsScene(input: unknown) {
 	};
 }
 
+function normalizeGridScoreboardScene(input: unknown) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.gridScoreboard);
+	}
+
+	const legacy = input as {
+		matchId?: unknown;
+		swapSides?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	return {
+		matchId: typeof legacy.matchId === "string" && legacy.matchId.trim() !== "" ? legacy.matchId : null,
+		swapSides: typeof legacy.swapSides === "boolean" ? legacy.swapSides : defaultScenes.gridScoreboard.swapSides,
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.gridScoreboard.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.gridScoreboard.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.gridScoreboard.animationId,
+	};
+}
+
 function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talentCams1"] | SceneStateMap["talentCams2"] | SceneStateMap["talentCams3"], count: number) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(fallback);
@@ -477,6 +506,7 @@ export class SceneManager {
 			vetoL3: normalizeVetoScene((parsed as Record<string, unknown>).vetoL3),
 			headToHead: normalizeHeadToHeadScene(parsed.headToHead),
 			stakeOdds: normalizeStakeOddsScene((parsed as Record<string, unknown>).stakeOdds),
+			gridScoreboard: normalizeGridScoreboardScene((parsed as Record<string, unknown>).gridScoreboard),
 			lineups: normalizeLineupsScene((parsed as Record<string, unknown>).lineups),
 			talentCams1: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams1, defaultScenes.talentCams1, 1),
 			talentCams2: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams2, defaultScenes.talentCams2, 2),

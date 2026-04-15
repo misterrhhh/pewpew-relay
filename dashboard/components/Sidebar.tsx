@@ -52,6 +52,10 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Stake Odds</span>
 					</NavLink>
+					<NavLink className="nav-link" to="/scenes/grid-scoreboard">
+						<Clapperboard />
+						<span>GRID Scoreboard</span>
+					</NavLink>
 					<NavLink className="nav-link" to="/scenes/lineups">
 						<Clapperboard />
 						<span>Lineups</span>

@@ -77,9 +77,9 @@
       "adr": 75,
       "rating3": 1.05
     },
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776179674508
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776257159364
   },
   "upperBracket": {
     "matchIds": [
@@ -113,6 +113,13 @@
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "swapSides": false,
     "playId": 1776179706206
+  },
+  "gridScoreboard": {
+    "matchId": "60a122b4-e5da-40af-803e-d3149c1b4209",
+    "swapSides": false,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776192662064
   },
   "lineups": {
     "teamId": "5bd178d2-407a-487a-92a1-7228b3a003cb",

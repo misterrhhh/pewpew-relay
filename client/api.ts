@@ -1,5 +1,7 @@
 import type {
   GameMap,
+  GridScoreboardSceneState,
+  GridSeriesState,
   HeadToHeadSceneState,
   LineupsSceneState,
   LowerBracketSceneState,
@@ -95,6 +97,9 @@ export const api = {
   getStakeOddsScene: () => request<StakeOddsSceneState>("/api/scenes/stakeOdds"),
   updateStakeOddsScene: (payload: Partial<StakeOddsSceneState>) =>
     request<StakeOddsSceneState>("/api/scenes/stakeOdds", { method: "POST", body: JSON.stringify(payload) }),
+  getGridScoreboardScene: () => request<GridScoreboardSceneState>("/api/scenes/gridScoreboard"),
+  updateGridScoreboardScene: (payload: Partial<GridScoreboardSceneState>) =>
+    request<GridScoreboardSceneState>("/api/scenes/gridScoreboard", { method: "POST", body: JSON.stringify(payload) }),
   getLineupsScene: () => request<LineupsSceneState>("/api/scenes/lineups"),
   updateLineupsScene: (payload: Partial<LineupsSceneState>) =>
     request<LineupsSceneState>("/api/scenes/lineups", { method: "POST", body: JSON.stringify(payload) }),
@@ -114,6 +119,7 @@ export const api = {
   updateTalentDeskScene: (payload: Partial<TalentCamsSceneState>) =>
     request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
   getStakeOdds: (matchId: string) => request<StakeOddsResponse>(`/api/stake-odds/${matchId}`),
+  getGridSeriesState: () => request<GridSeriesState>("/api/grid-series-state"),
 };
 
 export async function uploadImage(id: string, file: File) {

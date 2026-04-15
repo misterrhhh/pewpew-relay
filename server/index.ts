@@ -1,3 +1,4 @@
+import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
 import http from "node:http";
@@ -6,6 +7,7 @@ import { closeDatabase, getDatabase, initializeDatabase } from "./services/datab
 import { clientDistDirectory, imagesDirectory, scenesFile } from "./services/paths.js";
 import { SceneManager } from "./services/sceneManager.js";
 import { createEntityRouter } from "./routes/entities.js";
+import { createGridSeriesStateRouter } from "./routes/gridSeriesState.js";
 import { createSceneRouter } from "./routes/scenes.js";
 import { createStakeOddsRouter } from "./routes/stakeOdds.js";
 import { createSystemRouter } from "./routes/system.js";
@@ -36,6 +38,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/scenes", createSceneRouter(sceneManager));
+app.use("/api/grid-series-state", createGridSeriesStateRouter(getDatabase));
 app.use("/api/stake-odds", createStakeOddsRouter(getDatabase));
 app.use("/api/upload", createUploadRouter());
 app.use("/api/system", createSystemRouter(sceneManager, (sceneId, data) => {
@@ -100,6 +103,10 @@ if (fs.existsSync(clientDistDirectory)) {
 
   app.get(["/scenes/stake-odds", "/scenes/stake-odds/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "stake-odds", "index.html"));
+  });
+
+  app.get(["/scenes/grid-scoreboard", "/scenes/grid-scoreboard/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "grid-scoreboard", "index.html"));
   });
 
   app.get(["/scenes/lineups", "/scenes/lineups/"], (_req, res) => {

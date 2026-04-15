@@ -166,6 +166,52 @@ export interface StakeOddsSceneState {
   playId: number;
 }
 
+export interface GridSeriesPlayer {
+  id: string | null;
+  name: string;
+  gridName: string;
+  realname: string | null;
+  avatarUrl: string | null;
+  localPlayerId: string | null;
+  kills: number | null;
+  deaths: number | null;
+  assists: number | null;
+}
+
+export interface GridSeriesGameTeam {
+  id: string | null;
+  name: string;
+  players: GridSeriesPlayer[];
+}
+
+export interface GridSeriesGame {
+  sequenceNumber: number;
+  teams: GridSeriesGameTeam[];
+}
+
+export interface GridSeriesMatchTeam {
+  name: string;
+  won: boolean;
+}
+
+export interface GridSeriesState {
+  valid: boolean;
+  updatedAt: string | null;
+  format: string | null;
+  started: boolean;
+  finished: boolean;
+  teams: GridSeriesMatchTeam[];
+  games: GridSeriesGame[];
+}
+
+export interface GridScoreboardSceneState {
+  matchId: string | null;
+  swapSides: boolean;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
 export interface LineupsSceneState {
   teamId: string | null;
   visible: boolean;
@@ -213,6 +259,7 @@ export interface SceneStateMap {
   upperBracket: UpperBracketSceneState;
   lowerBracket: LowerBracketSceneState;
   stakeOdds: StakeOddsSceneState;
+  gridScoreboard: GridScoreboardSceneState;
   lineups: LineupsSceneState;
   talentCams1: TalentCamsSceneState;
   talentCams2: TalentCamsSceneState;
@@ -229,6 +276,7 @@ export interface SceneStateMap {
     | UpperBracketSceneState
     | LowerBracketSceneState
     | StakeOddsSceneState
+    | GridScoreboardSceneState
     | LineupsSceneState
     | TalentCamsSceneState
     | MatchAnalysisSceneState;

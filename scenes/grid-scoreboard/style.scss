@@ -1,0 +1,171 @@
+.grid-scoreboard-stage {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background-image: url("./../../client/assets/images/BG_CAMS.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	opacity: 0;
+	transition: opacity 300ms ease;
+
+	&.show {
+		opacity: 1;
+	}
+
+	&.hide {
+		opacity: 0;
+	}
+
+	.players-list {
+		position: absolute;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		bottom: 207px;
+
+
+		&.left {
+			left: 136px;
+
+			.player-row,
+			.label-row,
+			.pr-name {
+				flex-direction: row;
+			}
+		}
+
+		&.right {
+			right: 136px;
+
+			.player-row,
+			.label-row,
+			.pr-name {
+				flex-direction: row-reverse;
+			}
+		}
+
+		.label-row {
+			display: flex;
+			justify-content: flex-end;
+			width: 805px;
+			height: 50px;
+
+			.lr-kad {
+				position: relative;
+				width: 256px;
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+			}
+
+			.lr-kills,
+			.lr-deaths,
+			.lr-assists,
+			.lr-additional {
+				position: relative;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: "IBM Plex Sans";
+				text-transform: uppercase;
+				font-weight: 800;
+				color: rgba(255, 255, 255, 0.6);
+				font-size: 30px;
+				text-align: center;
+			}
+
+			.lr-additional {
+				width: 112px;
+			}
+
+			.lr-kills,
+			.lr-deaths,
+			.lr-assists {
+				width: 82px;
+			}
+		}
+
+		.player-row {
+			display: flex;
+			justify-content: flex-start;
+			align-items: flex-end;
+			width: 805px;
+			height: 85px;
+			background-color: rgba(54, 54, 54, 0.6);
+			margin-bottom: 20px;
+
+			.pr-avatar {
+				position: relative;
+				width: 130px;
+				height: 130px;
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				overflow: hidden;
+
+				img {
+					width: 170%;
+				}
+			}
+
+			.pr-name {
+				position: relative;
+				width: 307px;
+				height: 100%;
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				color: white;
+				font-family: "IBM Plex Sans";
+				text-transform: uppercase;
+				font-weight: 800;
+				font-size: 25px;
+				box-sizing: border-box;
+				padding: 15px;
+			}
+
+			.pr-kad {
+				position: relative;
+				width: 256px;
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+
+				.pr-kills,
+				.pr-deaths,
+				.pr-assists {
+					position: relative;
+					width: 82px;
+					height: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					font-family: "IBM Plex Sans";
+					font-weight: 800;
+					color: white;
+					font-size: 40px;
+					text-align: center;
+				}
+			}
+
+
+
+			.pr-additional {
+				position: relative;
+				width: 112px;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: "Morganite";
+				color: #131315;
+				background-color: #FFDE00;
+				font-size: 70px;
+				text-align: center;
+			}
+		}
+	}
+}
