@@ -53,6 +53,7 @@ function VetoScene() {
 	return (
 		<div className="scene-shell">
 			<div className="veto-page">
+				<div className="elements"></div>
 				<div className="veto-list">
 					{vetos.map((veto, i) => (
 						<VetoStep

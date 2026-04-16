@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 const sceneEntryRoutes = [
   "/scenes/placeholder",
   "/scenes/relay",
+  "/scenes/relay-no-sponsors",
   "/scenes/head-to-head",
   "/scenes/mvp",
   "/scenes/pip-countdown",
@@ -90,6 +91,7 @@ export default defineConfig({
         dashboard: resolve(__dirname, "dashboard/index.html"),
         placeholder: resolve(__dirname, "scenes/placeholder/index.html"),
         relay: resolve(__dirname, "scenes/relay/index.html"),
+        relayNoSponsors: resolve(__dirname, "scenes/relay-no-sponsors/index.html"),
         headToHead: resolve(__dirname, "scenes/head-to-head/index.html"),
         mvp: resolve(__dirname, "scenes/mvp/index.html"),
         pipCountdown: resolve(__dirname, "scenes/pip-countdown/index.html"),

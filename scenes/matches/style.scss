@@ -2,14 +2,26 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/background_today.png");
+	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
 }
 
+.elements {
+	position: absolute;
+	z-index: 1;
+	inset: 0;
+	background-image: url("./../../client/assets/elements/MATCHES.png");
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	transition: opacity 300ms;
+}
+
 .matches-list {
 	position: absolute;
+	z-index: 2;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	top: 600px;
@@ -18,7 +30,7 @@
 	align-content: center;
 	justify-content: center;
 	justify-items: center;
-	
+
 
 	&.count-1 {
 		grid-template-columns: max-content;
@@ -41,7 +53,7 @@
 		justify-self: center;
 	}
 
-	
+
 }
 
 .ms-card {
@@ -93,7 +105,7 @@
 	.card-center {
 		display: flex;
 		flex-direction: column;
-		
+
 		.card-state {
 			width: 190px;
 			height: 190px;

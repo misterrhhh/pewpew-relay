@@ -1,12 +1,11 @@
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
-import "./style.scss";
-import SponsorBackground from "../../client/assets/images/BG_SPONSORS.png";
-import { RelaySceneRoot } from "./RelaySceneRoot";
+import "../relay/style.scss";
+import { RelaySceneRoot } from "../relay/RelaySceneRoot";
 
 document.documentElement.classList.add("scene-page");
 document.body.classList.add("scene-page");
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<RelaySceneRoot sponsorBackgroundUrl={SponsorBackground} />,
+	<RelaySceneRoot />,
 );

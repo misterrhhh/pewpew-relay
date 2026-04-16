@@ -227,6 +227,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	width: 30%;
+	gap: 20px;
 }
 
 .page-preview .scene-preview-panel {
@@ -564,13 +565,19 @@ button.danger {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	justify-content: center;
-	gap: 4px;
+	justify-content: space-between;
+	gap: 8px;
 	text-align: left;
+	cursor: pointer;
 }
 
 .relay-scene-tile.is-output {
 	border-color: rgba(var(--color-accent), 0.9);
+}
+
+.relay-scene-tile.is-clear {
+	border-color: rgba(239, 68, 68, 0.55);
+	background: rgba(239, 68, 68, 0.12);
 }
 
 .relay-scene-tile.is-editing {
@@ -587,8 +594,34 @@ button.danger {
 	font-size: 0.76rem;
 }
 
+.relay-scene-tile__actions {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	flex-wrap: wrap;
+}
+
+.relay-scene-tile__actions button {
+	padding: 6px 10px;
+	font-size: 0.75rem;
+}
+
+.relay-scene-tile__transition--clear {
+	border-color: rgba(239, 68, 68, 0.6);
+	background: rgba(239, 68, 68, 0.2);
+	color: #fff;
+}
+
 .relay-inline-editor {
 	width: 100%;
+}
+
+.relay-editor-empty {
+	padding: 12px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
 }
 
 .relay-inline-editor .page {

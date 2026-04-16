@@ -2,10 +2,12 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/BG_HEAD_TO_HEAD.png");
+	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
+
+
 
 	&.show {
 		.hth-duel {
@@ -47,7 +49,7 @@
 		}
 
 		.hth-player {
-			
+
 
 			.player-identity {
 				transition-delay: 1000ms !important;
@@ -63,6 +65,10 @@
 
 		.hth-title {
 			transition-delay: 1200ms !important;
+			opacity: 1;
+		}
+
+		.elements {
 			opacity: 1;
 		}
 	}
@@ -126,6 +132,21 @@
 		.hth-title {
 			opacity: 0;
 		}
+
+		.elements {
+			opacity: 0;
+		}
+	}
+
+	.elements {
+		position: absolute;
+		z-index: 1;
+		inset: 0;
+		background-image: url("./../../client/assets/elements/H2H.png");
+		background-position: center;
+		background-size: 100%;
+		background-repeat: no-repeat;
+		transition: opacity 300ms;
 	}
 
 	.hth-player {

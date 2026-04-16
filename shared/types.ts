@@ -157,6 +157,7 @@ export interface MvpSceneState {
 export interface RelaySceneState {
   currentSceneId: string;
   playId: number;
+  transitionStyle: "stinger" | "fade";
 }
 
 export interface UpperBracketSceneState {

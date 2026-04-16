@@ -68,6 +68,7 @@ function UpperBracketScene() {
 	return (
 		<div className="scene-shell">
 			<div className={`upper-bracket-page ${visible ? "" : "scene-hidden"}`}>
+				<div className="elements"></div>
 				{slotMatches.map((slot) => (
 					<BracketMatchCard
 						key={`${slot.key}-${scene.animationId}`}
@@ -119,38 +120,3 @@ function BracketMatchCard({ label, match, id }: { label: string; match: MatchRes
 
 ReactDOM.createRoot(document.getElementById("root")!).render(<UpperBracketScene />);
 
-/*
-<article className="upper-bracket-card" data-animation={animation}>
-			<div className="card-head">
-				<div className="slot-label">{label}</div>
-				<div className="match-meta">{match?.title ?? "Select match"}</div>
-			</div>
-
-			<div className="card-team-row">
-				<div className="team">
-					<div className="team-logo">
-						<img src={teamA?.logoUrl ?? LogoCCT} alt={teamA?.name ?? "Team A"} />
-					</div>
-					<div className="team-name">{teamA?.name ?? "TBD"}</div>
-				</div>
-				<div className="team-score">{score ? score.split("-")[0] : "-"}</div>
-			</div>
-
-			<div className="card-divider" />
-
-			<div className="card-team-row">
-				<div className="team">
-					<div className="team-logo">
-						<img src={teamB?.logoUrl ?? LogoCCT} alt={teamB?.name ?? "Team B"} />
-					</div>
-					<div className="team-name">{teamB?.name ?? "TBD"}</div>
-				</div>
-				<div className="team-score">{score ? score.split("-")[1] : "-"}</div>
-			</div>
-
-			<div className="card-footer">
-				<div className={`match-state ${match?.state ?? "empty"}`}>{stateLabel}</div>
-				<div className="match-mode">{match?.mode?.toUpperCase() ?? ""}</div>
-			</div>
-		</article>
-*/

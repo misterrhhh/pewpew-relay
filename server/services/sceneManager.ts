@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import type { SceneStateMap } from "../../shared/types.js";
+import type { RelaySceneState, SceneStateMap } from "../../shared/types.js";
 import { defaultRelaySceneId, isRelaySceneId } from "../../shared/relaySceneOptions.js";
 
 type SceneListener = (sceneId: string, data: unknown) => void;
@@ -86,9 +86,10 @@ const defaultScenes: SceneStateMap = {
 		animationId: 0,
 	},
 	relay: {
-		currentSceneId: defaultRelaySceneId,
-		playId: 0,
-	},
+ 		currentSceneId: defaultRelaySceneId,
+ 		playId: 0,
+ 		transitionStyle: "stinger",
+  	},
 	upperBracket: {
 		matchIds: [],
 		visible: false,
@@ -364,19 +365,21 @@ function normalizeMvpScene(input: unknown) {
 	};
 }
 
-function normalizeRelayScene(input: unknown) {
+function normalizeRelayScene(input: unknown): RelaySceneState {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(defaultScenes.relay);
 	}
 
 	const legacy = input as {
-		currentSceneId?: unknown;
-		playId?: unknown;
-	};
-
+ 		currentSceneId?: unknown;
+ 		playId?: unknown;
+ 		transitionStyle?: unknown;
+  	};
+ 
 	return {
 		currentSceneId: isRelaySceneId(legacy.currentSceneId) ? legacy.currentSceneId : defaultScenes.relay.currentSceneId,
 		playId: typeof legacy.playId === "number" && Number.isFinite(legacy.playId) ? legacy.playId : defaultScenes.relay.playId,
+		transitionStyle: legacy.transitionStyle === "fade" ? "fade" : "stinger",
 	};
 }
 

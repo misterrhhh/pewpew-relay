@@ -24,6 +24,7 @@ import { useStatus } from "../components/useStatus";
 const defaultSceneState: RelaySceneState = {
 	currentSceneId: defaultRelaySceneId,
 	playId: 0,
+	transitionStyle: "stinger",
 };
 
 export function RelayScenePage({
@@ -55,6 +56,9 @@ export function RelayScenePage({
 	}, []);
 
 	const previewUrl = `${window.location.origin}/scenes/relay/`;
+	const selectedPreviewUrl = editorSceneId === "clear"
+		? null
+		: `${window.location.origin}${relaySceneOptions.find((entry) => entry.id === editorSceneId)?.path ?? ""}`;
 	const currentScene = useMemo(
 		() => relaySceneOptions.find((entry) => entry.id === scene.currentSceneId) ?? relaySceneOptions[0],
 		[scene.currentSceneId],
@@ -64,10 +68,14 @@ export function RelayScenePage({
 		[editorSceneId],
 	);
 
-	async function handleSceneTileClick(sceneId: RelaySceneId) {
+	function handleSceneTileClick(sceneId: RelaySceneId) {
+		setEditorSceneId(sceneId);
+	}
+
+	async function handleSceneTransition(sceneId: RelaySceneId, transitionStyle: RelaySceneState["transitionStyle"] = "stinger") {
 		setEditorSceneId(sceneId);
 
-		if (scene.currentSceneId === sceneId) {
+		if (scene.currentSceneId === sceneId && scene.transitionStyle === transitionStyle) {
 			return;
 		}
 
@@ -75,6 +83,7 @@ export function RelayScenePage({
 			const response = await api.updateRelayScene({
 				currentSceneId: sceneId,
 				playId: Date.now(),
+				transitionStyle,
 			});
 			setScene(response);
 			status.show(`Transitioning to ${relaySceneOptions.find((entry) => entry.id === sceneId)?.label ?? sceneId}.`);
@@ -85,6 +94,13 @@ export function RelayScenePage({
 
 	function renderEditor(): ReactNode {
 		switch (editorSceneId) {
+			case "clear":
+				return (
+					<div className="relay-editor-empty">
+						<div>No scene controls.</div>
+						<div className="scene-route-copy">Fade clears directly. Stinger cuts to empty through the stinger video.</div>
+					</div>
+				);
 			case "placeholder":
 				return <PlaceholderScenePage />;
 			case "headToHead":
@@ -143,7 +159,7 @@ export function RelayScenePage({
 							<div className="field">
 								<label>Current output</label>
 								<div>{currentScene.label}</div>
-								<div className="scene-route-copy">{currentScene.path}</div>
+								<div className="scene-route-copy">{currentScene.path || "Empty output"}</div>
 							</div>
 							<div className="status">{status.message}</div>
 						</div>
@@ -154,19 +170,64 @@ export function RelayScenePage({
 						<div className="panel-content scene-panel-content--stack">
 							<div className="relay-scene-grid relay-scene-grid--compact">
 								{relaySceneOptions.map((entry) => (
-									<button
+									<div
 										key={entry.id}
-										type="button"
 										className={[
 											"relay-scene-tile",
+											entry.id === "clear" ? "is-clear" : "",
 											entry.id === scene.currentSceneId ? "is-output" : "",
 											entry.id === editorSceneId ? "is-editing" : "",
 										].filter(Boolean).join(" ")}
-										onClick={() => void handleSceneTileClick(entry.id)}
+										role="button"
+										tabIndex={0}
+										onClick={() => handleSceneTileClick(entry.id)}
+										onKeyDown={(event) => {
+											if (event.key === "Enter" || event.key === " ") {
+												event.preventDefault();
+												handleSceneTileClick(entry.id);
+											}
+										}}
 									>
 										<span className="relay-scene-tile__title">{entry.label}</span>
-										<span className="relay-scene-tile__path">{entry.path}</span>
-									</button>
+										<span className="relay-scene-tile__path">{entry.path || "Empty output"}</span>
+										<div className="relay-scene-tile__actions">
+											{entry.id === "clear" ? (
+												<>
+													<button
+														type="button"
+														className="relay-scene-tile__transition relay-scene-tile__transition--clear"
+														onClick={(event) => {
+															event.stopPropagation();
+															void handleSceneTransition(entry.id, "fade");
+														}}
+													>
+														Fade
+													</button>
+													<button
+														type="button"
+														className="relay-scene-tile__transition relay-scene-tile__transition--clear"
+														onClick={(event) => {
+															event.stopPropagation();
+															void handleSceneTransition(entry.id, "stinger");
+														}}
+													>
+														Stinger
+													</button>
+												</>
+											) : (
+												<button
+													type="button"
+													className="relay-scene-tile__transition"
+													onClick={(event) => {
+														event.stopPropagation();
+														void handleSceneTransition(entry.id);
+													}}
+												>
+													Transition
+												</button>
+											)}
+										</div>
+									</div>
 								))}
 							</div>
 						</div>
@@ -178,7 +239,7 @@ export function RelayScenePage({
 							<div className="field">
 								<label>Editing</label>
 								<div>{editorScene.label}</div>
-								<div className="scene-route-copy">{editorScene.path}</div>
+								<div className="scene-route-copy">{editorScene.path || "No scene route"}</div>
 							</div>
 							<div className="relay-inline-editor">
 								{renderEditor()}
@@ -191,6 +252,24 @@ export function RelayScenePage({
 					<div className="panel">
 						<div className="panel-title">live preview</div>
 						<IframePreview title="Relay scene preview" src={previewUrl} />
+					</div>
+					<div className="panel">
+						<div className="panel-title">selected preview</div>
+						<div className="panel-content scene-panel-content--stack">
+							<div className="field">
+								<label>Selected</label>
+								<div>{editorScene.label}</div>
+								<div className="scene-route-copy">{editorScene.path || "Empty output"}</div>
+							</div>
+							{selectedPreviewUrl ? (
+								<IframePreview title={`${editorScene.label} preview`} src={selectedPreviewUrl} />
+							) : (
+								<div className="relay-editor-empty">
+									<div>No preview available.</div>
+									<div className="scene-route-copy">Clear outputs an empty canvas.</div>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

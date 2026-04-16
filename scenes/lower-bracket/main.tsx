@@ -59,6 +59,7 @@ function LowerBracketScene() {
 	return (
 		<div className="scene-shell">
 			<div className={`lower-bracket-page ${visible ? "" : "scene-hidden"}`}>
+				<div className="elements"></div>
 				{slotMatches.map((slot) => (
 					<BracketMatchCard
 						key={`${slot.key}-${scene.animationId}`}
@@ -96,6 +97,7 @@ function BracketMatchCard({
 
 	return (
 		<div className={`bracket-card ${id} ${isEmpty ? "empty" : ""}`}>
+			
 			<div className="card-team">
 				<div className="card-logo"><img src={teamA?.logoUrl ?? teamA?.logo ?? LogoCCT} alt={teamA?.name ?? "Team A"} /></div>
 				<div className="card-name">{teamA?.name ?? "TBD"}</div>

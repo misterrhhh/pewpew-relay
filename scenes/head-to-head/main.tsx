@@ -69,6 +69,7 @@ function HeadToHeadScene() {
 	return (
 		<div className={`scene-shell`}>
 			<div className={`head-to-head-stage ${scene.visible ? "show" : "hide"} `}>
+				<div className="elements"></div>
 				<div className="hth-title">{scene.title}</div>
 				<HTHPlayer player={leftPlayer} team={leftTeam} side="left" stats={scene.left} />
 				<HTHPlayer player={rightPlayer} team={rightTeam} side="right" stats={scene.right} />

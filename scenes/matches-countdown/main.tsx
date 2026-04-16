@@ -75,7 +75,7 @@ function MatchesCountdownScene() {
   return (
     <div className="scene-shell">
       <div className={`matches-countdown-page ${visible ? "" : "scene-hidden"}`}>
-
+        <div className="elements"></div>
         <div className="matches-timer">
           <div className="timer-label">WE’RE BACK IN</div>
           <div className="timer-value">{countdownValue}</div>

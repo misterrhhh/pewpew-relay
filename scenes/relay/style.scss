@@ -1,8 +1,32 @@
+.relay-shell {
+	position: absolute;
+	inset: 0;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
 .relay-stage {
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
 	background: transparent;
+}
+
+.relay-content {
+	position: absolute;
+	inset: 0;
+	opacity: 1;
+	transition: opacity 500ms ease;
+
+	&.is-cleared {
+		opacity: 0;
+	}
+
+	&.is-cleared-instant {
+		opacity: 0;
+		transition: none;
+	}
 }
 
 .relay-frame {

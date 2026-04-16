@@ -2,13 +2,25 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/BG_VETO.png");
+	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
 
+	.elements {
+		position: absolute;
+		z-index: 1;
+		inset: 0;
+		background-image: url("./../../client/assets/elements/VETO.png");
+		background-position: center;
+		background-size: 100%;
+		background-repeat: no-repeat;
+		transition: opacity 300ms;
+	}
+
 	.veto-list {
 		position: absolute;
+		z-index: 2;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;

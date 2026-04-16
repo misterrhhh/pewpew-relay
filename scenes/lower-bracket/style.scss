@@ -2,10 +2,17 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/BG_LOWER.png");
+	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
+}
+
+.elements {
+	position: absolute;
+	z-index: 1;
+	inset: 0;
+	background-image: url("./../../client/assets/elements/LOWER_BRACKET.png");
 }
 
 .bracket-card {

@@ -72,36 +72,40 @@ function MvpScene() {
 	return (
 		<div className="scene-shell">
 			<div className={`mvp-stage ${scene.visible ? "show" : "hide"}`}>
-				<div className="mvp-title">{scene.title}</div>
-				<div className="mvp-team-badge">
-					<img src={team?.logoUrl ?? LogoCCT} alt={team?.name ?? "Team"} />
+				<div className="elements"></div>
+				<div className="mvp-identity">
+					<div className="logo"><img src={team?.logoUrl ?? LogoCCT} /></div>
+					<div className="names">
+						<div className="nickname">{player?.nickname}</div>
+						<div className="realname">{player?.realname}</div>
+					</div>
 				</div>
-				<section className="mvp-player" key={`${scene.animationId}-${player?.id ?? "empty"}`}>
-					<div className="mvp-player__avatar">
-						{player?.avatarUrl ? <img src={player.avatarUrl} alt={player.nickname} /> : null}
-					</div>
-					<div className="mvp-player__identity">
-						<div className="nickname">{player?.nickname ?? "TBD"}</div>
-						<div className="realname">{player?.realname ?? "Player name"}</div>
-						<div className="team">{team?.name ?? "No team"}</div>
-					</div>
-				</section>
+
+
+				<div className="mvp-avatar">
+					{player?.avatarUrl ? <img src={player.avatarUrl} alt={player.nickname} /> : null}
+				</div>
+
 				<div className="mvp-stats">
 					<div className="mvp-stat">
-						<div className="value">{formatStat(scene.player.kills, 0)}</div>
 						<div className="label">kills</div>
+						<div className="value">{formatStat(scene.player.kills, 0)}</div>
+
 					</div>
 					<div className="mvp-stat">
-						<div className="value">{formatStat(scene.player.deaths, 0)}</div>
 						<div className="label">deaths</div>
+						<div className="value">{formatStat(scene.player.deaths, 0)}</div>
+
 					</div>
 					<div className="mvp-stat">
-						<div className="value">{formatStat(scene.player.adr, 0)}</div>
 						<div className="label">adr</div>
+						<div className="value">{formatStat(scene.player.adr, 0)}</div>
+
 					</div>
 					<div className="mvp-stat">
-						<div className="value">{formatStat(scene.player.rating3, 2)}</div>
 						<div className="label">rating 3.0</div>
+						<div className="value">{formatStat(scene.player.rating3, 2)}</div>
+
 					</div>
 				</div>
 			</div>

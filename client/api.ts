@@ -14,6 +14,7 @@ import type {
   PlaceholderSceneState,
   PlayerResponse,
   RelaySceneState,
+  SceneStateMap,
   StakeOddsResponse,
   StakeOddsSceneState,
   Talent,
@@ -128,6 +129,9 @@ export const api = {
     request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
   getStakeOdds: (matchId: string) => request<StakeOddsResponse>(`/api/stake-odds/${matchId}`),
   getGridSeriesState: () => request<GridSeriesState>("/api/grid-series-state"),
+  getScene: <K extends keyof SceneStateMap>(sceneId: K) => request<SceneStateMap[K]>(`/api/scenes/${sceneId}`),
+  updateScene: <K extends keyof SceneStateMap>(sceneId: K, payload: Partial<SceneStateMap[K]>) =>
+    request<SceneStateMap[K]>(`/api/scenes/${sceneId}`, { method: "POST", body: JSON.stringify(payload) }),
 };
 
 export async function uploadImage(id: string, file: File) {

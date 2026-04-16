@@ -1,4 +1,5 @@
 export type RelaySceneId =
+	| "clear"
 	| "placeholder"
 	| "headToHead"
 	| "mvp"
@@ -24,6 +25,7 @@ export type RelaySceneOption = {
 };
 
 export const relaySceneOptions: RelaySceneOption[] = [
+	{ id: "clear", label: "Clear", path: "" },
 	{ id: "placeholder", label: "Placeholder", path: "/scenes/placeholder/" },
 	{ id: "headToHead", label: "Head to Head", path: "/scenes/head-to-head/" },
 	{ id: "mvp", label: "MVP", path: "/scenes/mvp/" },

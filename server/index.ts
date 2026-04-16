@@ -73,6 +73,10 @@ if (fs.existsSync(clientDistDirectory)) {
     res.sendFile(path.join(clientDistDirectory, "scenes", "relay", "index.html"));
   });
 
+  app.get(["/scenes/relay-no-sponsors", "/scenes/relay-no-sponsors/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "relay-no-sponsors", "index.html"));
+  });
+
   app.get(["/scenes/head-to-head", "/scenes/head-to-head/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "head-to-head", "index.html"));
   });

@@ -47,6 +47,7 @@ function MatchesScene() {
 	return (
 		<div className="scene-shell">
 			<div className="matches-page">
+				<div className="elements"></div>
 				<div className={`matches-list count-${matchesCount}`}>
 					{selectedMatches.map((match) => (
 						<MatchCard key={match.id} match={match} scene={scene} show={true} />
