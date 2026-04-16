@@ -1,0 +1,197 @@
+.mvp-stage {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background-image: url("./../../client/assets/images/BG_HEAD_TO_HEAD.png");
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	&.show {
+		.mvp-title,
+		.mvp-team-badge,
+		.mvp-player,
+		.mvp-stat {
+			opacity: 1;
+		}
+
+		.mvp-title,
+		.mvp-team-badge {
+			transform: translateX(-50%) translateY(0);
+		}
+
+		.mvp-player {
+			transform: translateX(-50%) translateY(0);
+		}
+
+		.mvp-stat {
+			transform: translateY(0);
+		}
+	}
+
+	&.hide {
+		.mvp-title,
+		.mvp-team-badge,
+		.mvp-player,
+		.mvp-stat {
+			opacity: 0;
+		}
+
+		.mvp-title,
+		.mvp-team-badge {
+			transform: translateX(-50%) translateY(28px);
+		}
+
+		.mvp-player {
+			transform: translateX(-50%) translateY(28px);
+		}
+
+		.mvp-stat {
+			transform: translateY(28px);
+		}
+	}
+
+	.mvp-title,
+	.mvp-team-badge,
+	.mvp-player,
+	.mvp-stat {
+		transition: opacity 500ms ease, transform 700ms ease;
+	}
+
+	.mvp-title {
+		position: absolute;
+		top: 170px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 3;
+		color: white;
+		text-transform: uppercase;
+		font-family: "IBM Plex Sans";
+		font-weight: 700;
+		font-size: 36px;
+		letter-spacing: 0.08em;
+	}
+
+	.mvp-team-badge {
+		position: absolute;
+		top: 230px;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 3;
+		width: 132px;
+		height: 132px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: rgba(22, 22, 22, 0.75);
+		backdrop-filter: blur(1px);
+
+		img {
+			max-width: 80%;
+			max-height: 80%;
+		}
+	}
+
+	.mvp-player {
+		position: absolute;
+		left: 50%;
+		bottom: 168px;
+		transform: translateX(-50%);
+		width: 820px;
+		height: 720px;
+		z-index: 2;
+
+		&__avatar {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			justify-content: center;
+			align-items: flex-end;
+			overflow: hidden;
+
+			img {
+				height: 100%;
+			}
+		}
+
+		&__identity {
+			position: absolute;
+			left: 50%;
+			bottom: 0;
+			transform: translateX(-50%);
+			width: 480px;
+			min-height: 162px;
+			padding: 18px 24px 20px;
+			background-color: rgba(54, 54, 54, 0.84);
+			backdrop-filter: blur(1px);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			text-transform: uppercase;
+			text-align: center;
+
+			.nickname {
+				font-family: "Morganite";
+				font-size: 112px;
+				line-height: 0.8;
+				font-weight: 800;
+			}
+
+			.realname,
+			.team {
+				font-family: "IBM Plex Sans";
+				font-weight: 600;
+				font-size: 18px;
+				line-height: 1.2;
+			}
+
+			.team {
+				margin-top: 6px;
+				color: #ffde00;
+			}
+		}
+	}
+
+	.mvp-stats {
+		position: absolute;
+		left: 50%;
+		bottom: 76px;
+		transform: translateX(-50%);
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 18px;
+		width: 1100px;
+		z-index: 3;
+	}
+
+	.mvp-stat {
+		background-color: rgba(54, 54, 54, 0.82);
+		backdrop-filter: blur(1px);
+		min-height: 124px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 16px 12px;
+
+		.value {
+			color: white;
+			font-family: "Morganite";
+			font-weight: 800;
+			font-size: 86px;
+			line-height: 0.85;
+		}
+
+		.label {
+			margin-top: 6px;
+			color: #ffde00;
+			font-family: "IBM Plex Sans";
+			font-size: 18px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+		}
+	}
+}

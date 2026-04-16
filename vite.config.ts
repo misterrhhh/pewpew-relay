@@ -4,7 +4,9 @@ import react from "@vitejs/plugin-react";
 
 const sceneEntryRoutes = [
   "/scenes/placeholder",
+  "/scenes/relay",
   "/scenes/head-to-head",
+  "/scenes/mvp",
   "/scenes/pip-countdown",
   "/scenes/veto",
   "/scenes/veto-l3",
@@ -42,9 +44,24 @@ function devRouteRewritePlugin() {
 
         const [pathname, search = ""] = req.url.split("?");
         const acceptHeader = req.headers.accept;
+        const query = search ? `?${search}` : "";
+
+        if (pathname === "/dashboard" && isHtmlNavigation(pathname, acceptHeader)) {
+          _res.statusCode = 302;
+          _res.setHeader("Location", `/dashboard/${query}`);
+          _res.end();
+          return;
+        }
+
+        if (sceneEntryRoutes.includes(pathname) && isHtmlNavigation(pathname, acceptHeader)) {
+          _res.statusCode = 302;
+          _res.setHeader("Location", `${pathname}/${query}`);
+          _res.end();
+          return;
+        }
 
         if ((pathname === "/dashboard" || pathname.startsWith("/dashboard/")) && isHtmlNavigation(pathname, acceptHeader)) {
-          req.url = `/dashboard/index.html${search ? `?${search}` : ""}`;
+          req.url = `/dashboard/index.html${query}`;
           next();
           return;
         }
@@ -54,7 +71,7 @@ function devRouteRewritePlugin() {
           && (sceneEntryRoutes.includes(pathname) || sceneEntryRoutes.includes(pathname.replace(/\/$/, "")))
         ) {
           const normalized = pathname.replace(/\/$/, "");
-          req.url = `${normalized}/index.html${search ? `?${search}` : ""}`;
+          req.url = `${normalized}/index.html${query}`;
         }
 
         next();
@@ -72,7 +89,9 @@ export default defineConfig({
       input: {
         dashboard: resolve(__dirname, "dashboard/index.html"),
         placeholder: resolve(__dirname, "scenes/placeholder/index.html"),
+        relay: resolve(__dirname, "scenes/relay/index.html"),
         headToHead: resolve(__dirname, "scenes/head-to-head/index.html"),
+        mvp: resolve(__dirname, "scenes/mvp/index.html"),
         pipCountdown: resolve(__dirname, "scenes/pip-countdown/index.html"),
         veto: resolve(__dirname, "scenes/veto/index.html"),
         vetoL3: resolve(__dirname, "scenes/veto-l3/index.html"),

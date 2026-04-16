@@ -9,9 +9,11 @@ import type {
   MatchesCountdownSceneState,
   MatchesSceneState,
   MatchResponse,
+  MvpSceneState,
   PipCountdownSceneState,
   PlaceholderSceneState,
   PlayerResponse,
+  RelaySceneState,
   StakeOddsResponse,
   StakeOddsSceneState,
   Talent,
@@ -88,6 +90,12 @@ export const api = {
   getHeadToHeadScene: () => request<HeadToHeadSceneState>("/api/scenes/headToHead"),
   updateHeadToHeadScene: (payload: Partial<HeadToHeadSceneState>) =>
     request<HeadToHeadSceneState>("/api/scenes/headToHead", { method: "POST", body: JSON.stringify(payload) }),
+  getMvpScene: () => request<MvpSceneState>("/api/scenes/mvp"),
+  updateMvpScene: (payload: Partial<MvpSceneState>) =>
+    request<MvpSceneState>("/api/scenes/mvp", { method: "POST", body: JSON.stringify(payload) }),
+  getRelayScene: () => request<RelaySceneState>("/api/scenes/relay"),
+  updateRelayScene: (payload: Partial<RelaySceneState>) =>
+    request<RelaySceneState>("/api/scenes/relay", { method: "POST", body: JSON.stringify(payload) }),
   getUpperBracketScene: () => request<UpperBracketSceneState>("/api/scenes/upperBracket"),
   updateUpperBracketScene: (payload: Partial<UpperBracketSceneState>) =>
     request<UpperBracketSceneState>("/api/scenes/upperBracket", { method: "POST", body: JSON.stringify(payload) }),

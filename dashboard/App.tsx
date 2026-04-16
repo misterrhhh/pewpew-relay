@@ -12,9 +12,11 @@ import { MatchAnalysisScenePage } from "./pages/MatchAnalysisScenePage";
 import { MatchesPage } from "./pages/MatchesPage";
 import { MatchesCountdownScenePage } from "./pages/MatchesCountdownScenePage";
 import { MatchesScenePage } from "./pages/MatchesScenePage";
+import { MvpScenePage } from "./pages/MvpScenePage";
 import { PipCountdownScenePage } from "./pages/PipCountdownScenePage";
 import { PlaceholderScenePage } from "./pages/PlaceholderScenePage";
 import { PlayersPage } from "./pages/PlayersPage";
+import { RelayScenePage } from "./pages/RelayScenePage";
 import { SystemPage } from "./pages/SystemPage";
 import { StakeOddsScenePage } from "./pages/StakeOddsScenePage";
 import { TalentCams1ScenePage, TalentCams2ScenePage, TalentCams3ScenePage } from "./pages/TalentCamsScenePage";
@@ -73,7 +75,9 @@ export function App() {
 					<Routes>
 						<Route path="/" element={<Navigate to="/scenes/placeholder" replace />} />
 						<Route path="/scenes/placeholder" element={<PlaceholderScenePage />} />
+						<Route path="/scenes/relay" element={<RelayScenePage players={players} teams={teams} maps={maps} talent={talent} matches={matches} refresh={refresh} />} />
 						<Route path="/scenes/head-to-head" element={<HeadToHeadScenePage players={players} teams={teams} />} />
+						<Route path="/scenes/mvp" element={<MvpScenePage players={players} teams={teams} />} />
 						<Route path="/scenes/pip-countdown" element={<PipCountdownScenePage matches={matches} />} />
 						<Route path="/scenes/veto" element={<VetoScenePage matches={matches} teams={teams} maps={maps} refresh={refresh} />} />
 						<Route path="/scenes/veto-l3" element={<VetoL3ScenePage matches={matches} teams={teams} maps={maps} refresh={refresh} />} />

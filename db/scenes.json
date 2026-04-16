@@ -9,66 +9,61 @@
   "matches": {
     "matchIds": [
       "746d6423-0210-42f6-9512-40d932570314",
-      "60a122b4-e5da-40af-803e-d3149c1b4209",
-      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
-      "3727c22e-5952-4966-a002-9dde4b9183f5"
+      "60a122b4-e5da-40af-803e-d3149c1b4209"
     ],
     "visible": true,
     "animation": "in",
-    "animationId": 1776108023576
+    "animationId": 1776259635796
   },
   "matchesCountdown": {
     "matchIds": [
       "746d6423-0210-42f6-9512-40d932570314",
       "60a122b4-e5da-40af-803e-d3149c1b4209",
-      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
-      "3727c22e-5952-4966-a002-9dde4b9183f5"
+      "117af3fc-cfdc-478f-92cc-93f17d79ac6f"
     ],
     "countdownMode": "fixedTime",
     "fixedTime": "20:30",
     "durationMinutes": 1,
     "durationStartedAt": null,
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776108081586
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776276451691
   },
   "pipCountdown": {
     "matchIds": [
-      "18118459-cdba-46ea-8788-b7c220ab582c",
-      "250f2dcd-59e3-49de-a0b2-8f4a09d6f7aa",
-      "e8cfa27d-a0dc-47bc-b50d-394bcfc2d818",
-      "fde9526d-e252-4893-867d-474a3cc21e30"
+      "746d6423-0210-42f6-9512-40d932570314",
+      "117af3fc-cfdc-478f-92cc-93f17d79ac6f"
     ],
-    "countdownMode": "duration",
-    "fixedTime": "00:22",
+    "countdownMode": "fixedTime",
+    "fixedTime": "15:22",
     "durationMinutes": 15,
-    "durationStartedAt": 1775948522730,
+    "durationStartedAt": null,
     "visible": true,
     "animation": "in",
-    "animationId": 1775948522730
+    "animationId": 1776259541087
   },
   "veto": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
-    "currentIndex": 7,
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776109048353
+    "currentIndex": 0,
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776275160569
   },
   "vetoL3": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "currentIndex": 7,
     "visible": true,
     "animation": "in",
-    "animationId": 1776164318131
+    "animationId": 1776275166663
   },
   "headToHead": {
-    "title": "last 3 months",
+    "title": " ksdflksdfsf",
     "left": {
       "playerId": "82fea7c8-8e50-414a-9262-8ccf62e17f97",
       "kills": 25,
       "deaths": 19,
       "adr": 95.9,
-      "rating3": 1.38
+      "rating3": 1.28
     },
     "right": {
       "playerId": "9fb0780a-2ec1-4a3a-b5b7-15139d3fbddd",
@@ -77,24 +72,39 @@
       "adr": 75,
       "rating3": 1.05
     },
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776276654738
+  },
+  "mvp": {
+    "title": "MVP",
+    "player": {
+      "playerId": null,
+      "kills": null,
+      "deaths": null,
+      "adr": null,
+      "rating3": null
+    },
     "visible": false,
     "animation": "out",
-    "animationId": 1776257159364
+    "animationId": 1776275150863
+  },
+  "relay": {
+    "currentSceneId": "matchesCountdown",
+    "playId": 1776352361948
   },
   "upperBracket": {
     "matchIds": [
       "3fe0ba43-e705-4666-bb18-d44def0680b8",
-      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8",
+      "746d6423-0210-42f6-9512-40d932570314",
       "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
       "36349e67-a067-4a4c-9e85-d8bb38c4f9f6",
       "5c5f4a92-f910-4ffc-bcd9-4f1ffeb33ae4",
-      "d890fdb8-c016-451f-bcb8-91604369b70a",
-      "a72d4d76-44b1-4faa-82c9-14add063633d",
-      "746d6423-0210-42f6-9512-40d932570314"
+      "d890fdb8-c016-451f-bcb8-91604369b70a"
     ],
     "visible": true,
     "animation": "in",
-    "animationId": 1776107193263
+    "animationId": 1776259785558
   },
   "lowerBracket": {
     "matchIds": [
@@ -112,7 +122,7 @@
   "stakeOdds": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "swapSides": false,
-    "playId": 1776179706206
+    "playId": 1776261853086
   },
   "gridScoreboard": {
     "matchId": "60a122b4-e5da-40af-803e-d3149c1b4209",
@@ -123,9 +133,9 @@
   },
   "lineups": {
     "teamId": "5bd178d2-407a-487a-92a1-7228b3a003cb",
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776180021929
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776276455902
   },
   "talentCams1": {
     "title": "crazy",

@@ -69,8 +69,16 @@ if (fs.existsSync(clientDistDirectory)) {
     res.sendFile(path.join(clientDistDirectory, "scenes", "placeholder", "index.html"));
   });
 
+  app.get(["/scenes/relay", "/scenes/relay/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "relay", "index.html"));
+  });
+
   app.get(["/scenes/head-to-head", "/scenes/head-to-head/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "head-to-head", "index.html"));
+  });
+
+  app.get(["/scenes/mvp", "/scenes/mvp/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "mvp", "index.html"));
   });
 
   app.get(["/scenes/pip-countdown", "/scenes/pip-countdown/"], (_req, res) => {

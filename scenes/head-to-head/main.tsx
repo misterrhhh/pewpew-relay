@@ -66,12 +66,9 @@ function HeadToHeadScene() {
 	const leftTeam = useMemo(() => teams.find((team) => team.id === leftPlayer?.teamId) ?? null, [teams, leftPlayer?.teamId]);
 	const rightTeam = useMemo(() => teams.find((team) => team.id === rightPlayer?.teamId) ?? null, [teams, rightPlayer?.teamId]);
 	
-	const visible = scene.visible
-
-
 	return (
 		<div className={`scene-shell`}>
-			<div className={`head-to-head-stage ${visible ? "show" : "hide"}`}>
+			<div className={`head-to-head-stage ${scene.visible ? "show" : "hide"} `}>
 				<div className="hth-title">{scene.title}</div>
 				<HTHPlayer player={leftPlayer} team={leftTeam} side="left" stats={scene.left} />
 				<HTHPlayer player={rightPlayer} team={rightTeam} side="right" stats={scene.right} />

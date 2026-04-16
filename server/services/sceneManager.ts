@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import type { SceneStateMap } from "../../shared/types.js";
+import { defaultRelaySceneId, isRelaySceneId } from "../../shared/relaySceneOptions.js";
 
 type SceneListener = (sceneId: string, data: unknown) => void;
 
@@ -70,6 +71,23 @@ const defaultScenes: SceneStateMap = {
 		visible: false,
 		animation: "idle",
 		animationId: 0,
+	},
+	mvp: {
+		title: "MVP",
+		player: {
+			playerId: null,
+			kills: null,
+			deaths: null,
+			adr: null,
+			rating3: null,
+		},
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	relay: {
+		currentSceneId: defaultRelaySceneId,
+		playId: 0,
 	},
 	upperBracket: {
 		matchIds: [],
@@ -324,6 +342,44 @@ function normalizeHeadToHeadScene(input: unknown) {
 	};
 }
 
+function normalizeMvpScene(input: unknown) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.mvp);
+	}
+
+	const legacy = input as {
+		title?: unknown;
+		player?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	return {
+		title: typeof legacy.title === "string" ? legacy.title : defaultScenes.mvp.title,
+		player: normalizeHeadToHeadPlayer(legacy.player, defaultScenes.mvp.player),
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.mvp.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.mvp.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.mvp.animationId,
+	};
+}
+
+function normalizeRelayScene(input: unknown) {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.relay);
+	}
+
+	const legacy = input as {
+		currentSceneId?: unknown;
+		playId?: unknown;
+	};
+
+	return {
+		currentSceneId: isRelaySceneId(legacy.currentSceneId) ? legacy.currentSceneId : defaultScenes.relay.currentSceneId,
+		playId: typeof legacy.playId === "number" && Number.isFinite(legacy.playId) ? legacy.playId : defaultScenes.relay.playId,
+	};
+}
+
 function normalizeLineupsScene(input: unknown) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(defaultScenes.lineups);
@@ -505,6 +561,8 @@ export class SceneManager {
 			veto: normalizeVetoScene(parsed.veto),
 			vetoL3: normalizeVetoScene((parsed as Record<string, unknown>).vetoL3),
 			headToHead: normalizeHeadToHeadScene(parsed.headToHead),
+			mvp: normalizeMvpScene((parsed as Record<string, unknown>).mvp),
+			relay: normalizeRelayScene((parsed as Record<string, unknown>).relay),
 			stakeOdds: normalizeStakeOddsScene((parsed as Record<string, unknown>).stakeOdds),
 			gridScoreboard: normalizeGridScoreboardScene((parsed as Record<string, unknown>).gridScoreboard),
 			lineups: normalizeLineupsScene((parsed as Record<string, unknown>).lineups),

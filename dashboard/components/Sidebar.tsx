@@ -16,9 +16,17 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Placeholder</span>
 					</NavLink>
+					<NavLink className="nav-link" to="/scenes/relay">
+						<Clapperboard />
+						<span>Relay</span>
+					</NavLink>
 					<NavLink className="nav-link" to="/scenes/head-to-head">
 						<Clapperboard />
 						<span>Head to Head</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/mvp">
+						<Clapperboard />
+						<span>MVP</span>
 					</NavLink>
 					<NavLink className="nav-link" to="/scenes/pip-countdown">
 						<Clapperboard />

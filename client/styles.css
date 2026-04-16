@@ -538,6 +538,92 @@ button.danger {
 	color: #7dd3fc;
 }
 
+.scene-route-copy {
+	color: rgba(255, 255, 255, 0.55);
+	font-family: Consolas, monospace;
+	font-size: 0.84rem;
+}
+
+.relay-scene-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+	gap: 12px;
+}
+
+.relay-scene-grid--compact {
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 8px;
+}
+
+.relay-scene-tile {
+	min-height: 64px;
+	padding: 10px 12px;
+	border: 1px solid rgba(var(--color-accent), 0.2);
+	border-radius: 8px;
+	background: rgba(var(--color-accent), 0.05);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 4px;
+	text-align: left;
+}
+
+.relay-scene-tile.is-output {
+	border-color: rgba(var(--color-accent), 0.9);
+}
+
+.relay-scene-tile.is-editing {
+	box-shadow: inset 0 0 0 1px rgba(125, 211, 252, 0.5);
+}
+
+.relay-scene-tile__title {
+	font-size: 0.88rem;
+	font-weight: 700;
+}
+
+.relay-scene-tile__path {
+	color: rgba(255, 255, 255, 0.65);
+	font-size: 0.76rem;
+}
+
+.relay-inline-editor {
+	width: 100%;
+}
+
+.relay-inline-editor .page {
+	gap: 0;
+}
+
+.relay-inline-editor .page-header,
+.relay-inline-editor .page-preview {
+	display: none;
+}
+
+.relay-inline-editor .page-content {
+	display: block;
+}
+
+.relay-inline-editor .page-main {
+	width: 100%;
+}
+
+.relay-inline-editor .panel {
+	border-left: 0;
+	border-right: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+.relay-inline-editor .panel:first-child {
+	border-top: 0;
+}
+
+.relay-inline-editor .panel .panel-content {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 .veto-editor-grid {
 	display: grid;
 	gap: 16px;

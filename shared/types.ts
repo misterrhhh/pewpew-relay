@@ -146,6 +146,19 @@ export interface HeadToHeadSceneState {
   animationId: number;
 }
 
+export interface MvpSceneState {
+  title: string;
+  player: HeadToHeadPlayerState;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
+export interface RelaySceneState {
+  currentSceneId: string;
+  playId: number;
+}
+
 export interface UpperBracketSceneState {
   matchIds: string[];
   visible: boolean;
@@ -256,6 +269,8 @@ export interface SceneStateMap {
   veto: VetoSceneState;
   vetoL3: VetoSceneState;
   headToHead: HeadToHeadSceneState;
+  mvp: MvpSceneState;
+  relay: RelaySceneState;
   upperBracket: UpperBracketSceneState;
   lowerBracket: LowerBracketSceneState;
   stakeOdds: StakeOddsSceneState;
@@ -273,6 +288,8 @@ export interface SceneStateMap {
     | PipCountdownSceneState
     | VetoSceneState
     | HeadToHeadSceneState
+    | MvpSceneState
+    | RelaySceneState
     | UpperBracketSceneState
     | LowerBracketSceneState
     | StakeOddsSceneState
