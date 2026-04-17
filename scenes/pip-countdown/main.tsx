@@ -73,6 +73,7 @@ function PipCountdownScene() {
 	return (
 		<div className="scene-shell">
 			<div className={`pip-countdown-stage ${visible ? "" : "scene-hidden"}`}>
+				<div className="elements"></div>
 				<div className="pc-timer">
 					<div className="label">WE’RE BACK IN</div>
 					<div className="value">{countdownValue}</div>

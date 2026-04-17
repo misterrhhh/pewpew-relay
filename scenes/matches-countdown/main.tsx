@@ -108,7 +108,7 @@ function MatchCard({ match, scene }: { match: MatchResponse; scene: MatchesCount
         <div className="card-state">
           {score ? <div className="score">{score}</div> : <div className="vs">VS</div>}
         </div>
-        <div className={`card-info ${match.state}`}>{match.state === "upcoming" || match.state === "next" ? formatMatchTime(match.time) : match.state}</div>
+        <div className={`card-info ${match.state}`}>{match.state === "upcoming" ? formatMatchTime(match.time) : match.state}</div>
         {match.state !== "finished" && <div className="card-mode">{match.state === "next" ? match.mode : `CET | ${match.mode}`}</div>}
       </div>
 

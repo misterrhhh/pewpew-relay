@@ -12,6 +12,7 @@
 
 
 	&.show {
+		transition-delay: 500ms;
 
 		.lineups-player {
 			opacity: 1;

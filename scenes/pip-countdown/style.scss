@@ -10,8 +10,19 @@
 	background-repeat: no-repeat;
 }
 
+.elements {
+	position: absolute;
+	z-index: 1;
+	inset: 0;
+	background-image: url("./../../client/assets/elements/pip-matches.png");
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
 .pc-timer {
 	position: absolute;
+	z-index: 2;
 	left: 150px;
 	bottom: 134px;
 	display: flex;
@@ -39,6 +50,7 @@
 
 .pc-list {
 	position: absolute;
+	z-index: 2;
 	height: 1200px;
 	right: -30px;
 	top: -70px;
@@ -53,17 +65,11 @@
 
 .match-card {
 	display: flex;
+	z-index: 2;
 	flex-direction: row;
 	justify-content: center;
 	
 
-	&[data-animation="in"] {
-		animation: scene-in 500ms ease both;
-	}
-
-	&[data-animation="out"] {
-		animation: scene-out 450ms ease both;
-	}
 
 	.card-team {
 		display: flex;

@@ -41,6 +41,10 @@ const relaySponsorlessSceneIds = new Set<string>([
 	CLEAR_SCENE_ID,
 	VETO_L3_SCENE_ID,
 ]);
+const relayBackgroundVideoHiddenSceneIds = new Set<string>([
+	CLEAR_SCENE_ID,
+	VETO_L3_SCENE_ID,
+]);
 
 function delay(ms: number) {
 	return new Promise((resolve) => window.setTimeout(resolve, ms));
@@ -182,11 +186,12 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 	}, []);
 
 	const finalizeCut = useCallback((nextFrame: FrameSlot, nextSceneId: string) => {
-		const leavingClearScene = liveSceneId === CLEAR_SCENE_ID;
+		const leavingBackgroundVideoHiddenScene = relayBackgroundVideoHiddenSceneIds.has(liveSceneId);
+		const enteringBackgroundVideoHiddenScene = relayBackgroundVideoHiddenSceneIds.has(nextSceneId);
 
-		if (nextSceneId === CLEAR_SCENE_ID) {
+		if (enteringBackgroundVideoHiddenScene) {
 			setBackgroundVideoState(true, true);
-		} else if (leavingClearScene) {
+		} else if (leavingBackgroundVideoHiddenScene) {
 			setBackgroundVideoState(false, true);
 			scheduleBackgroundVideoTransitionReset();
 		}
@@ -220,7 +225,7 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 					primary: false,
 					secondary: false,
 				});
-				setBackgroundVideoState(nextScene.currentSceneId === CLEAR_SCENE_ID, true);
+				setBackgroundVideoState(relayBackgroundVideoHiddenSceneIds.has(nextScene.currentSceneId), true);
 				scheduleBackgroundVideoTransitionReset();
 				setIsInitialized(true);
 			});
@@ -271,7 +276,7 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 		void (async () => {
 			try {
 				if (usesRelayFadeTransition) {
-					if (scene.currentSceneId === CLEAR_SCENE_ID) {
+					if (relayBackgroundVideoHiddenSceneIds.has(scene.currentSceneId)) {
 						setBackgroundVideoState(true, false);
 					}
 

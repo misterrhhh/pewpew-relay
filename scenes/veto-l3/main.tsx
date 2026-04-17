@@ -1,14 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
-import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { MatchResponse, VetoResponse, VetoSceneState } from "../../shared/types";
 import LogoCCT from "./../../client/assets/images/cct.png";
 
-setupScenePage();
+function setupTransparentScenePage() {
+	document.documentElement.classList.add("scene-page");
+	document.body.classList.add("scene-page");
+	document.documentElement.style.background = "transparent";
+	document.body.style.background = "transparent";
+}
+
+setupTransparentScenePage();
 
 const defaultSceneState: VetoSceneState = {
 	matchId: null,

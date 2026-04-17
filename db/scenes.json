@@ -15,61 +15,63 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776363513640
+    "animationId": 1776445669861
   },
   "matchesCountdown": {
     "matchIds": [
-      "746d6423-0210-42f6-9512-40d932570314",
       "60a122b4-e5da-40af-803e-d3149c1b4209",
       "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
-      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8"
+      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8",
+      "746d6423-0210-42f6-9512-40d932570314"
     ],
     "countdownMode": "fixedTime",
-    "fixedTime": "20:30",
+    "fixedTime": "18:00",
     "durationMinutes": 1,
     "durationStartedAt": null,
     "visible": false,
     "animation": "out",
-    "animationId": 1776363780018
+    "animationId": 1776445658127
   },
   "pipCountdown": {
     "matchIds": [
       "746d6423-0210-42f6-9512-40d932570314",
-      "117af3fc-cfdc-478f-92cc-93f17d79ac6f"
+      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
+      "36349e67-a067-4a4c-9e85-d8bb38c4f9f6",
+      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8"
     ],
     "countdownMode": "fixedTime",
-    "fixedTime": "15:22",
+    "fixedTime": "19:00",
     "durationMinutes": 15,
     "durationStartedAt": null,
     "visible": false,
     "animation": "out",
-    "animationId": 1776441871746
+    "animationId": 1776445407684
   },
   "veto": {
-    "matchId": "746d6423-0210-42f6-9512-40d932570314",
-    "currentIndex": 3,
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776441885028
-  },
-  "vetoL3": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "currentIndex": 7,
     "visible": false,
     "animation": "out",
-    "animationId": 1776363060129
+    "animationId": 1776445192199
+  },
+  "vetoL3": {
+    "matchId": "746d6423-0210-42f6-9512-40d932570314",
+    "currentIndex": 5,
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776445267887
   },
   "headToHead": {
     "title": "last 3 months",
     "left": {
-      "playerId": "871652ab-a0ce-4741-a9ed-5797c8c30549",
+      "playerId": "78deb1b8-4aa0-4ec9-8bc3-6c684263d5d8",
       "kills": 15,
       "deaths": 19,
       "adr": 95.9,
       "rating3": 1.28
     },
     "right": {
-      "playerId": "bfd72fc4-a318-4289-9d69-b4ca4867bf0e",
+      "playerId": "94306116-70dc-4541-b44e-749b999126dd",
       "kills": 22,
       "deaths": 20,
       "adr": 75,
@@ -77,7 +79,7 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776442368027
+    "animationId": 1776445677756
   },
   "mvp": {
     "title": "MVP",
@@ -90,11 +92,11 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776441961534
+    "animationId": 1776444823654
   },
   "relay": {
     "currentSceneId": "lineups",
-    "playId": 1776442371904,
+    "playId": 1776445677750,
     "transitionStyle": "stinger"
   },
   "upperBracket": {
@@ -108,7 +110,7 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776362390306
+    "animationId": 1776445653818
   },
   "lowerBracket": {
     "matchIds": [
@@ -121,7 +123,7 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776362400343
+    "animationId": 1776445648709
   },
   "stakeOdds": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
@@ -133,13 +135,13 @@
     "swapSides": false,
     "visible": false,
     "animation": "out",
-    "animationId": 1776437483787
+    "animationId": 1776445050721
   },
   "lineups": {
-    "teamId": "5bd178d2-407a-487a-92a1-7228b3a003cb",
+    "teamId": "0ff94096-ab9f-4eb7-85be-4a85c9ca08ff",
     "visible": true,
     "animation": "in",
-    "animationId": 1776442374023
+    "animationId": 1776445679567
   },
   "talentCams1": {
     "title": "crazy",
@@ -178,6 +180,6 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776359412296
+    "animationId": 1776445133395
   }
 }

@@ -61,13 +61,7 @@
 	flex-direction: row;
 	justify-content: center;
 
-	&[data-animation="in"] {
-		animation: scene-in 500ms ease both;
-	}
-
-	&[data-animation="out"] {
-		animation: scene-out 450ms ease both;
-	}
+	
 
 	.card-team {
 		display: flex;
