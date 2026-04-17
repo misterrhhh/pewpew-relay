@@ -69,6 +69,7 @@ function TalentCamsScenePageBase({
 	}
 
 	const previewUrl = `${window.location.origin}${previewPath}`;
+	const jsonUrl = `${window.location.origin}/json/${previewPath.split("/").filter(Boolean).at(-1)}`;
 
 	return (
 		<section className="page">
@@ -106,7 +107,7 @@ function TalentCamsScenePageBase({
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel={sceneLabel} />
+							<OpenSceneJsonButton data={scene} sceneLabel={sceneLabel} url={jsonUrl} />
 						</div>
 					</div>
 

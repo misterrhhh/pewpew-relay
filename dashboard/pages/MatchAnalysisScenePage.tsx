@@ -52,6 +52,7 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/match-analysis/`;
+	const jsonUrl = `${window.location.origin}/json/match-analysis`;
 
 	return (
 		<section className="page">
@@ -89,7 +90,7 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Match Analysis" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Match Analysis" url={jsonUrl} />
 						</div>
 					</div>
 

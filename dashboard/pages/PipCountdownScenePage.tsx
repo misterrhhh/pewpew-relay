@@ -84,6 +84,7 @@ export function PipCountdownScenePage({ matches }: { matches: MatchResponse[] })
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/pip-countdown/`;
+	const jsonUrl = `${window.location.origin}/json/pip-countdown`;
 	const selectedMatches = scene.matchIds
 		.map((matchId) => matches.find((match) => match.id === matchId) ?? null)
 		.filter((match): match is MatchResponse => match !== null)
@@ -117,7 +118,7 @@ export function PipCountdownScenePage({ matches }: { matches: MatchResponse[] })
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="PIP Countdown Scene" />
+							<OpenSceneJsonButton data={scene} sceneLabel="PIP Countdown Scene" url={jsonUrl} />
 						</div>
 					</div>
 

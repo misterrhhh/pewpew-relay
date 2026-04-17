@@ -54,6 +54,7 @@ export function HeadToHeadScenePage({
 	const leftTeam = teams.find((team) => team.id === leftPlayer?.teamId) ?? null;
 	const rightTeam = teams.find((team) => team.id === rightPlayer?.teamId) ?? null;
 	const previewUrl = `${window.location.origin}/scenes/head-to-head/`;
+	const jsonUrl = `${window.location.origin}/json/head-to-head`;
 
 	function updateSide(side: "left" | "right", patch: Partial<HeadToHeadPlayerState>) {
 		setScene((current) => ({
@@ -198,7 +199,7 @@ export function HeadToHeadScenePage({
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink/>Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Head to Head" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Head to Head" url={jsonUrl} />
 						</div>
 					</div>
 

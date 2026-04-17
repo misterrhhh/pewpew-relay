@@ -84,6 +84,22 @@ export interface MatchResponse extends Omit<Match, "vetos"> {
   vetos: VetoResponse[];
 }
 
+export interface MatchFeedEntry {
+  id: string;
+  left: {
+    name: string;
+    logo: string;
+  };
+  right: {
+    name: string;
+    logo: string;
+  };
+  score: string;
+  state: string;
+  stateColor: string;
+  time: string;
+}
+
 export interface PlaceholderSceneState {
   title: string;
   message: string;

@@ -116,6 +116,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       "/api": "http://127.0.0.1:3000",
+      "/json": "http://127.0.0.1:3000",
       "/images": "http://127.0.0.1:3000",
       "/ws": {
         target: "ws://127.0.0.1:3000",

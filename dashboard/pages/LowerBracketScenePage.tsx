@@ -69,6 +69,7 @@ export function LowerBracketScenePage({ matches }: { matches: MatchResponse[] })
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/lower-bracket/`;
+	const jsonUrl = `${window.location.origin}/json/lower-bracket`;
 
 	return (
 		<section className="page">
@@ -98,7 +99,7 @@ export function LowerBracketScenePage({ matches }: { matches: MatchResponse[] })
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Lower Bracket Scene" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Lower Bracket Scene" url={jsonUrl} />
 						</div>
 					</div>
 
