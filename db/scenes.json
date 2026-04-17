@@ -4,7 +4,7 @@
     "message": "Replace this scene with your final layout when it is ready.",
     "visible": false,
     "animation": "out",
-    "animationId": 1776359567913
+    "animationId": 1776446607678
   },
   "matches": {
     "matchIds": [
@@ -15,7 +15,7 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776445669861
+    "animationId": 1776446576955
   },
   "matchesCountdown": {
     "matchIds": [
@@ -25,12 +25,12 @@
       "746d6423-0210-42f6-9512-40d932570314"
     ],
     "countdownMode": "fixedTime",
-    "fixedTime": "18:00",
+    "fixedTime": "19:00",
     "durationMinutes": 1,
     "durationStartedAt": null,
     "visible": false,
     "animation": "out",
-    "animationId": 1776445658127
+    "animationId": 1776446559105
   },
   "pipCountdown": {
     "matchIds": [
@@ -45,21 +45,21 @@
     "durationStartedAt": null,
     "visible": false,
     "animation": "out",
-    "animationId": 1776445407684
+    "animationId": 1776446528964
   },
   "veto": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "currentIndex": 7,
     "visible": false,
     "animation": "out",
-    "animationId": 1776445192199
+    "animationId": 1776446549632
   },
   "vetoL3": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
-    "currentIndex": 5,
+    "currentIndex": 7,
     "visible": false,
     "animation": "out",
-    "animationId": 1776445267887
+    "animationId": 1776446630002
   },
   "headToHead": {
     "title": "last 3 months",
@@ -79,7 +79,7 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776445677756
+    "animationId": 1776446515420
   },
   "mvp": {
     "title": "MVP",
@@ -92,12 +92,12 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776444823654
+    "animationId": 1776446522509
   },
   "relay": {
-    "currentSceneId": "lineups",
-    "playId": 1776445677750,
-    "transitionStyle": "stinger"
+    "currentSceneId": "clear",
+    "playId": 1776446629495,
+    "transitionStyle": "fade"
   },
   "upperBracket": {
     "matchIds": [
@@ -110,7 +110,7 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776445653818
+    "animationId": 1776446566841
   },
   "lowerBracket": {
     "matchIds": [
@@ -123,7 +123,7 @@
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776445648709
+    "animationId": 1776446576955
   },
   "stakeOdds": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
@@ -139,9 +139,9 @@
   },
   "lineups": {
     "teamId": "0ff94096-ab9f-4eb7-85be-4a85c9ca08ff",
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776445679567
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776446595030
   },
   "talentCams1": {
     "title": "crazy",

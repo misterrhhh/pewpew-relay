@@ -36,11 +36,7 @@ function PlaceholderScene() {
   return (
     <div className="scene-shell">
       <section className={`placeholder-stage ${visible ? "" : "scene-hidden"}`}>
-        <article className="placeholder-card" data-animation={scene.animation} key={scene.animationId}>
-          <span className="placeholder-kicker">Placeholder</span>
-          <h1 className="placeholder-title">{scene.title}</h1>
-          <p className="placeholder-message">{scene.message}</p>
-        </article>
+        
       </section>
     </div>
   );
