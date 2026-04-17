@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { PlaceholderSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: PlaceholderSceneState = {
@@ -82,6 +83,7 @@ export function PlaceholderScenePage() {
                   <ExternalLink />
                   Open Scene
                 </button>
+                <OpenSceneJsonButton data={scene} sceneLabel="Placeholder Scene" />
               </div>
               <div className="status">{status.message}</div>
             </div>

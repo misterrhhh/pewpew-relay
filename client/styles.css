@@ -33,6 +33,9 @@ body.scene-page {
 	background: transparent !important;
 	background-color: transparent !important;
 	background-image: none !important;
+	position: relative;
+	min-height: 100vh;
+	overflow: hidden;
 }
 
 html.scene-page,
@@ -45,6 +48,37 @@ body.scene-page .matches-scene-stage {
 	background: transparent !important;
 	background-color: transparent !important;
 	background-image: none !important;
+}
+
+body.scene-page > #root {
+	position: relative;
+	z-index: 1;
+	min-height: 100vh;
+}
+
+.scene-background-video {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+	pointer-events: none;
+	opacity: 1;
+	transition: opacity 500ms ease;
+}
+
+body.scene-page.scene-background-video-no-transition .scene-background-video {
+	transition: none;
+}
+
+body.scene-page.scene-background-video-hidden .scene-background-video {
+	opacity: 0;
+}
+
+.scene-background-video__media {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 a {
@@ -672,8 +706,11 @@ button.danger {
 }
 
 .scene-shell {
+	position: relative;
+	z-index: 1;
 	display: grid;
 	place-items: center;
+	width: 100%;
 	min-height: 100vh;
 }
 

@@ -4,6 +4,7 @@ import { api } from "../../client/api";
 import type { MatchResponse, PipCountdownSceneState } from "../../shared/types";
 import { compareMatchDateValues } from "../../shared/utils";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: PipCountdownSceneState = {
@@ -116,6 +117,7 @@ export function PipCountdownScenePage({ matches }: { matches: MatchResponse[] })
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="PIP Countdown Scene" />
 						</div>
 					</div>
 

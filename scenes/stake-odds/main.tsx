@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
+import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { StakeOddsResponse, StakeOddsSceneState } from "../../shared/types";
 import StakeHudVideo from "../../client/assets/videos/cct_hud_stake_v3.webm";
 
-document.documentElement.classList.add("scene-page");
-document.body.classList.add("scene-page");
+setupScenePage();
 
 const defaultSceneState: StakeOddsSceneState = {
 	matchId: null,

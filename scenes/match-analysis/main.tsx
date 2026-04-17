@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
+import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { MatchAnalysisSceneState, Talent } from "../../shared/types";
 
-document.documentElement.classList.add("scene-page");
-document.body.classList.add("scene-page");
+setupScenePage();
 
 const defaultSceneState: MatchAnalysisSceneState = {
 	talentIds: [null, null],

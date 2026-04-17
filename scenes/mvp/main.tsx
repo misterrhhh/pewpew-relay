@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
+import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
@@ -8,8 +9,7 @@ import type { HeadToHeadPlayerState, MvpSceneState, PlayerResponse, TeamResponse
 import { formatStat } from "../../shared/utils";
 import LogoCCT from "../../client/assets/images/cct.png";
 
-document.documentElement.classList.add("scene-page");
-document.body.classList.add("scene-page");
+setupScenePage();
 
 const emptyPlayerState: HeadToHeadPlayerState = {
 	playerId: null,

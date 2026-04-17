@@ -3,6 +3,7 @@ import { Save, ExternalLink, RefreshCw, Play, ArrowLeftRight } from "lucide-reac
 import { api } from "../../client/api";
 import type { MatchResponse, StakeOddsResponse, StakeOddsSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: StakeOddsSceneState = {
@@ -109,6 +110,7 @@ export function StakeOddsScenePage({ matches }: { matches: MatchResponse[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Stake Odds" />
 						</div>
 					</div>
 

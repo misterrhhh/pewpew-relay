@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink, ArrowRight, ArrowLeft } from "lucide-r
 import { api } from "../../client/api";
 import type { GameMap, MatchResponse, TeamResponse, Veto, VetoSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: VetoSceneState = {
@@ -179,6 +180,7 @@ export function VetoScenePage({
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Veto Scene" />
 						</div>
 					</div>
 

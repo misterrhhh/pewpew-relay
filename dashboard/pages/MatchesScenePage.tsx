@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchesSceneState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: MatchesSceneState = {
@@ -100,6 +101,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Matches Scene" />
 						</div>
 					</div>
 

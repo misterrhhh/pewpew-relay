@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchResponse, UpperBracketSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: UpperBracketSceneState = {
@@ -97,6 +98,7 @@ export function UpperBracketScenePage({ matches }: { matches: MatchResponse[] })
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Upper Bracket Scene" />
 						</div>
 					</div>
 

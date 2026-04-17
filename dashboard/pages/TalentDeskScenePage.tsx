@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { Talent, TalentDeskSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: TalentDeskSceneState = {
@@ -99,6 +100,7 @@ export function TalentDeskScenePage({ talent }: { talent: Talent[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Talent Desk Scene" />
 						</div>
 					</div>
 

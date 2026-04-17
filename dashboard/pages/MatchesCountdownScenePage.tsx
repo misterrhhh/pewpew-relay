@@ -4,6 +4,7 @@ import { api } from "../../client/api";
 import type { MatchesCountdownSceneState, MatchResponse } from "../../shared/types";
 import { compareMatchDateValues } from "../../shared/utils";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: MatchesCountdownSceneState = {
@@ -116,6 +117,7 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Matches Countdown Scene" />
 						</div>
 					</div>
 

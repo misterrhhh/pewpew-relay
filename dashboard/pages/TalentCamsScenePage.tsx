@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { Talent, TalentCamsSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 function createDefaultSceneState(count: number): TalentCamsSceneState {
@@ -105,6 +106,7 @@ function TalentCamsScenePageBase({
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel={sceneLabel} />
 						</div>
 					</div>
 

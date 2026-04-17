@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
+import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
@@ -9,8 +10,7 @@ import { compareMatchDateValues, formatMatchTime } from "../../shared/utils";
 
 import LogoCCT from "./../../client/assets/images/cct.png"
 
-document.documentElement.classList.add("scene-page");
-document.body.classList.add("scene-page");
+setupScenePage();
 
 function MatchesScene() {
 	const [matches, setMatches] = useState<MatchResponse[]>([]);

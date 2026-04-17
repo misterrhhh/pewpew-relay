@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { HeadToHeadPlayerState, MvpSceneState, PlayerResponse, TeamResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const emptyPlayerState: HeadToHeadPlayerState = {
@@ -108,6 +109,7 @@ export function MvpScenePage({
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="MVP" />
 						</div>
 					</div>
 

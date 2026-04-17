@@ -3,6 +3,7 @@ import { ExternalLink, Eye, EyeOff, Save } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchAnalysisSceneState, Talent } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: MatchAnalysisSceneState = {
@@ -88,6 +89,7 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Match Analysis" />
 						</div>
 					</div>
 

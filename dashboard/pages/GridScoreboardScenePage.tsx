@@ -3,6 +3,7 @@ import { ArrowLeftRight, ExternalLink, Eye, EyeOff, RefreshCw, Save } from "luci
 import { api } from "../../client/api";
 import type { GridScoreboardSceneState, GridSeriesGame, GridSeriesGameTeam, GridSeriesState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: GridScoreboardSceneState = {
@@ -134,6 +135,7 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="GRID Scoreboard" />
 						</div>
 					</div>
 

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { api } from "../../client/api";
 import type { HeadToHeadPlayerState, HeadToHeadSceneState, PlayerResponse, TeamResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 import { Save, Eye, EyeOff, ExternalLink } from 'lucide-react';
@@ -197,6 +198,7 @@ export function HeadToHeadScenePage({
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink/>Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Head to Head" />
 						</div>
 					</div>
 

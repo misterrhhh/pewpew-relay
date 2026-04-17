@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
+import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
@@ -16,8 +17,7 @@ import type {
 import FallbackLogo from "../../client/assets/images/cct.png";
 import FallbackAgent from "../../client/assets/images/agentCT.png";
 
-document.documentElement.classList.add("scene-page");
-document.body.classList.add("scene-page");
+setupScenePage();
 
 const defaultSceneState: GridScoreboardSceneState = {
 	matchId: null,

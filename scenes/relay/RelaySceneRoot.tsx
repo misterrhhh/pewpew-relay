@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../../client/api";
+import { SCENE_BACKGROUND_HIDDEN_CLASS, SCENE_BACKGROUND_NO_TRANSITION_CLASS } from "../../client/scenePage";
 import { connectSceneSocket } from "../../client/ws";
 import RelayStingerVideo from "../../client/assets/videos/stinger.webm";
 import { defaultRelaySceneId, getRelaySceneOption, isRelaySceneId, type RelaySceneId } from "../../shared/relaySceneOptions";
@@ -127,9 +128,12 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 	const [transitionTime, setTransitionTime] = useState(0);
 	const [videoDuration, setVideoDuration] = useState(DEFAULT_VIDEO_DURATION);
 	const [relayFadeActive, setRelayFadeActive] = useState(false);
+	const [backgroundVideoHidden, setBackgroundVideoHidden] = useState(false);
+	const [backgroundVideoTransitionDisabled, setBackgroundVideoTransitionDisabled] = useState(false);
 	const lastSeenPlayId = useRef<number | null>(null);
 	const cutAppliedRef = useRef(false);
 	const transitionSequenceRef = useRef(0);
+	const backgroundVideoTransitionResetRef = useRef<number | null>(null);
 	const clearTransitionStyle = scene.transitionStyle === "fade" ? "fade" : "stinger";
 	const isFadeCleared = relayFadeActive || (liveSceneId === CLEAR_SCENE_ID && clearTransitionStyle === "fade");
 	const isStingerCleared = liveSceneId === CLEAR_SCENE_ID && clearTransitionStyle === "stinger";
@@ -156,12 +160,42 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 		});
 	}, []);
 
+	const scheduleBackgroundVideoTransitionReset = useCallback(() => {
+		if (backgroundVideoTransitionResetRef.current !== null) {
+			window.clearTimeout(backgroundVideoTransitionResetRef.current);
+		}
+
+		backgroundVideoTransitionResetRef.current = window.setTimeout(() => {
+			setBackgroundVideoTransitionDisabled(false);
+			backgroundVideoTransitionResetRef.current = null;
+		}, 0);
+	}, []);
+
+	const setBackgroundVideoState = useCallback((hidden: boolean, disableTransition: boolean) => {
+		setBackgroundVideoHidden(hidden);
+		setBackgroundVideoTransitionDisabled(disableTransition);
+
+		if (!disableTransition && backgroundVideoTransitionResetRef.current !== null) {
+			window.clearTimeout(backgroundVideoTransitionResetRef.current);
+			backgroundVideoTransitionResetRef.current = null;
+		}
+	}, []);
+
 	const finalizeCut = useCallback((nextFrame: FrameSlot, nextSceneId: string) => {
+		const leavingClearScene = liveSceneId === CLEAR_SCENE_ID;
+
+		if (nextSceneId === CLEAR_SCENE_ID) {
+			setBackgroundVideoState(true, true);
+		} else if (leavingClearScene) {
+			setBackgroundVideoState(false, true);
+			scheduleBackgroundVideoTransitionReset();
+		}
+
 		setActiveFrame(nextFrame);
 		setLiveSceneId(nextSceneId);
 		setPendingFrame(null);
 		setPendingSceneId(null);
-	}, []);
+	}, [liveSceneId, scheduleBackgroundVideoTransitionReset, setBackgroundVideoState]);
 
 	const applyCut = useCallback(() => {
 		if (cutAppliedRef.current || !pendingFrame || !pendingSceneId) {
@@ -186,6 +220,8 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 					primary: false,
 					secondary: false,
 				});
+				setBackgroundVideoState(nextScene.currentSceneId === CLEAR_SCENE_ID, true);
+				scheduleBackgroundVideoTransitionReset();
 				setIsInitialized(true);
 			});
 
@@ -235,6 +271,10 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 		void (async () => {
 			try {
 				if (usesRelayFadeTransition) {
+					if (scene.currentSceneId === CLEAR_SCENE_ID) {
+						setBackgroundVideoState(true, false);
+					}
+
 					setRelayFadeActive(true);
 					await delay(RELAY_FADE_DURATION_MS);
 
@@ -299,6 +339,22 @@ export function RelaySceneRoot({ sponsorBackgroundUrl }: { sponsorBackgroundUrl?
 
 		applyCut();
 	}, [applyCut, cutAtSeconds, frameReady, pendingFrame, pendingSceneId, transitionActive, transitionTime]);
+
+	useEffect(() => {
+		document.body.classList.toggle(SCENE_BACKGROUND_HIDDEN_CLASS, backgroundVideoHidden);
+		document.body.classList.toggle(SCENE_BACKGROUND_NO_TRANSITION_CLASS, backgroundVideoTransitionDisabled);
+
+		return () => {
+			document.body.classList.remove(SCENE_BACKGROUND_HIDDEN_CLASS);
+			document.body.classList.remove(SCENE_BACKGROUND_NO_TRANSITION_CLASS);
+		};
+	}, [backgroundVideoHidden, backgroundVideoTransitionDisabled]);
+
+	useEffect(() => () => {
+		if (backgroundVideoTransitionResetRef.current !== null) {
+			window.clearTimeout(backgroundVideoTransitionResetRef.current);
+		}
+	}, []);
 
 	const videoNode = useMemo(() => {
 		if (transitionPlayId === 0) {

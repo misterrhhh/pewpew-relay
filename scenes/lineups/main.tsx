@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
+import { setupScenePage } from "../../client/scenePage";
 import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { LineupsSceneState, TeamResponse } from "../../shared/types";
 import LogoCCT from "../../client/assets/images/cct.png";
 
-document.documentElement.classList.add("scene-page");
-document.body.classList.add("scene-page");
+setupScenePage();
 
 const defaultSceneState: LineupsSceneState = {
 	teamId: null,

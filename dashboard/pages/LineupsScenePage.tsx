@@ -3,6 +3,7 @@ import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { LineupsSceneState, TeamResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: LineupsSceneState = {
@@ -75,6 +76,7 @@ export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Lineups" />
 						</div>
 					</div>
 
