@@ -8,14 +8,14 @@
   },
   "matches": {
     "matchIds": [
-      "746d6423-0210-42f6-9512-40d932570314",
-      "60a122b4-e5da-40af-803e-d3149c1b4209",
-      "5c5f4a92-f910-4ffc-bcd9-4f1ffeb33ae4",
-      "a72d4d76-44b1-4faa-82c9-14add063633d"
+      "3fe0ba43-e705-4666-bb18-d44def0680b8",
+      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8",
+      "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
+      "36349e67-a067-4a4c-9e85-d8bb38c4f9f6"
     ],
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446576955
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776502690797
   },
   "matchesCountdown": {
     "matchIds": [
@@ -43,9 +43,9 @@
     "fixedTime": "19:00",
     "durationMinutes": 15,
     "durationStartedAt": null,
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446528964
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776448155787
   },
   "veto": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
@@ -56,10 +56,10 @@
   },
   "vetoL3": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
-    "currentIndex": 7,
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446630002
+    "currentIndex": 1,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776504578199
   },
   "headToHead": {
     "title": "last 3 months",
@@ -77,9 +77,9 @@
       "adr": 75,
       "rating3": 1.05
     },
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446515420
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776504498698
   },
   "mvp": {
     "title": "MVP",
@@ -92,12 +92,12 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776446522509
+    "animationId": 1776447691889
   },
   "relay": {
-    "currentSceneId": "clear",
-    "playId": 1776446629495,
-    "transitionStyle": "fade"
+    "currentSceneId": "pipCountdown",
+    "playId": 1776448153643,
+    "transitionStyle": "stinger"
   },
   "upperBracket": {
     "matchIds": [
