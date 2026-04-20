@@ -206,6 +206,7 @@ export interface GridSeriesPlayer {
   kills: number | null;
   deaths: number | null;
   assists: number | null;
+  adr: number | null;
 }
 
 export interface GridSeriesGameTeam {
@@ -214,8 +215,15 @@ export interface GridSeriesGameTeam {
   players: GridSeriesPlayer[];
 }
 
+export interface GridSeriesSegment {
+  type: string;
+  sequenceNumber: number;
+}
+
 export interface GridSeriesGame {
   sequenceNumber: number;
+  mapName: string | null;
+  segments: GridSeriesSegment[];
   teams: GridSeriesGameTeam[];
 }
 

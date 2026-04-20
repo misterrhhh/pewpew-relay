@@ -16,6 +16,7 @@ import type {
 } from "../../shared/types";
 import FallbackLogo from "../../client/assets/images/cct.png";
 import FallbackAgent from "../../client/assets/images/agentCT.png";
+import { formatMatchTime } from "../../shared/utils";
 
 setupScenePage();
 
@@ -136,6 +137,33 @@ function TeamInfo({
 	);
 }
 
+function MatchCard({ match, scene }: { match: MatchResponse | null; scene: GridScoreboardSceneState }) {
+	if (!match) return null;
+	const teamA = match.teamA;
+	const teamB = match.teamB;
+	const score = match.scoreA != null && match.scoreB != null ? `${match.scoreA}-${match.scoreB}` : null;
+	return (
+		<div className="ms-card" key={`${match.id}-${scene.animationId}`} data-animation={scene.animation}>
+			<div className="card-team">
+				<div className="card-logo"><img src={teamA?.logoUrl ?? FallbackLogo} alt="" /></div>
+				<div className="card-name">{teamA?.name ?? "TBD"}</div>
+			</div>
+			<div className="card-center">
+				<div className="card-state">
+					{score && <div className="score">{score}</div>}
+					{!score && <div className="vs">VS</div>}
+				</div>
+				<div className={`card-info`}>vs</div>
+				
+			</div>
+			<div className="card-team">
+				<div className="card-logo"><img src={teamB?.logoUrl ?? FallbackLogo} alt="" /></div>
+				<div className="card-name">{teamB?.name ?? "TBD"}</div>
+			</div>
+		</div>
+	);
+}
+
 type PlayerListProps = {
 	side: "left" | "right";
 	gridTeam: GridSeriesGameTeam | null;
@@ -155,7 +183,7 @@ function PlayerList({ side, gridTeam }: PlayerListProps) {
 				<div className="lr-additional">adr</div>
 			</div>
 
-			{gridTeam.players.map((player, index) => (
+			{[...gridTeam.players].sort((a, b) => (b.adr ?? -1) - (a.adr ?? -1)).map((player, index) => (
 				<div className="player-row" key={`${gridTeam.name}-${index}-${player.name}`}>
 					<div className="pr-avatar"><img src={player.avatarUrl ?? FallbackAgent} /></div>
 					<div className="pr-name">{player.name}</div>
@@ -164,7 +192,7 @@ function PlayerList({ side, gridTeam }: PlayerListProps) {
 						<div className="pr-deaths">{formatStat(player.deaths)}</div>
 						<div className="pr-assists">{formatStat(player.assists)}</div>
 					</div>
-					<div className="pr-additional">{formatStat(100.00)}</div>
+					<div className="pr-additional">{player.adr?.toFixed(0) ?? "TBD"}</div>
 				</div>
 			))}
 		</section>
@@ -248,8 +276,8 @@ function GridScoreboardScene() {
 		[matches, scene.matchId],
 	);
 	const latestGame = useMemo(() => getLatestGame(series), [series]);
-	const leftGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], "left"), [latestGame]);
-	const rightGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], "right"), [latestGame]);
+	const leftGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], scene.swapSides ? "right" : "left"), [latestGame, scene.swapSides]);
+	const rightGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], scene.swapSides ? "left" : "right"), [latestGame, scene.swapSides]);
 	const leftLocalTeam = scene.swapSides ? selectedMatch?.teamB ?? null : selectedMatch?.teamA ?? null;
 	const rightLocalTeam = scene.swapSides ? selectedMatch?.teamA ?? null : selectedMatch?.teamB ?? null;
 	const leftScore = getSeriesWins(getSideTeam(series?.teams ?? [], "left")?.name ?? null, series?.teams ?? []);
@@ -258,8 +286,9 @@ function GridScoreboardScene() {
 	return (
 		<div className="scene-shell">
 			<div className={`grid-scoreboard-stage ${scene.visible ? "show" : "hide"}`}>
+				<div className="elements"></div>
 
-
+				<MatchCard match={selectedMatch} scene={scene} />
 				<PlayerList side="left" gridTeam={leftGridTeam} />
 				<PlayerList side="right" gridTeam={rightGridTeam} />
 			</div>

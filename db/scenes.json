@@ -79,7 +79,7 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776446515420
+    "animationId": 1776699684106
   },
   "mvp": {
     "title": "MVP",
@@ -92,12 +92,12 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776446522509
+    "animationId": 1776698558780
   },
   "relay": {
-    "currentSceneId": "clear",
-    "playId": 1776446629495,
-    "transitionStyle": "fade"
+    "currentSceneId": "gridScoreboard",
+    "playId": 1776699683729,
+    "transitionStyle": "stinger"
   },
   "upperBracket": {
     "matchIds": [
@@ -131,17 +131,17 @@
     "playId": 1776261853086
   },
   "gridScoreboard": {
-    "matchId": "60a122b4-e5da-40af-803e-d3149c1b4209",
+    "matchId": "741b6a2f-fd67-4dc7-a928-7e5e1c169ff1",
     "swapSides": false,
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776445050721
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776701113906
   },
   "lineups": {
     "teamId": "0ff94096-ab9f-4eb7-85be-4a85c9ca08ff",
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446595030
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776700049202
   },
   "talentCams1": {
     "title": "crazy",

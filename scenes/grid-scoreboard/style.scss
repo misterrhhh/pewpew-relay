@@ -17,9 +17,105 @@
 		opacity: 0;
 	}
 
-	.players-list {
+	.elements {
 		position: absolute;
 		z-index: 1;
+		inset: 0;
+		background-image: url("./../../client/assets/elements/SCOREBOARD.png");
+		background-position: center;
+		background-size: 100%;
+		background-repeat: no-repeat;
+		transition: opacity 300ms;
+	}
+
+	.ms-card {
+		position: absolute;
+		z-index: 2;
+		top: 60px;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		.card-team {
+			display: flex;
+			flex-direction: column;
+
+			.card-logo {
+				width: 150px;
+				height: 150px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				overflow: hidden;
+
+				img {
+					max-width: 70%;
+					max-height: 80%;
+				}
+			}
+
+			.card-name {
+				width: 150px;
+				height: 35px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: rgba(0, 0, 0, 0.4);
+				color: white;
+				font-family: "IBM Plex Sans";
+				font-weight: 800;
+				font-size: 17px;
+				text-transform: uppercase;
+			}
+		}
+
+		.card-center {
+			display: flex;
+			flex-direction: column;
+
+			.card-state {
+				width: 150px;
+				height: 150px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.score {
+					font-family: "Morganite";
+					color: white;
+					font-size: 110px;
+				}
+
+				.vs {
+					font-family: "Morganite";
+					color: white;
+					font-size: 80px;
+				}
+			}
+
+			.card-info {
+				width: 150px;
+				height: 35px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-family: "IBM Plex Sans";
+				font-weight: 800;
+				font-size: 24px;
+				text-transform: uppercase;
+				background-color: #363636;
+				color: white;
+			}
+
+			
+		}
+	}
+
+	.players-list {
+		position: absolute;
+		z-index: 2;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;

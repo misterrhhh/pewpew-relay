@@ -2,10 +2,10 @@ import type { MatchFeedEntry, MatchResponse } from "./types.js";
 import { formatMatchTime } from "./utils.js";
 
 const matchStateLabels: Record<NonNullable<MatchResponse["state"]>, string> = {
-	finished: "Finished",
-	upcoming: "Upcoming",
-	next: "Next",
-	live: "Live",
+	finished: "FINISHED",
+	upcoming: "UPCOMING",
+	next: "NEXT",
+	live: "LIVE",
 };
 
 const matchStateColors: Record<NonNullable<MatchResponse["state"]>, string> = {
@@ -17,7 +17,7 @@ const matchStateColors: Record<NonNullable<MatchResponse["state"]>, string> = {
 
 function formatMatchScore(match: MatchResponse) {
 	if (match.scoreA === null || match.scoreA === undefined || match.scoreB === null || match.scoreB === undefined) {
-		return "";
+		return "VS";
 	}
 
 	return `${match.scoreA} - ${match.scoreB}`;

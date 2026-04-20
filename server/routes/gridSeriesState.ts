@@ -1,7 +1,7 @@
 import { Router } from "express";
 import type { Database } from "better-sqlite3";
 import type { Player } from "../../shared/types.js";
-import type { GridSeriesGame, GridSeriesGameTeam, GridSeriesMatchTeam, GridSeriesPlayer, GridSeriesState } from "../../shared/types.js";
+import type { GridSeriesGame, GridSeriesGameTeam, GridSeriesMatchTeam, GridSeriesPlayer, GridSeriesSegment, GridSeriesState } from "../../shared/types.js";
 import { serializePlayer } from "../services/serializers.js";
 
 const GRID_SERIES_QUERY = `
@@ -16,11 +16,21 @@ query GetLiveDotaSeriesState {
       name
       won
     }
-    games(filter: { started: true }) {
+    games(filter: { started: true, finished: false }) {
       sequenceNumber
+      map {
+        name
+      }
+      segments {
+        type
+        sequenceNumber
+      }
       teams {
         name
         players {
+          ... on GamePlayerStateCs2 {
+            damageDealt
+          }
           id
           name
           kills
@@ -52,6 +62,7 @@ function normalizePlayer(
   req: Parameters<typeof serializePlayer>[0],
   value: unknown,
   playersBySteamId: Map<string, Player>,
+  roundCount: number,
 ): GridSeriesPlayer | null {
   if (typeof value !== "object" || value === null) {
     return null;
@@ -63,6 +74,7 @@ function normalizePlayer(
     kills?: unknown;
     deaths?: unknown;
     killAssistsGiven?: unknown;
+    damageDealt?: unknown;
   };
 
   if (typeof player.id !== "string" || typeof player.name !== "string") {
@@ -71,6 +83,8 @@ function normalizePlayer(
 
   const localPlayer = playersBySteamId.get(player.id) ?? null;
   const serializedPlayer = localPlayer ? serializePlayer(req, localPlayer) : null;
+  const damageDealt = toFiniteNumber(player.damageDealt);
+  const adr = damageDealt !== null && roundCount > 0 ? Math.round((damageDealt / roundCount) * 10) / 10 : null;
 
   return {
     id: player.id,
@@ -82,13 +96,24 @@ function normalizePlayer(
     kills: toFiniteNumber(player.kills),
     deaths: toFiniteNumber(player.deaths),
     assists: toFiniteNumber(player.killAssistsGiven),
+    adr,
   };
+}
+
+function normalizeSegment(value: unknown): GridSeriesSegment | null {
+  if (typeof value !== "object" || value === null) return null;
+  const seg = value as { type?: unknown; sequenceNumber?: unknown };
+  if (typeof seg.type !== "string") return null;
+  const sequenceNumber = toFiniteNumber(seg.sequenceNumber);
+  if (sequenceNumber === null) return null;
+  return { type: seg.type, sequenceNumber };
 }
 
 function normalizeGameTeam(
   req: Parameters<typeof serializePlayer>[0],
   value: unknown,
   playersBySteamId: Map<string, Player>,
+  roundCount: number,
 ): GridSeriesGameTeam | null {
   if (typeof value !== "object" || value === null) {
     return null;
@@ -105,7 +130,7 @@ function normalizeGameTeam(
 
   const players = Array.isArray(team.players)
     ? team.players
-      .map((entry) => normalizePlayer(req, entry, playersBySteamId))
+      .map((entry) => normalizePlayer(req, entry, playersBySteamId, roundCount))
       .filter((entry): entry is GridSeriesPlayer => entry !== null)
     : [];
 
@@ -127,6 +152,8 @@ function normalizeGame(
 
   const game = value as {
     sequenceNumber?: unknown;
+    map?: unknown;
+    segments?: unknown;
     teams?: unknown;
   };
 
@@ -135,14 +162,25 @@ function normalizeGame(
     return null;
   }
 
+  const mapObj = typeof game.map === "object" && game.map !== null ? game.map as { name?: unknown } : null;
+  const mapName = typeof mapObj?.name === "string" ? mapObj.name : null;
+
+  const segments = Array.isArray(game.segments)
+    ? game.segments.map(normalizeSegment).filter((s): s is GridSeriesSegment => s !== null)
+    : [];
+
+  const roundCount = segments.filter((s) => s.type === "round").length;
+
   const teams = Array.isArray(game.teams)
     ? game.teams
-      .map((entry) => normalizeGameTeam(req, entry, playersBySteamId))
+      .map((entry) => normalizeGameTeam(req, entry, playersBySteamId, roundCount))
       .filter((entry): entry is GridSeriesGameTeam => entry !== null)
     : [];
 
   return {
     sequenceNumber,
+    mapName,
+    segments,
     teams,
   };
 }
