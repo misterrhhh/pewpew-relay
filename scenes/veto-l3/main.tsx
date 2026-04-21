@@ -5,7 +5,6 @@ import "./style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { MatchResponse, VetoResponse, VetoSceneState } from "../../shared/types";
-import LogoCCT from "./../../client/assets/images/cct.png";
 
 function setupTransparentScenePage() {
 	document.documentElement.classList.add("scene-page");
@@ -81,11 +80,13 @@ function VetoStep({ veto, active, match }: { veto: VetoResponse; match: MatchRes
 	const otherTeamSide = pickerSide === "CT" ? "T" : "CT";
 
 	const picker = veto.picker;
+	const pickerLogo = picker?.logoUrl ?? picker?.logo ?? null;
 	const otherTeam = picker?.id === match?.teamA?.id
 		? match?.teamB ?? null
 		: picker?.id === match?.teamB?.id
 			? match?.teamA ?? null
 			: null;
+	const otherTeamLogo = otherTeam?.logoUrl ?? otherTeam?.logo ?? null;
 
 	const type = veto.type;
 
@@ -95,7 +96,7 @@ function VetoStep({ veto, active, match }: { veto: VetoResponse; match: MatchRes
 		<div className={`veto-step ${active ? "show" : "hide"}`}>
 			{pickerSide &&
 			<div className="veto-side">
-				{pickerSide && <div className="team"><img src={otherTeam?.logoUrl ?? LogoCCT} /></div>}
+				{pickerSide && <div className="team">{otherTeamLogo ? <img src={otherTeamLogo} /> : null}</div>}
 				{pickerSide && <div className={`icon ${otherTeamSide}`}></div>}
 			</div>
 			}
@@ -104,7 +105,7 @@ function VetoStep({ veto, active, match }: { veto: VetoResponse; match: MatchRes
 				<div className={`vc-background ${mapName}`}></div>
 				<div className="vc-glass"></div>
 				<div className="vc-info">
-					{type !== "decider" && <div className="vc-logo"><img src={picker?.logoUrl ?? LogoCCT} /></div>}
+					{type !== "decider" && <div className="vc-logo">{pickerLogo ? <img src={pickerLogo} /> : null}</div>}
 					<div className="vc-team">{isDecider ? "decider" : picker?.name ?? "TBD"}</div>
 				</div>
 

@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
-import { ExternalLink, Save } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
-import type { MatchAnalysisSceneState, Talent } from "../../shared/types";
+import type { Talent, TalentCamsSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
 import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
-const defaultSceneState: MatchAnalysisSceneState = {
-	talentIds: [null, null],
+const SLOT_COUNT = 5;
+
+const defaultSceneState: TalentCamsSceneState = {
+	title: "Talent",
+	talentIds: Array.from({ length: SLOT_COUNT }, () => null),
 	visible: false,
 	animation: "idle",
 	animationId: 0,
@@ -17,12 +20,12 @@ function talentLabel(entry: Talent) {
 	return `${entry.name}${entry.nickname ? ` (${entry.nickname})` : ""}${entry.role ? ` - ${entry.role}` : ""}`;
 }
 
-export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
-	const [scene, setScene] = useState<MatchAnalysisSceneState>(defaultSceneState);
+export function TalentScenePage({ talent }: { talent: Talent[] }) {
+	const [scene, setScene] = useState<TalentCamsSceneState>(defaultSceneState);
 	const status = useStatus();
 
 	useEffect(() => {
-		api.getMatchAnalysisScene()
+		api.getTalentScene()
 			.then(setScene)
 			.catch((error) => status.show((error as Error).message));
 	}, []);
@@ -35,9 +38,9 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 		[talent],
 	);
 
-	async function pushUpdate(next: Partial<MatchAnalysisSceneState>) {
+	async function pushUpdate(next: Partial<TalentCamsSceneState>) {
 		try {
-			const response = await api.updateMatchAnalysisScene(next);
+			const response = await api.updateTalentScene(next);
 			setScene(response);
 			status.show("Scene updated.");
 		} catch (error) {
@@ -45,19 +48,19 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 		}
 	}
 
-	function setSelectedTalent(index: number, value: string) {
-		const nextTalentIds = [...scene.talentIds];
-		nextTalentIds[index] = value || null;
-		setScene({ ...scene, talentIds: nextTalentIds.slice(0, 2) });
+	function setSlot(index: number, value: string) {
+		const nextIds = [...scene.talentIds];
+		nextIds[index] = value || null;
+		setScene({ ...scene, talentIds: nextIds });
 	}
 
-	const previewUrl = `${window.location.origin}/scenes/match-analysis/`;
-	const jsonUrl = `${window.location.origin}/json/match-analysis`;
+	const previewUrl = `${window.location.origin}/scenes/talent/`;
+	const jsonUrl = `${window.location.origin}/json/talent`;
 
 	return (
 		<section className="page">
 			<div className="page-header">
-				<div className="title">Match Analysis</div>
+				<div className="title">Talent</div>
 				<div className="subtitle">broadcast scene</div>
 			</div>
 
@@ -74,7 +77,7 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Match Analysis" url={jsonUrl} />
+							<OpenSceneJsonButton data={scene} sceneLabel="Talent" url={jsonUrl} />
 						</div>
 					</div>
 
@@ -82,11 +85,11 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 						<div className="panel-title">data</div>
 						<div className="panel-content scene-panel-content--stack">
 							<div className="form-grid scene-panel-form">
-								{Array.from({ length: 2 }, (_, slot) => (
+								{Array.from({ length: SLOT_COUNT }, (_, slot) => (
 									<div className="field" key={slot}>
-										<label>Talent Spot {slot + 1}</label>
-										<select value={scene.talentIds[slot] ?? ""} onChange={(event) => setSelectedTalent(slot, event.target.value)}>
-											<option value="">None</option>
+										<label>Spot {slot + 1}</label>
+										<select value={scene.talentIds[slot] ?? ""} onChange={(event) => setSlot(slot, event.target.value)}>
+											<option value="">Empty</option>
 											{sortedTalent.map((entry) => (
 												<option key={entry.id} value={entry.id}>
 													{talentLabel(entry)}
@@ -96,6 +99,7 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 									</div>
 								))}
 							</div>
+							<div className="status">{status.message}</div>
 						</div>
 					</div>
 				</div>
@@ -103,7 +107,7 @@ export function MatchAnalysisScenePage({ talent }: { talent: Talent[] }) {
 				<div className="page-preview">
 					<div className="panel">
 						<div className="panel-title">live preview</div>
-						<IframePreview title="Match Analysis preview" src={previewUrl} />
+						<IframePreview title="Talent scene preview" src={previewUrl} />
 					</div>
 				</div>
 			</div>

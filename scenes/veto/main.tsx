@@ -7,7 +7,6 @@ import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { MatchResponse, VetoResponse, VetoSceneState } from "../../shared/types";
 import { getTypeByVetoIndexAndMode } from "../../shared/utils";
-import LogoCCT from "./../../client/assets/images/cct.png"
 
 setupScenePage();
 
@@ -80,11 +79,13 @@ function VetoStep({ veto, active, match, index }: { veto: VetoResponse; match: M
 
 	const winner = veto.winner;
 	const picker = veto.picker;
+	const pickerLogo = picker?.logoUrl ?? picker?.logo ?? null;
 	const otherTeam = picker?.id === match?.teamA?.id
 		? match?.teamB ?? null
 		: picker?.id === match?.teamB?.id
 			? match?.teamA ?? null
 			: null;
+	const otherTeamLogo = otherTeam?.logoUrl ?? otherTeam?.logo ?? null;
 
 	let type = veto.type
 
@@ -100,10 +101,10 @@ function VetoStep({ veto, active, match, index }: { veto: VetoResponse; match: M
 			<div className={`veto-content`}>
 				<div className={`vc-background ${mapName}`}></div>
 				<div className="vc-glass"></div>
-				{type !== "decider" && <div className="vc-picker"><img src={picker?.logoUrl ?? LogoCCT} /></div>}
+				{type !== "decider" && <div className="vc-picker">{pickerLogo ? <img src={pickerLogo} /> : null}</div>}
 				<div className="vc-name">{mapName}</div>
 				<div className={`vc-type ${type}`}>{type}</div>
-				{pickerSide && <div className="vc-side-team"><img src={otherTeam?.logoUrl ?? LogoCCT} /></div>}
+				{pickerSide && <div className="vc-side-team">{otherTeamLogo ? <img src={otherTeamLogo} /> : null}</div>}
 				{pickerSide && <div className={`vc-side-icon ${otherTeamSide}`}></div>}
 			</div>
 		</div>

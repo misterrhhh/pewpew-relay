@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeftRight, ExternalLink, Eye, EyeOff, RefreshCw, Save } from "lucide-react";
+import { ArrowLeftRight, ExternalLink, RefreshCw, Save } from "lucide-react";
 import { api } from "../../client/api";
 import type { GridScoreboardSceneState, GridSeriesGame, GridSeriesGameTeam, GridSeriesState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -103,22 +103,6 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 							<button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
 								<Save />
 								Apply
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, visible: true, animation: "in", animationId: Date.now() })}
-							>
-								<Eye />
-								Show
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, visible: false, animation: "out", animationId: Date.now() })}
-							>
-								<EyeOff />
-								Hide
 							</button>
 							<button
 								type="button"

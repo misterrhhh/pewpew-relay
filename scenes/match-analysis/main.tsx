@@ -40,11 +40,9 @@ function MatchAnalysisScene() {
 		[talent, scene.talentIds],
 	);
 
-	const visible = scene.visible || scene.animation === "out";
-
 	return (
 		<div className="scene-shell">
-			<div className={`match-analysis-page ${visible ? "" : "scene-hidden"}`}>
+			<div className="match-analysis-page">
 				{selectedTalent.map((entry, index) => (
 					<div className={`talent-card t-${index + 1}`} key={`${scene.animationId}-${index}`}>
 						<div className="card-content">

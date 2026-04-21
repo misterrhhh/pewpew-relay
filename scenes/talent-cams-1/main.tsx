@@ -41,11 +41,9 @@ function TalentCams1Scene() {
 		[talent, scene.talentIds],
 	);
 
-	const visible = scene.visible || scene.animation === "out";
-
 	return (
 		<div className="scene-shell">
-			<div className={`talent-cams-page ${visible ? "" : "scene-hidden"}`}>
+			<div className="talent-cams-page">
 				<div className="talent-title-wrapper">
 					<div className="talent-title">{scene.title}</div>
 				</div>

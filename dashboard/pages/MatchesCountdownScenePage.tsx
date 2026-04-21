@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchesCountdownSceneState, MatchResponse } from "../../shared/types";
 import { compareMatchDateValues } from "../../shared/utils";
@@ -65,24 +65,6 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
 		};
 	}
 
-	function handleShow() {
-		const nextScene = buildScenePayload();
-		void pushUpdate({
-			...nextScene,
-			visible: true,
-			animation: "in",
-		});
-	}
-
-	function handleHide() {
-		void pushUpdate({
-			...scene,
-			visible: false,
-			animation: "out",
-			animationId: Date.now(),
-		});
-	}
-
 	const selectedMatches = scene.matchIds
 		.map((matchId) => matches.find((match) => match.id === matchId) ?? null)
 		.filter((match): match is MatchResponse => match !== null)
@@ -105,14 +87,6 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
 							<button type="button" onClick={() => void pushUpdate(buildScenePayload())}>
 								<Save />
 								Apply
-							</button>
-							<button type="button" className="secondary" onClick={handleShow}>
-								<Eye />
-								Show
-							</button>
-							<button type="button" className="secondary" onClick={handleHide}>
-								<EyeOff />
-								Hide
 							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />

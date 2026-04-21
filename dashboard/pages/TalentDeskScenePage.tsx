@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { Talent, TalentDeskSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -52,24 +52,6 @@ export function TalentDeskScenePage({ talent }: { talent: Talent[] }) {
 		setScene({ ...scene, talentIds: nextTalentIds });
 	}
 
-	function handleShow() {
-		void pushUpdate({
-			...scene,
-			visible: true,
-			animation: "in",
-			animationId: Date.now(),
-		});
-	}
-
-	function handleHide() {
-		void pushUpdate({
-			...scene,
-			visible: false,
-			animation: "out",
-			animationId: Date.now(),
-		});
-	}
-
 	const previewUrl = `${window.location.origin}/scenes/talent-desk/`;
 	const jsonUrl = `${window.location.origin}/json/talent-desk`;
 
@@ -88,14 +70,6 @@ export function TalentDeskScenePage({ talent }: { talent: Talent[] }) {
 							<button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
 								<Save />
 								Apply
-							</button>
-							<button type="button" className="secondary" onClick={handleShow}>
-								<Eye />
-								Show
-							</button>
-							<button type="button" className="secondary" onClick={handleHide}>
-								<EyeOff />
-								Hide
 							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />

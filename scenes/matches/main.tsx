@@ -8,8 +8,6 @@ import { connectSceneSocket } from "../../client/ws";
 import type { MatchesSceneState, MatchResponse } from "../../shared/types";
 import { compareMatchDateValues, formatMatchTime } from "../../shared/utils";
 
-import LogoCCT from "./../../client/assets/images/cct.png"
-
 setupScenePage();
 
 function MatchesScene() {
@@ -41,7 +39,6 @@ function MatchesScene() {
 		.filter((match): match is MatchResponse => match !== null)
 		.sort((left, right) => compareMatchDateValues(left.time, right.time))
 		.slice(0, 4), [matches, scene.matchIds]);
-	const visible = scene.visible || scene.animation === "out";
 	const matchesCount = Math.max(selectedMatches.length, 1);
 
 	return (
@@ -50,7 +47,7 @@ function MatchesScene() {
 				<div className="elements"></div>
 				<div className={`matches-list count-${matchesCount}`}>
 					{selectedMatches.map((match) => (
-						<MatchCard key={match.id} match={match} scene={scene} show={true} />
+						<MatchCard key={match.id} match={match} scene={scene} />
 					))}
 				</div>
 
@@ -63,14 +60,15 @@ function MatchesScene() {
 
 interface MatchCardProps {
 	match: MatchResponse,
-	show: boolean,
 	scene: MatchesSceneState
 }
 
-export const MatchCard = ({ match, show, scene }: MatchCardProps) => {
+export const MatchCard = ({ match, scene }: MatchCardProps) => {
 
 	let teamA = match.teamA
 	let teamB = match.teamB
+	const teamALogo = teamA?.logoUrl ?? teamA?.logo ?? null;
+	const teamBLogo = teamB?.logoUrl ?? teamB?.logo ?? null;
 
 	let score = match.scoreA !== null && match.scoreA !== undefined && match.scoreB !== null && match.scoreB !== undefined
 		? `${match.scoreA}-${match.scoreB}`
@@ -81,7 +79,7 @@ export const MatchCard = ({ match, show, scene }: MatchCardProps) => {
 	return (
 		<div className="ms-card" key={`${match.id}-${scene.animationId}`} data-animation={scene.animation}>
 			<div className="card-team">
-				<div className="card-logo"><img src={teamA?.logo ?? LogoCCT} alt="" /></div>
+				<div className="card-logo">{teamALogo ? <img src={teamALogo} alt="" /> : null}</div>
 				<div className="card-name">{teamA?.name ?? "TBD"}</div>
 			</div>
 			<div className="card-center">
@@ -94,7 +92,7 @@ export const MatchCard = ({ match, show, scene }: MatchCardProps) => {
 			</div>
 
 			<div className="card-team">
-				<div className="card-logo"><img src={teamB?.logo ?? LogoCCT} alt="" /></div>
+				<div className="card-logo">{teamBLogo ? <img src={teamBLogo} alt="" /> : null}</div>
 				<div className="card-name">{teamB?.name ?? "TBD"}</div>
 			</div>
 		</div>

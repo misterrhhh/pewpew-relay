@@ -11,9 +11,7 @@ import type {
   MatchResponse,
   MvpSceneState,
   PipCountdownSceneState,
-  PlaceholderSceneState,
   PlayerResponse,
-  RelaySceneState,
   SceneStateMap,
   StakeOddsResponse,
   StakeOddsSceneState,
@@ -70,9 +68,6 @@ export const api = {
   createMatch: (payload: unknown) => request<MatchResponse>("/api/matches", { method: "POST", body: JSON.stringify(payload) }),
   updateMatch: (id: string, payload: unknown) => request<MatchResponse>(`/api/matches/${id}`, { method: "PUT", body: JSON.stringify(payload) }),
   deleteMatch: (id: string) => request<void>(`/api/matches/${id}`, { method: "DELETE" }),
-  getPlaceholderScene: () => request<PlaceholderSceneState>("/api/scenes/placeholder"),
-  updatePlaceholderScene: (payload: Partial<PlaceholderSceneState>) =>
-    request<PlaceholderSceneState>("/api/scenes/placeholder", { method: "POST", body: JSON.stringify(payload) }),
   getMatchesScene: () => request<MatchesSceneState>("/api/scenes/matches"),
   updateMatchesScene: (payload: Partial<MatchesSceneState>) =>
     request<MatchesSceneState>("/api/scenes/matches", { method: "POST", body: JSON.stringify(payload) }),
@@ -94,9 +89,6 @@ export const api = {
   getMvpScene: () => request<MvpSceneState>("/api/scenes/mvp"),
   updateMvpScene: (payload: Partial<MvpSceneState>) =>
     request<MvpSceneState>("/api/scenes/mvp", { method: "POST", body: JSON.stringify(payload) }),
-  getRelayScene: () => request<RelaySceneState>("/api/scenes/relay"),
-  updateRelayScene: (payload: Partial<RelaySceneState>) =>
-    request<RelaySceneState>("/api/scenes/relay", { method: "POST", body: JSON.stringify(payload) }),
   getUpperBracketScene: () => request<UpperBracketSceneState>("/api/scenes/upperBracket"),
   updateUpperBracketScene: (payload: Partial<UpperBracketSceneState>) =>
     request<UpperBracketSceneState>("/api/scenes/upperBracket", { method: "POST", body: JSON.stringify(payload) }),
@@ -112,6 +104,15 @@ export const api = {
   getLineupsScene: () => request<LineupsSceneState>("/api/scenes/lineups"),
   updateLineupsScene: (payload: Partial<LineupsSceneState>) =>
     request<LineupsSceneState>("/api/scenes/lineups", { method: "POST", body: JSON.stringify(payload) }),
+  getLineupsAScene: () => request<LineupsSceneState>("/api/scenes/lineupsA"),
+  updateLineupsAScene: (payload: Partial<LineupsSceneState>) =>
+    request<LineupsSceneState>("/api/scenes/lineupsA", { method: "POST", body: JSON.stringify(payload) }),
+  getLineupsBScene: () => request<LineupsSceneState>("/api/scenes/lineupsB"),
+  updateLineupsBScene: (payload: Partial<LineupsSceneState>) =>
+    request<LineupsSceneState>("/api/scenes/lineupsB", { method: "POST", body: JSON.stringify(payload) }),
+  getTalentScene: () => request<TalentCamsSceneState>("/api/scenes/talent"),
+  updateTalentScene: (payload: Partial<TalentCamsSceneState>) =>
+    request<TalentCamsSceneState>("/api/scenes/talent", { method: "POST", body: JSON.stringify(payload) }),
   getTalentCams1Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams1"),
   updateTalentCams1Scene: (payload: Partial<TalentCamsSceneState>) =>
     request<TalentCamsSceneState>("/api/scenes/talentCams1", { method: "POST", body: JSON.stringify(payload) }),

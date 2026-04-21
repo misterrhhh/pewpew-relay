@@ -1,17 +1,9 @@
 import fs from "node:fs";
-import type { RelaySceneState, SceneStateMap } from "../../shared/types.js";
-import { defaultRelaySceneId, isRelaySceneId } from "../../shared/relaySceneOptions.js";
+import type { SceneStateMap } from "../../shared/types.js";
 
 type SceneListener = (sceneId: string, data: unknown) => void;
 
 const defaultScenes: SceneStateMap = {
-	placeholder: {
-		title: "Scene Placeholder",
-		message: "Replace this scene with your final layout when it is ready.",
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
 	matches: {
 		matchIds: [],
 		visible: false,
@@ -85,11 +77,6 @@ const defaultScenes: SceneStateMap = {
 		animation: "idle",
 		animationId: 0,
 	},
-	relay: {
- 		currentSceneId: defaultRelaySceneId,
- 		playId: 0,
- 		transitionStyle: "stinger",
-  	},
 	upperBracket: {
 		matchIds: [],
 		visible: false,
@@ -116,6 +103,25 @@ const defaultScenes: SceneStateMap = {
 	},
 	lineups: {
 		teamId: null,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	lineupsA: {
+		teamId: null,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	lineupsB: {
+		teamId: null,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	talent: {
+		title: "Talent",
+		talentIds: [null, null, null, null, null],
 		visible: false,
 		animation: "idle",
 		animationId: 0,
@@ -365,24 +371,6 @@ function normalizeMvpScene(input: unknown) {
 	};
 }
 
-function normalizeRelayScene(input: unknown): RelaySceneState {
-	if (typeof input !== "object" || input === null) {
-		return structuredClone(defaultScenes.relay);
-	}
-
-	const legacy = input as {
- 		currentSceneId?: unknown;
- 		playId?: unknown;
- 		transitionStyle?: unknown;
-  	};
- 
-	return {
-		currentSceneId: isRelaySceneId(legacy.currentSceneId) ? legacy.currentSceneId : defaultScenes.relay.currentSceneId,
-		playId: typeof legacy.playId === "number" && Number.isFinite(legacy.playId) ? legacy.playId : defaultScenes.relay.playId,
-		transitionStyle: legacy.transitionStyle === "fade" ? "fade" : "stinger",
-	};
-}
-
 function normalizeLineupsScene(input: unknown) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(defaultScenes.lineups);
@@ -553,9 +541,10 @@ export class SceneManager {
 
 		const contents = fs.readFileSync(this.filePath, "utf8");
 		const parsed = JSON.parse(contents) as SceneStateMap;
+		const { relay: _relay, ...parsedScenes } = parsed as Record<string, unknown>;
 		const nextState = {
 			...structuredClone(defaultScenes),
-			...parsed,
+			...parsedScenes,
 			matches: normalizeMatchListScene(parsed.matches, defaultScenes.matches),
 			upperBracket: normalizeMatchListScene(parsed.upperBracket, defaultScenes.upperBracket, 8),
 			lowerBracket: normalizeMatchListScene(parsed.lowerBracket, defaultScenes.lowerBracket, 6),
@@ -565,10 +554,12 @@ export class SceneManager {
 			vetoL3: normalizeVetoScene((parsed as Record<string, unknown>).vetoL3),
 			headToHead: normalizeHeadToHeadScene(parsed.headToHead),
 			mvp: normalizeMvpScene((parsed as Record<string, unknown>).mvp),
-			relay: normalizeRelayScene((parsed as Record<string, unknown>).relay),
 			stakeOdds: normalizeStakeOddsScene((parsed as Record<string, unknown>).stakeOdds),
 			gridScoreboard: normalizeGridScoreboardScene((parsed as Record<string, unknown>).gridScoreboard),
 			lineups: normalizeLineupsScene((parsed as Record<string, unknown>).lineups),
+			lineupsA: normalizeLineupsScene((parsed as Record<string, unknown>).lineupsA),
+			lineupsB: normalizeLineupsScene((parsed as Record<string, unknown>).lineupsB),
+			talent: normalizeTalentCamsScene((parsed as Record<string, unknown>).talent, defaultScenes.talent, 5),
 			talentCams1: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams1, defaultScenes.talentCams1, 1),
 			talentCams2: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams2, defaultScenes.talentCams2, 2),
 			talentCams3: normalizeTalentCamsScene(

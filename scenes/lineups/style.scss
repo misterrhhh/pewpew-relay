@@ -3,39 +3,11 @@
 	inset: 0;
 	overflow: hidden;
 	padding: 112px 120px 96px;
-	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
 	color: white;
 	transition: opacity 350ms ease, transform 450ms ease;
-
-
-	&.show {
-		transition-delay: 500ms;
-
-		.lineups-player {
-			opacity: 1;
-			transform: translateY(0)
-		}
-
-		.lineups-team {
-			transform: translateY(0) translateX(-50%);
-			transition-delay: 500ms;
-		}
-	}
-
-	&.hide {
-
-		.lineups-player {
-			opacity: 0;
-			transform: translateY(30px)
-		}
-
-		.lineups-team {
-			transform: translateY(-220px) translateX(-50%)
-		}
-	}
 
 	.lineups-players {
 		position: absolute;

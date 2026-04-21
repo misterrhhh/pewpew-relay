@@ -14,7 +14,6 @@ import type {
 	MatchResponse,
 	TeamResponse,
 } from "../../shared/types";
-import FallbackLogo from "../../client/assets/images/cct.png";
 import FallbackAgent from "../../client/assets/images/agentCT.png";
 import { formatMatchTime } from "../../shared/utils";
 
@@ -65,7 +64,7 @@ function getSeriesWins(teamName: string | null, teams: GridSeriesMatchTeam[]) {
 }
 
 function resolveLogo(team: TeamResponse | null) {
-	return team?.logoUrl || FallbackLogo;
+	return team?.logoUrl ?? team?.logo ?? null;
 }
 
 type TeamInfoProps = {
@@ -108,7 +107,7 @@ function TeamInfo({
 				<div className="grid-scoreboard-info__team left">
 					<div className="grid-scoreboard-info__branding">
 						<div className="grid-scoreboard-info__logo">
-							<img src={resolveLogo(leftTeam)} alt={leftTeam?.name ?? "Team logo"} />
+							{resolveLogo(leftTeam) ? <img src={resolveLogo(leftTeam)!} alt={leftTeam?.name ?? "Team logo"} /> : null}
 						</div>
 						<div className="grid-scoreboard-info__identity">
 							<div className="grid-scoreboard-info__name">{leftTeam?.name ?? "TBD"}</div>
@@ -128,7 +127,7 @@ function TeamInfo({
 							<div className="grid-scoreboard-info__subname">{rightGridTeam?.name ?? "GRID team unavailable"}</div>
 						</div>
 						<div className="grid-scoreboard-info__logo">
-							<img src={resolveLogo(rightTeam)} alt={rightTeam?.name ?? "Team logo"} />
+							{resolveLogo(rightTeam) ? <img src={resolveLogo(rightTeam)!} alt={rightTeam?.name ?? "Team logo"} /> : null}
 						</div>
 					</div>
 				</div>
@@ -141,11 +140,13 @@ function MatchCard({ match, scene }: { match: MatchResponse | null; scene: GridS
 	if (!match) return null;
 	const teamA = match.teamA;
 	const teamB = match.teamB;
+	const teamALogo = teamA?.logoUrl ?? teamA?.logo ?? null;
+	const teamBLogo = teamB?.logoUrl ?? teamB?.logo ?? null;
 	const score = match.scoreA != null && match.scoreB != null ? `${match.scoreA}-${match.scoreB}` : null;
 	return (
 		<div className="ms-card" key={`${match.id}-${scene.animationId}`} data-animation={scene.animation}>
 			<div className="card-team">
-				<div className="card-logo"><img src={teamA?.logoUrl ?? FallbackLogo} alt="" /></div>
+				<div className="card-logo">{teamALogo ? <img src={teamALogo} alt="" /> : null}</div>
 				<div className="card-name">{teamA?.name ?? "TBD"}</div>
 			</div>
 			<div className="card-center">
@@ -157,7 +158,7 @@ function MatchCard({ match, scene }: { match: MatchResponse | null; scene: GridS
 				
 			</div>
 			<div className="card-team">
-				<div className="card-logo"><img src={teamB?.logoUrl ?? FallbackLogo} alt="" /></div>
+				<div className="card-logo">{teamBLogo ? <img src={teamBLogo} alt="" /> : null}</div>
 				<div className="card-name">{teamB?.name ?? "TBD"}</div>
 			</div>
 		</div>
@@ -285,7 +286,7 @@ function GridScoreboardScene() {
 
 	return (
 		<div className="scene-shell">
-			<div className={`grid-scoreboard-stage ${scene.visible ? "show" : "hide"}`}>
+			<div className="grid-scoreboard-stage">
 				<div className="elements"></div>
 
 				<MatchCard match={selectedMatch} scene={scene} />

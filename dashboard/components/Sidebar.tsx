@@ -12,14 +12,6 @@ export function Sidebar() {
 			<div className="sidebar-group">
 				<p className="sidebar-group-title">Scenes</p>
 				<nav>
-					<NavLink className="nav-link" to="/scenes/placeholder">
-						<Clapperboard />
-						<span>Placeholder</span>
-					</NavLink>
-					<NavLink className="nav-link" to="/scenes/relay">
-						<Clapperboard />
-						<span>Relay</span>
-					</NavLink>
 					<NavLink className="nav-link" to="/scenes/head-to-head">
 						<Clapperboard />
 						<span>Head to Head</span>
@@ -64,13 +56,21 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>GRID Scoreboard</span>
 					</NavLink>
-					<NavLink className="nav-link" to="/scenes/lineups">
+					<NavLink className="nav-link" to="/scenes/lineups-a">
 						<Clapperboard />
-						<span>Lineups</span>
+						<span>Lineups A</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/lineups-b">
+						<Clapperboard />
+						<span>Lineups B</span>
 					</NavLink>
 					<NavLink className="nav-link" to="/scenes/match-analysis">
 						<Clapperboard />
 						<span>Match Analysis</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/talent">
+						<Clapperboard />
+						<span>Talent</span>
 					</NavLink>
 					<NavLink className="nav-link" to="/scenes/talent-cams-3">
 						<Clapperboard />

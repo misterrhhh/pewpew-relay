@@ -7,8 +7,6 @@ import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { MatchesCountdownSceneState, MatchResponse } from "../../shared/types";
 import { compareMatchDateValues, formatCountdown, formatMatchTime, getNextFixedTimeTimestamp } from "../../shared/utils";
-import LogoCCT from "../../client/assets/images/cct.png";
-
 setupScenePage();
 
 function MatchesCountdownScene() {
@@ -51,7 +49,6 @@ function MatchesCountdownScene() {
     .sort((left, right) => compareMatchDateValues(left.time, right.time))
     .slice(0, 4), [matches, scene.matchIds]);
 
-  const visible = scene.visible || scene.animation === "out";
   const matchesCount = Math.max(selectedMatches.length, 1);
 
   const countdownValue = useMemo(() => {
@@ -74,7 +71,7 @@ function MatchesCountdownScene() {
 
   return (
     <div className="scene-shell">
-      <div className={`matches-countdown-page ${visible ? "" : "scene-hidden"}`}>
+      <div className="matches-countdown-page">
         <div className="elements"></div>
         <div className="matches-timer">
           <div className="timer-label">WE’RE BACK IN</div>
@@ -94,6 +91,8 @@ function MatchesCountdownScene() {
 function MatchCard({ match, scene }: { match: MatchResponse; scene: MatchesCountdownSceneState }) {
   const teamA = match.teamA;
   const teamB = match.teamB;
+  const teamALogo = teamA?.logoUrl ?? teamA?.logo ?? null;
+  const teamBLogo = teamB?.logoUrl ?? teamB?.logo ?? null;
   const score = match.scoreA !== null && match.scoreA !== undefined && match.scoreB !== null && match.scoreB !== undefined
     ? `${match.scoreA}-${match.scoreB}`
     : null;
@@ -101,7 +100,7 @@ function MatchCard({ match, scene }: { match: MatchResponse; scene: MatchesCount
   return (
     <div className="ms-card" data-animation={scene.animation}>
       <div className="card-team">
-        <div className="card-logo"><img src={teamA?.logoUrl ?? LogoCCT} alt={teamA?.name ?? "Team A"} /></div>
+        <div className="card-logo">{teamALogo ? <img src={teamALogo} alt={teamA?.name ?? "Team A"} /> : null}</div>
         <div className="card-name">{teamA?.name ?? "TBD"}</div>
       </div>
       <div className="card-center">
@@ -113,7 +112,7 @@ function MatchCard({ match, scene }: { match: MatchResponse; scene: MatchesCount
       </div>
 
       <div className="card-team">
-        <div className="card-logo"><img src={teamB?.logoUrl ?? LogoCCT} alt={teamB?.name ?? "Team B"} /></div>
+        <div className="card-logo">{teamBLogo ? <img src={teamBLogo} alt={teamB?.name ?? "Team B"} /> : null}</div>
         <div className="card-name">{teamB?.name ?? "TBD"}</div>
       </div>
     </div>

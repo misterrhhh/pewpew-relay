@@ -1,0 +1,22 @@
+.talent-page {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+
+	.talent-slots {
+		display: flex;
+		flex-direction: row;
+
+		.talent-slot {
+			&.empty {
+				// empty slot — position is preserved
+			}
+
+			.talent-name {}
+			.talent-nickname {}
+			.talent-role {}
+			.talent-social {}
+		}
+	}
+}

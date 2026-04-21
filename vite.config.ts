@@ -3,9 +3,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 const sceneEntryRoutes = [
-  "/scenes/placeholder",
-  "/scenes/relay",
-  "/scenes/relay-no-sponsors",
   "/scenes/head-to-head",
   "/scenes/mvp",
   "/scenes/pip-countdown",
@@ -17,7 +14,10 @@ const sceneEntryRoutes = [
   "/scenes/lower-bracket",
   "/scenes/stake-odds",
   "/scenes/grid-scoreboard",
+  "/scenes/talent",
   "/scenes/lineups",
+  "/scenes/lineups-a",
+  "/scenes/lineups-b",
   "/scenes/match-analysis",
   "/scenes/talent-cams-3",
   "/scenes/talent-cams-2",
@@ -89,9 +89,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         dashboard: resolve(__dirname, "dashboard/index.html"),
-        placeholder: resolve(__dirname, "scenes/placeholder/index.html"),
-        relay: resolve(__dirname, "scenes/relay/index.html"),
-        relayNoSponsors: resolve(__dirname, "scenes/relay-no-sponsors/index.html"),
         headToHead: resolve(__dirname, "scenes/head-to-head/index.html"),
         mvp: resolve(__dirname, "scenes/mvp/index.html"),
         pipCountdown: resolve(__dirname, "scenes/pip-countdown/index.html"),
@@ -104,6 +101,9 @@ export default defineConfig({
         stakeOdds: resolve(__dirname, "scenes/stake-odds/index.html"),
         gridScoreboard: resolve(__dirname, "scenes/grid-scoreboard/index.html"),
         lineups: resolve(__dirname, "scenes/lineups/index.html"),
+        talent: resolve(__dirname, "scenes/talent/index.html"),
+        lineupsA: resolve(__dirname, "scenes/lineups-a/index.html"),
+        lineupsB: resolve(__dirname, "scenes/lineups-b/index.html"),
         matchAnalysis: resolve(__dirname, "scenes/match-analysis/index.html"),
         talentCams3: resolve(__dirname, "scenes/talent-cams-3/index.html"),
         talentCams2: resolve(__dirname, "scenes/talent-cams-2/index.html"),

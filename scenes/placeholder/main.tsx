@@ -31,11 +31,9 @@ function PlaceholderScene() {
     return () => socket.close();
   }, []);
 
-  const visible = scene.visible || scene.animation === "out";
-
   return (
     <div className="scene-shell">
-      <section className={`placeholder-stage ${visible ? "" : "scene-hidden"}`}>
+      <section className="placeholder-stage">
         
       </section>
     </div>

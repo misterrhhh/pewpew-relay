@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { LineupsSceneState, TeamResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -13,27 +13,64 @@ const defaultSceneState: LineupsSceneState = {
 	animationId: 0,
 };
 
-export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
+type LineupsVariant = "lineups" | "lineupsA" | "lineupsB";
+
+const variantConfig: Record<LineupsVariant, {
+	title: string;
+	sceneKey: string;
+	scenePath: string;
+	jsonPath: string;
+	get: () => Promise<LineupsSceneState>;
+	update: (payload: Partial<LineupsSceneState>) => Promise<LineupsSceneState>;
+}> = {
+	lineups: {
+		title: "Lineups",
+		sceneKey: "Lineups",
+		scenePath: "/scenes/lineups/",
+		jsonPath: "/json/lineups",
+		get: () => api.getLineupsScene(),
+		update: (p) => api.updateLineupsScene(p),
+	},
+	lineupsA: {
+		title: "Lineups A",
+		sceneKey: "Lineups A",
+		scenePath: "/scenes/lineups-a/",
+		jsonPath: "/json/lineups-a",
+		get: () => api.getLineupsAScene(),
+		update: (p) => api.updateLineupsAScene(p),
+	},
+	lineupsB: {
+		title: "Lineups B",
+		sceneKey: "Lineups B",
+		scenePath: "/scenes/lineups-b/",
+		jsonPath: "/json/lineups-b",
+		get: () => api.getLineupsBScene(),
+		update: (p) => api.updateLineupsBScene(p),
+	},
+};
+
+function LineupsScenePageInner({ teams, variant }: { teams: TeamResponse[]; variant: LineupsVariant }) {
 	const [scene, setScene] = useState<LineupsSceneState>(defaultSceneState);
 	const status = useStatus();
+	const config = variantConfig[variant];
 
 	useEffect(() => {
-		api.getLineupsScene()
+		config.get()
 			.then(setScene)
 			.catch((error) => status.show((error as Error).message));
-	}, []);
+	}, [variant]);
 
 	const sortedTeams = useMemo(
 		() => [...teams].sort((left, right) => left.name.localeCompare(right.name)),
 		[teams],
 	);
 	const selectedTeam = teams.find((team) => team.id === scene.teamId) ?? null;
-	const previewUrl = `${window.location.origin}/scenes/lineups/`;
-	const jsonUrl = `${window.location.origin}/json/lineups`;
+	const previewUrl = `${window.location.origin}${config.scenePath}`;
+	const jsonUrl = `${window.location.origin}${config.jsonPath}`;
 
 	async function pushUpdate(next: Partial<LineupsSceneState>) {
 		try {
-			const response = await api.updateLineupsScene(next);
+			const response = await config.update(next);
 			setScene(response);
 			status.show("Scene updated.");
 		} catch (error) {
@@ -44,7 +81,7 @@ export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
 	return (
 		<section className="page">
 			<div className="page-header">
-				<div className="title">Lineups</div>
+				<div className="title">{config.title}</div>
 				<div className="subtitle">broadcast scene</div>
 			</div>
 
@@ -57,27 +94,11 @@ export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
 								<Save />
 								Apply
 							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, visible: true, animation: "in", animationId: Date.now() })}
-							>
-								<Eye />
-								Show
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, visible: false, animation: "out", animationId: Date.now() })}
-							>
-								<EyeOff />
-								Hide
-							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Lineups" url={jsonUrl} />
+							<OpenSceneJsonButton data={scene} sceneLabel={config.sceneKey} url={jsonUrl} />
 						</div>
 					</div>
 
@@ -124,10 +145,22 @@ export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
 				<div className="page-preview">
 					<div className="panel">
 						<div className="panel-title">live preview</div>
-						<IframePreview title="Lineups scene preview" src={previewUrl} />
+						<IframePreview title={`${config.title} scene preview`} src={previewUrl} />
 					</div>
 				</div>
 			</div>
 		</section>
 	);
+}
+
+export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
+	return <LineupsScenePageInner teams={teams} variant="lineups" />;
+}
+
+export function LineupsAScenePage({ teams }: { teams: TeamResponse[] }) {
+	return <LineupsScenePageInner teams={teams} variant="lineupsA" />;
+}
+
+export function LineupsBScenePage({ teams }: { teams: TeamResponse[] }) {
+	return <LineupsScenePageInner teams={teams} variant="lineupsB" />;
 }

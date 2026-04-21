@@ -9,7 +9,7 @@ const matchStateLabels: Record<NonNullable<MatchResponse["state"]>, string> = {
 };
 
 const matchStateColors: Record<NonNullable<MatchResponse["state"]>, string> = {
-	finished: "#00FF00",
+	finished: "#b6b6b6",
 	upcoming: "#FFFFFF",
 	next: "#FFD700",
 	live: "#FF3B30",

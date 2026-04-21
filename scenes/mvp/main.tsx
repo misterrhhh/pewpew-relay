@@ -7,7 +7,6 @@ import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { HeadToHeadPlayerState, MvpSceneState, PlayerResponse, TeamResponse } from "../../shared/types";
 import { formatStat } from "../../shared/utils";
-import LogoCCT from "../../client/assets/images/cct.png";
 
 setupScenePage();
 
@@ -71,10 +70,10 @@ function MvpScene() {
 
 	return (
 		<div className="scene-shell">
-			<div className={`mvp-stage ${scene.visible ? "show" : "hide"}`}>
+			<div className="mvp-stage">
 				<div className="elements"></div>
 				<div className="mvp-identity">
-					<div className="logo"><img src={team?.logoUrl ?? LogoCCT} /></div>
+					<div className="logo">{team?.logoUrl ? <img src={team.logoUrl} /> : null}</div>
 					<div className="names">
 						<div className="nickname">{player?.nickname}</div>
 						<div className="realname">{player?.realname}</div>

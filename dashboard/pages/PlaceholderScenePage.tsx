@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { PlaceholderSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -34,24 +34,6 @@ export function PlaceholderScenePage() {
     }
   }
 
-  function handleShow() {
-    void pushUpdate({
-      ...scene,
-      visible: true,
-      animation: "in",
-      animationId: Date.now(),
-    });
-  }
-
-  function handleHide() {
-    void pushUpdate({
-      ...scene,
-      visible: false,
-      animation: "out",
-      animationId: Date.now(),
-    });
-  }
-
   const previewUrl = `${window.location.origin}/scenes/placeholder`;
   const jsonUrl = `${window.location.origin}/json/placeholder`;
 
@@ -71,14 +53,6 @@ export function PlaceholderScenePage() {
                 <button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
                   <Save />
                   Apply
-                </button>
-                <button type="button" className="secondary" onClick={handleShow}>
-                  <Eye />
-                  Show
-                </button>
-                <button type="button" className="secondary" onClick={handleHide}>
-                  <EyeOff />
-                  Hide
                 </button>
                 <button type="button" onClick={() => window.open(previewUrl, "_blank")}>
                   <ExternalLink />

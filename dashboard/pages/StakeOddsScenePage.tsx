@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Save, ExternalLink, RefreshCw, Play, ArrowLeftRight } from "lucide-react";
+import { Save, ExternalLink, RefreshCw, ArrowLeftRight } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchResponse, StakeOddsResponse, StakeOddsSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -86,14 +86,6 @@ export function StakeOddsScenePage({ matches }: { matches: MatchResponse[] }) {
 							<button type="button" onClick={() => void pushUpdate(scene)}>
 								<Save />
 								Apply
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, playId: Date.now() })}
-							>
-								<Play />
-								Play
 							</button>
 							<button
 								type="button"

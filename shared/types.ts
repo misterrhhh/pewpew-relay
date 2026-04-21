@@ -100,14 +100,6 @@ export interface MatchFeedEntry {
   time: string;
 }
 
-export interface PlaceholderSceneState {
-  title: string;
-  message: string;
-  visible: boolean;
-  animation: string;
-  animationId: number;
-}
-
 export interface MatchesSceneState {
   matchIds: string[];
   visible: boolean;
@@ -168,12 +160,6 @@ export interface MvpSceneState {
   visible: boolean;
   animation: string;
   animationId: number;
-}
-
-export interface RelaySceneState {
-  currentSceneId: string;
-  playId: number;
-  transitionStyle: "stinger" | "fade";
 }
 
 export interface UpperBracketSceneState {
@@ -287,7 +273,6 @@ export interface StakeOddsResponse {
 }
 
 export interface SceneStateMap {
-  placeholder: PlaceholderSceneState;
   matches: MatchesSceneState;
   matchesCountdown: MatchesCountdownSceneState;
   pipCountdown: PipCountdownSceneState;
@@ -295,26 +280,26 @@ export interface SceneStateMap {
   vetoL3: VetoSceneState;
   headToHead: HeadToHeadSceneState;
   mvp: MvpSceneState;
-  relay: RelaySceneState;
   upperBracket: UpperBracketSceneState;
   lowerBracket: LowerBracketSceneState;
   stakeOdds: StakeOddsSceneState;
   gridScoreboard: GridScoreboardSceneState;
   lineups: LineupsSceneState;
+  lineupsA: LineupsSceneState;
+  lineupsB: LineupsSceneState;
+  talent: TalentCamsSceneState;
   talentCams1: TalentCamsSceneState;
   talentCams2: TalentCamsSceneState;
   talentCams3: TalentCamsSceneState;
   matchAnalysis: MatchAnalysisSceneState;
   [key: string]:
     | Record<string, unknown>
-    | PlaceholderSceneState
     | MatchesSceneState
     | MatchesCountdownSceneState
     | PipCountdownSceneState
     | VetoSceneState
     | HeadToHeadSceneState
     | MvpSceneState
-    | RelaySceneState
     | UpperBracketSceneState
     | LowerBracketSceneState
     | StakeOddsSceneState

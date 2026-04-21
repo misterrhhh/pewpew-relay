@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchesSceneState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -50,24 +50,6 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 		setScene({ ...scene, matchIds: cleaned });
 	}
 
-	function handleShow() {
-		void pushUpdate({
-			...scene,
-			visible: true,
-			animation: "in",
-			animationId: Date.now(),
-		});
-	}
-
-	function handleHide() {
-		void pushUpdate({
-			...scene,
-			visible: false,
-			animation: "out",
-			animationId: Date.now(),
-		});
-	}
-
 	const selectedMatches = scene.matchIds
 		.map((matchId) => matches.find((match) => match.id === matchId) ?? null)
 		.filter((match): match is MatchResponse => match !== null);
@@ -89,14 +71,6 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 							<button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
 								<Save />
 								Apply
-							</button>
-							<button type="button" className="secondary" onClick={handleShow}>
-								<Eye />
-								Show
-							</button>
-							<button type="button" className="secondary" onClick={handleHide}>
-								<EyeOff />
-								Hide
 							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />

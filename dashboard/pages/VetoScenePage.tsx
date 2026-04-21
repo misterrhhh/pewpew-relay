@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink, ArrowRight, ArrowLeft } from "lucide-react";
+import { Save, ExternalLink, ArrowRight, ArrowLeft } from "lucide-react";
 import { api } from "../../client/api";
 import type { GameMap, MatchResponse, TeamResponse, Veto, VetoSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -176,7 +176,6 @@ export function VetoScenePage({
 								<ArrowRight />
 								Show Next
 							</button>
-							
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />
 								Open Scene

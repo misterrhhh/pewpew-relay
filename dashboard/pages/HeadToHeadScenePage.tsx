@@ -5,7 +5,7 @@ import { IframePreview } from "../components/IframePreview";
 import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
-import { Save, Eye, EyeOff, ExternalLink } from 'lucide-react';
+import { Save, ExternalLink } from 'lucide-react';
 
 const emptyPlayerState: HeadToHeadPlayerState = {
 	playerId: null,
@@ -171,30 +171,6 @@ export function HeadToHeadScenePage({
 								})}
 							><Save />
 								Apply
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({
-									...scene,
-									visible: true,
-									animation: "in",
-									animationId: Date.now(),
-								})}
-							><Eye />
-								Show
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({
-									...scene,
-									visible: false,
-									animation: "out",
-									animationId: Date.now(),
-								})}
-							><EyeOff />
-								Hide
 							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink/>Open Scene

@@ -7,7 +7,6 @@ import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { HeadToHeadPlayerState, HeadToHeadSceneState, PlayerResponse, TeamResponse } from "../../shared/types";
 import { formatStat } from "../../shared/utils";
-import LogoCCT from "./../../client/assets/images/cct.png"
 
 setupScenePage();
 
@@ -68,7 +67,7 @@ function HeadToHeadScene() {
 	
 	return (
 		<div className={`scene-shell`}>
-			<div className={`head-to-head-stage ${scene.visible ? "show" : "hide"} `}>
+			<div className="head-to-head-stage">
 				<div className="elements"></div>
 				<div className="hth-title">{scene.title}</div>
 				<HTHPlayer player={leftPlayer} team={leftTeam} side="left" stats={scene.left} />
@@ -99,9 +98,9 @@ function HeadToHeadScene() {
 					</div>
 				</div>
 				<div className="hth-duel">
-					<div className="left"><img src={leftTeam?.logoUrl ?? LogoCCT} /></div>
+					<div className="left">{leftTeam?.logoUrl ? <img src={leftTeam.logoUrl} /> : null}</div>
 					<div className="vs">vs</div>
-					<div className="right"><img src={rightTeam?.logoUrl ?? LogoCCT} /></div>
+					<div className="right">{rightTeam?.logoUrl ? <img src={rightTeam.logoUrl} /> : null}</div>
 				</div>
 			</div>
 		</div>

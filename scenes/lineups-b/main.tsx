@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import ReactDOM from "react-dom/client";
 import "../../client/styles.css";
 import { setupScenePage } from "../../client/scenePage";
-import "./style.scss";
+import "../lineups/style.scss";
 import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { LineupsSceneState, TeamResponse } from "../../shared/types";
@@ -16,13 +16,13 @@ const defaultSceneState: LineupsSceneState = {
 	animationId: 0,
 };
 
-function LineupsScene() {
+function LineupsBScene() {
 	const [teams, setTeams] = useState<TeamResponse[]>([]);
 	const [scene, setScene] = useState<LineupsSceneState>(defaultSceneState);
 
 	useEffect(() => {
 		function loadData() {
-			return Promise.all([api.listTeams(), api.getLineupsScene()]).then(([nextTeams, nextScene]) => {
+			return Promise.all([api.listTeams(), api.getLineupsBScene()]).then(([nextTeams, nextScene]) => {
 				setTeams(nextTeams);
 				setScene(nextScene);
 			});
@@ -31,7 +31,7 @@ function LineupsScene() {
 		void loadData();
 
 		const socket = connectSceneSocket((message) => {
-			if (message.scene === "lineups") {
+			if (message.scene === "lineupsB") {
 				setScene(message.data as LineupsSceneState);
 				void api.listTeams().then(setTeams);
 			}
@@ -45,7 +45,6 @@ function LineupsScene() {
 		[teams, scene.teamId],
 	);
 	const players = team?.players ?? [];
-	const teamColor = team?.color ?? "#ff39a6";
 
 	return (
 		<div className="scene-shell">
@@ -77,6 +76,4 @@ function LineupsScene() {
 	);
 }
 
-
-
-ReactDOM.createRoot(document.getElementById("root")!).render(<LineupsScene />);
+ReactDOM.createRoot(document.getElementById("root")!).render(<LineupsBScene />);

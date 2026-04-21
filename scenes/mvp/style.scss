@@ -2,14 +2,9 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
-
-	&.show {}
-
-	&.hide {}
 
 	.elements {
 		position: absolute;

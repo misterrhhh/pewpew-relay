@@ -7,8 +7,7 @@ import { api } from "../../client/api";
 import { connectSceneSocket } from "../../client/ws";
 import type { MatchResponse, UpperBracketSceneState } from "../../shared/types";
 import { formatMatchTime } from "../../shared/utils";
-import LogoCCT from "../../client/assets/images/cct.png";
-
+import cct from "./../../client/assets/images/cct.png"
 setupScenePage();
 
 const defaultSceneState: UpperBracketSceneState = {
@@ -63,11 +62,9 @@ function UpperBracketScene() {
 		[matches, scene.matchIds],
 	);
 
-	const visible = scene.visible || scene.animation === "out";
-
 	return (
 		<div className="scene-shell">
-			<div className={`upper-bracket-page ${visible ? "" : "scene-hidden"}`}>
+			<div className="upper-bracket-page">
 				<div className="elements"></div>
 				{slotMatches.map((slot) => (
 					<BracketMatchCard
@@ -85,6 +82,8 @@ function UpperBracketScene() {
 function BracketMatchCard({ label, match, id }: { label: string; match: MatchResponse | null; id: string; }) {
 	const teamA = match?.teamA;
 	const teamB = match?.teamB;
+	const teamALogo = teamA?.logoUrl ?? cct;
+	const teamBLogo = teamB?.logoUrl ?? cct;
 	const score = match && match.scoreA !== null && match.scoreA !== undefined && match.scoreB !== null && match.scoreB !== undefined
 		? `${match.scoreA}-${match.scoreB}`
 		: null;
@@ -99,7 +98,7 @@ function BracketMatchCard({ label, match, id }: { label: string; match: MatchRes
 	return (
 		<div className={`bracket-card ${id} ${isEmpty ? "empty": ""}`}>
 			<div className="card-team">
-				<div className="card-logo"><img src={teamA?.logo ?? LogoCCT} alt="" /></div>
+				<div className="card-logo">{teamALogo ? <img src={teamALogo} alt="" /> : null}</div>
 				<div className="card-name">{teamA?.name ?? "TBD"}</div>
 			</div>
 
@@ -113,7 +112,7 @@ function BracketMatchCard({ label, match, id }: { label: string; match: MatchRes
 			</div>
 			
 			<div className="card-team">
-				<div className="card-logo"><img src={teamB?.logo ?? LogoCCT} alt="" /></div>
+				<div className="card-logo">{teamBLogo ? <img src={teamBLogo} alt="" /> : null}</div>
 				<div className="card-name">{teamB?.name ?? "TBD"}</div>
 			</div>
 		</div>

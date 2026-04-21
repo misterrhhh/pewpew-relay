@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { MatchResponse, PipCountdownSceneState } from "../../shared/types";
 import { compareMatchDateValues } from "../../shared/utils";
@@ -65,24 +65,6 @@ export function PipCountdownScenePage({ matches }: { matches: MatchResponse[] })
 		};
 	}
 
-	function handleShow() {
-		const nextScene = buildScenePayload();
-		void pushUpdate({
-			...nextScene,
-			visible: true,
-			animation: "in",
-		});
-	}
-
-	function handleHide() {
-		void pushUpdate({
-			...scene,
-			visible: false,
-			animation: "out",
-			animationId: Date.now(),
-		});
-	}
-
 	const previewUrl = `${window.location.origin}/scenes/pip-countdown/`;
 	const jsonUrl = `${window.location.origin}/json/pip-countdown`;
 	const selectedMatches = scene.matchIds
@@ -105,14 +87,6 @@ export function PipCountdownScenePage({ matches }: { matches: MatchResponse[] })
 							<button type="button" onClick={() => void pushUpdate(buildScenePayload())}>
 								<Save />
 								Apply
-							</button>
-							<button type="button" className="secondary" onClick={handleShow}>
-								<Eye />
-								Show
-							</button>
-							<button type="button" className="secondary" onClick={handleHide}>
-								<EyeOff />
-								Hide
 							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />

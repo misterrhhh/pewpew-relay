@@ -4,7 +4,7 @@ import path from "node:path";
 import http from "node:http";
 import express from "express";
 import { closeDatabase, getDatabase, initializeDatabase } from "./services/database.js";
-import { clientDistDirectory, imagesDirectory, scenesFile } from "./services/paths.js";
+import { clientDistDirectory, imagesDirectory, mapAssetsDirectory, miscAssetsDirectory, scenesFile } from "./services/paths.js";
 import { SceneManager } from "./services/sceneManager.js";
 import { createEntityRouter } from "./routes/entities.js";
 import { createGridSeriesStateRouter } from "./routes/gridSeriesState.js";
@@ -33,6 +33,8 @@ const sceneManager = new SceneManager(scenesFile, (sceneId, data) => {
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static(imagesDirectory, { maxAge: "1y" }));
+app.use("/misc", express.static(miscAssetsDirectory, { maxAge: "1y" }));
+app.use("/maps", express.static(mapAssetsDirectory, { maxAge: "1y" }));
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
@@ -65,18 +67,6 @@ if (fs.existsSync(clientDistDirectory)) {
 
   app.get("/dashboard/*splat", (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "dashboard", "index.html"));
-  });
-
-  app.get(["/scenes/placeholder", "/scenes/placeholder/"], (_req, res) => {
-    res.sendFile(path.join(clientDistDirectory, "scenes", "placeholder", "index.html"));
-  });
-
-  app.get(["/scenes/relay", "/scenes/relay/"], (_req, res) => {
-    res.sendFile(path.join(clientDistDirectory, "scenes", "relay", "index.html"));
-  });
-
-  app.get(["/scenes/relay-no-sponsors", "/scenes/relay-no-sponsors/"], (_req, res) => {
-    res.sendFile(path.join(clientDistDirectory, "scenes", "relay-no-sponsors", "index.html"));
   });
 
   app.get(["/scenes/head-to-head", "/scenes/head-to-head/"], (_req, res) => {
@@ -123,8 +113,20 @@ if (fs.existsSync(clientDistDirectory)) {
     res.sendFile(path.join(clientDistDirectory, "scenes", "grid-scoreboard", "index.html"));
   });
 
+  app.get(["/scenes/talent", "/scenes/talent/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "talent", "index.html"));
+  });
+
   app.get(["/scenes/lineups", "/scenes/lineups/"], (_req, res) => {
     res.sendFile(path.join(clientDistDirectory, "scenes", "lineups", "index.html"));
+  });
+
+  app.get(["/scenes/lineups-a", "/scenes/lineups-a/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "lineups-a", "index.html"));
+  });
+
+  app.get(["/scenes/lineups-b", "/scenes/lineups-b/"], (_req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "scenes", "lineups-b", "index.html"));
   });
 
   app.get(["/scenes/match-analysis", "/scenes/match-analysis/"], (_req, res) => {

@@ -2,20 +2,11 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	opacity: 0;
-	transition: opacity 300ms ease;
-
-	&.show {
-		opacity: 1;
-	}
-
-	&.hide {
-		opacity: 0;
-	}
+	opacity: 1;
+	background-color: black;
 
 	.elements {
 		position: absolute;

@@ -2,7 +2,6 @@
 	position: absolute;
 	inset: 0;
 	overflow: hidden;
-	background-image: url("./../../client/assets/images/BG_SPONSORS.png");
 	background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -72,6 +71,7 @@
 					height: 200px;
 					background-color: rgba(255, 255, 255, 0.466);
 					mask-image: url("./../../client/assets/images/cct.png");
+					
 					mask-size: 100%;
 					mask-position: center;
 					mask-repeat: no-repeat;
@@ -97,6 +97,7 @@
 				z-index: 2;
 				inset: 0;
 				transition: opacity 300ms;
+				opacity: .2;
 
 				&.ban {
 					background: radial-gradient(circle, transparent, red);

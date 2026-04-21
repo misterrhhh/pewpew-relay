@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Save, Eye, EyeOff, ExternalLink } from "lucide-react";
+import { Save, ExternalLink } from "lucide-react";
 import { api } from "../../client/api";
 import type { Talent, TalentCamsSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
@@ -86,22 +86,6 @@ function TalentCamsScenePageBase({
 							<button type="button" onClick={() => void pushUpdate({ ...scene, animationId: Date.now() })}>
 								<Save />
 								Apply
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, visible: true, animation: "in", animationId: Date.now() })}
-							>
-								<Eye />
-								Show
-							</button>
-							<button
-								type="button"
-								className="secondary"
-								onClick={() => void pushUpdate({ ...scene, visible: false, animation: "out", animationId: Date.now() })}
-							>
-								<EyeOff />
-								Hide
 							</button>
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />

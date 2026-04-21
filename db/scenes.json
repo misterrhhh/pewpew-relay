@@ -1,187 +1,188 @@
 {
-  "placeholder": {
-    "title": "Scene Placeholder",
-    "message": "Replace this scene with your final layout when it is ready.",
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446607678
-  },
   "matches": {
     "matchIds": [
-      "3fe0ba43-e705-4666-bb18-d44def0680b8",
-      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8",
-      "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
-      "36349e67-a067-4a4c-9e85-d8bb38c4f9f6"
+      "1c546374-1347-4345-aa36-8e80242b1ea6",
+      "99388f9d-bcab-479c-8771-12bbc0482671",
+      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
+      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
     ],
     "visible": false,
-    "animation": "out",
-    "animationId": 1776779047303
+    "animation": "idle",
+    "animationId": 1776792868299
   },
   "matchesCountdown": {
     "matchIds": [
-      "60a122b4-e5da-40af-803e-d3149c1b4209",
-      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
-      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8",
-      "746d6423-0210-42f6-9512-40d932570314"
+      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
     ],
     "countdownMode": "fixedTime",
-    "fixedTime": "19:00",
-    "durationMinutes": 1,
+    "fixedTime": "18:00",
+    "durationMinutes": 5,
     "durationStartedAt": null,
     "visible": false,
-    "animation": "out",
-    "animationId": 1776446559105
+    "animation": "idle",
+    "animationId": 1776794544446
   },
   "pipCountdown": {
-    "matchIds": [
-      "746d6423-0210-42f6-9512-40d932570314",
-      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
-      "36349e67-a067-4a4c-9e85-d8bb38c4f9f6",
-      "5b7ff74c-b0a5-41b2-a929-77c4b538b1e8"
-    ],
+    "matchIds": [],
     "countdownMode": "fixedTime",
-    "fixedTime": "19:00",
-    "durationMinutes": 15,
+    "fixedTime": "18:00",
+    "durationMinutes": 5,
     "durationStartedAt": null,
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776779049122
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
   },
   "veto": {
-    "matchId": "746d6423-0210-42f6-9512-40d932570314",
-    "currentIndex": 7,
+    "matchId": null,
+    "currentIndex": 0,
     "visible": false,
-    "animation": "out",
-    "animationId": 1776446549632
+    "animation": "idle",
+    "animationId": 0
   },
   "vetoL3": {
-    "matchId": "746d6423-0210-42f6-9512-40d932570314",
-    "currentIndex": 1,
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776504578199
+    "matchId": null,
+    "currentIndex": 0,
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
   },
   "headToHead": {
-    "title": "last 3 months",
+    "title": "asd",
     "left": {
-      "playerId": "78deb1b8-4aa0-4ec9-8bc3-6c684263d5d8",
-      "kills": 15,
-      "deaths": 19,
-      "adr": 95.9,
-      "rating3": 1.28
+      "playerId": "9afcd95a-5a33-455f-a8a0-003fda190f00",
+      "kills": 13,
+      "deaths": 4,
+      "adr": 22,
+      "rating3": 1.54
     },
     "right": {
-      "playerId": "94306116-70dc-4541-b44e-749b999126dd",
-      "kills": 22,
-      "deaths": 20,
-      "adr": 75,
-      "rating3": 1.05
+      "playerId": "62b205a6-b711-4a2e-903c-82b2cce92214",
+      "kills": 33,
+      "deaths": 12,
+      "adr": 133,
+      "rating3": 1.34
     },
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776703631866
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776794235154
   },
   "mvp": {
     "title": "MVP",
     "player": {
-      "playerId": "24664933-d43d-4031-bb52-aeae4b971a9a",
-      "kills": 33,
-      "deaths": 24,
-      "adr": 104,
-      "rating3": 1.44
+      "playerId": "7c53b92d-2637-42f1-acde-c82c5b2c1dc9",
+      "kills": 12,
+      "deaths": 12,
+      "adr": 12,
+      "rating3": 12
     },
     "visible": false,
-    "animation": "out",
-    "animationId": 1776702849316
-  },
-  "relay": {
-    "currentSceneId": "pipCountdown",
-    "playId": 1776779047289,
-    "transitionStyle": "stinger"
+    "animation": "idle",
+    "animationId": 1776794120234
   },
   "upperBracket": {
     "matchIds": [
-      "3fe0ba43-e705-4666-bb18-d44def0680b8",
-      "746d6423-0210-42f6-9512-40d932570314",
-      "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
-      "36349e67-a067-4a4c-9e85-d8bb38c4f9f6",
-      "5c5f4a92-f910-4ffc-bcd9-4f1ffeb33ae4",
-      "d890fdb8-c016-451f-bcb8-91604369b70a",
-      "a72d4d76-44b1-4faa-82c9-14add063633d",
-      "60a122b4-e5da-40af-803e-d3149c1b4209"
+      "1c546374-1347-4345-aa36-8e80242b1ea6",
+      "99388f9d-bcab-479c-8771-12bbc0482671",
+      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
+      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
     ],
     "visible": false,
-    "animation": "out",
-    "animationId": 1776702878907
+    "animation": "idle",
+    "animationId": 1776792800077
   },
   "lowerBracket": {
-    "matchIds": [
-      "d890fdb8-c016-451f-bcb8-91604369b70a",
-      "11d01357-673d-4691-a4c9-06db0468bc3d",
-      "741b6a2f-fd67-4dc7-a928-7e5e1c169ff1",
-      "3727c22e-5952-4966-a002-9dde4b9183f5",
-      "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
-      "60a122b4-e5da-40af-803e-d3149c1b4209"
-    ],
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776703681456
+    "matchIds": [],
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776792978352
   },
   "stakeOdds": {
-    "matchId": "746d6423-0210-42f6-9512-40d932570314",
+    "matchId": null,
     "swapSides": false,
-    "playId": 1776703617769
+    "playId": 0
   },
   "gridScoreboard": {
-    "matchId": "741b6a2f-fd67-4dc7-a928-7e5e1c169ff1",
+    "matchId": null,
     "swapSides": false,
     "visible": false,
-    "animation": "out",
-    "animationId": 1776701359219
+    "animation": "idle",
+    "animationId": 0
   },
   "lineups": {
-    "teamId": "5bd178d2-407a-487a-92a1-7228b3a003cb",
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776703603110
+    "teamId": null,
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
+  },
+  "lineupsA": {
+    "teamId": "277114ed-dca0-4549-95c9-d3b72c82f230",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776793057304
+  },
+  "lineupsB": {
+    "teamId": "51b0de42-131f-4671-94f2-787bd8b04dc9",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776793025565
+  },
+  "talent": {
+    "title": "Talent",
+    "talentIds": [
+      "0f052cb4-702a-4235-a6f3-67466cd08544",
+      null,
+      "52608044-6aa3-4a54-a81b-6e0556cc12fc",
+      "e2037d6c-34cc-4750-ab74-be7048e734c6",
+      null
+    ],
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776793867222
   },
   "talentCams1": {
-    "title": "crazy",
+    "title": "Broadcast Talent",
     "talentIds": [
-      "47679b4d-0395-4849-a138-5844942084cc"
+      null
     ],
     "visible": false,
-    "animation": "out",
-    "animationId": 1776356038796
+    "animation": "idle",
+    "animationId": 0
   },
   "talentCams2": {
-    "title": "asdasdadddddd",
+    "title": "Broadcast Talent",
     "talentIds": [
-      "47679b4d-0395-4849-a138-5844942084cc",
-      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1"
+      null,
+      null
     ],
     "visible": false,
-    "animation": "out",
-    "animationId": 1776355809866
+    "animation": "idle",
+    "animationId": 0
   },
   "talentCams3": {
-    "title": "analyst segment",
+    "title": "Broadcast Talent",
     "talentIds": [
-      "5ad34f9d-b0de-4edd-a358-f87ec0b9b2c2",
-      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1",
-      "47679b4d-0395-4849-a138-5844942084cc"
+      "52608044-6aa3-4a54-a81b-6e0556cc12fc",
+      "e2037d6c-34cc-4750-ab74-be7048e734c6",
+      "0f052cb4-702a-4235-a6f3-67466cd08544"
     ],
     "visible": false,
-    "animation": "out",
-    "animationId": 1776355805202
+    "animation": "idle",
+    "animationId": 1776793214563
   },
   "matchAnalysis": {
     "talentIds": [
-      "60157212-d165-4d49-88dd-8c081d800e1e",
-      "9653ca0e-eb5f-4c34-84a0-1e155499e5d1"
+      null,
+      null
     ],
     "visible": false,
-    "animation": "out",
-    "animationId": 1776445133395
+    "animation": "idle",
+    "animationId": 0
+  },
+  "placeholder": {
+    "title": "Scene Placeholder",
+    "message": "Replace this scene with your final layout when it is ready.",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
   }
 }
