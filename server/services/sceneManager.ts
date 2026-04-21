@@ -20,23 +20,6 @@ const defaultScenes: SceneStateMap = {
 		animation: "idle",
 		animationId: 0,
 	},
-	pipCountdown: {
-		matchIds: [],
-		countdownMode: "fixedTime",
-		fixedTime: "18:00",
-		durationMinutes: 5,
-		durationStartedAt: null,
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
-	veto: {
-		matchId: null,
-		currentIndex: 0,
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
 	vetoL3: {
 		matchId: null,
 		currentIndex: 0,
@@ -126,33 +109,6 @@ const defaultScenes: SceneStateMap = {
 		animation: "idle",
 		animationId: 0,
 	},
-	talentCams1: {
-		title: "Broadcast Talent",
-		talentIds: [null],
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
-	talentCams2: {
-		title: "Broadcast Talent",
-		talentIds: [null, null],
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
-	talentCams3: {
-		title: "Broadcast Talent",
-		talentIds: [null, null, null],
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
-	matchAnalysis: {
-		talentIds: [null, null],
-		visible: false,
-		animation: "idle",
-		animationId: 0,
-	},
 };
 
 function normalizeMatchListScene(
@@ -230,51 +186,9 @@ function normalizeMatchesCountdownScene(input: unknown) {
 	};
 }
 
-function normalizePipCountdownScene(input: unknown) {
+function normalizeVetoL3Scene(input: unknown) {
 	if (typeof input !== "object" || input === null) {
-		return structuredClone(defaultScenes.pipCountdown);
-	}
-
-	const legacy = input as {
-		matchId?: unknown;
-		matchIds?: unknown;
-		countdownMode?: unknown;
-		fixedTime?: unknown;
-		durationMinutes?: unknown;
-		durationStartedAt?: unknown;
-		visible?: unknown;
-		animation?: unknown;
-		animationId?: unknown;
-	};
-
-	const matchIdsSource = Array.isArray(legacy.matchIds)
-		? legacy.matchIds
-		: typeof legacy.matchId === "string" && legacy.matchId
-			? [legacy.matchId]
-			: [];
-
-	const matchIds = Array.from(new Set(matchIdsSource.filter((value): value is string => typeof value === "string" && value.trim() !== ""))).slice(0, 4);
-	const countdownMode: "fixedTime" | "duration" = legacy.countdownMode === "duration" ? "duration" : "fixedTime";
-	const fixedTime = typeof legacy.fixedTime === "string" && /^\d{2}:\d{2}$/.test(legacy.fixedTime) ? legacy.fixedTime : defaultScenes.pipCountdown.fixedTime;
-	const durationMinutes = typeof legacy.durationMinutes === "number" && Number.isFinite(legacy.durationMinutes)
-		? Math.max(1, Math.floor(legacy.durationMinutes))
-		: defaultScenes.pipCountdown.durationMinutes;
-
-	return {
-		matchIds,
-		countdownMode,
-		fixedTime,
-		durationMinutes,
-		durationStartedAt: typeof legacy.durationStartedAt === "number" ? legacy.durationStartedAt : defaultScenes.pipCountdown.durationStartedAt,
-		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.pipCountdown.visible,
-		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.pipCountdown.animation,
-		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.pipCountdown.animationId,
-	};
-}
-
-function normalizeVetoScene(input: unknown) {
-	if (typeof input !== "object" || input === null) {
-		return structuredClone(defaultScenes.veto);
+		return structuredClone(defaultScenes.vetoL3);
 	}
 
 	const legacy = input as {
@@ -286,13 +200,13 @@ function normalizeVetoScene(input: unknown) {
 	};
 
 	return {
-		matchId: typeof legacy.matchId === "string" && legacy.matchId.trim() !== "" ? legacy.matchId : defaultScenes.veto.matchId,
+		matchId: typeof legacy.matchId === "string" && legacy.matchId.trim() !== "" ? legacy.matchId : defaultScenes.vetoL3.matchId,
 		currentIndex: typeof legacy.currentIndex === "number" && Number.isFinite(legacy.currentIndex)
 			? Math.max(0, Math.floor(legacy.currentIndex))
-			: defaultScenes.veto.currentIndex,
-		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.veto.visible,
-		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.veto.animation,
-		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.veto.animationId,
+			: defaultScenes.vetoL3.currentIndex,
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.vetoL3.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.vetoL3.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.vetoL3.animationId,
 	};
 }
 
@@ -431,7 +345,7 @@ function normalizeGridScoreboardScene(input: unknown) {
 	};
 }
 
-function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talentCams1"] | SceneStateMap["talentCams2"] | SceneStateMap["talentCams3"], count: number) {
+function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talent"], count: number) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(fallback);
 	}
@@ -462,38 +376,6 @@ function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talen
 		visible: typeof legacy.visible === "boolean" ? legacy.visible : fallback.visible,
 		animation: typeof legacy.animation === "string" ? legacy.animation : fallback.animation,
 		animationId: typeof legacy.animationId === "number" ? legacy.animationId : fallback.animationId,
-	};
-}
-
-function normalizeMatchAnalysisScene(input: unknown) {
-	if (typeof input !== "object" || input === null) {
-		return structuredClone(defaultScenes.matchAnalysis);
-	}
-
-	const legacy = input as {
-		talentIds?: unknown;
-		casterIds?: unknown;
-		visible?: unknown;
-		animation?: unknown;
-		animationId?: unknown;
-	};
-
-	const idsSource = Array.isArray(legacy.talentIds)
-		? legacy.talentIds
-		: Array.isArray(legacy.casterIds)
-			? legacy.casterIds
-			: [];
-
-	const talentIds = Array.from({ length: 2 }, (_, index) => {
-		const value = idsSource[index];
-		return typeof value === "string" && value.trim() !== "" ? value : null;
-	});
-
-	return {
-		talentIds,
-		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.matchAnalysis.visible,
-		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.matchAnalysis.animation,
-		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.matchAnalysis.animationId,
 	};
 }
 
@@ -549,9 +431,7 @@ export class SceneManager {
 			upperBracket: normalizeMatchListScene(parsed.upperBracket, defaultScenes.upperBracket, 8),
 			lowerBracket: normalizeMatchListScene(parsed.lowerBracket, defaultScenes.lowerBracket, 6),
 			matchesCountdown: normalizeMatchesCountdownScene(parsed.matchesCountdown),
-			pipCountdown: normalizePipCountdownScene(parsed.pipCountdown),
-			veto: normalizeVetoScene(parsed.veto),
-			vetoL3: normalizeVetoScene((parsed as Record<string, unknown>).vetoL3),
+			vetoL3: normalizeVetoL3Scene((parsed as Record<string, unknown>).vetoL3),
 			headToHead: normalizeHeadToHeadScene(parsed.headToHead),
 			mvp: normalizeMvpScene((parsed as Record<string, unknown>).mvp),
 			stakeOdds: normalizeStakeOddsScene((parsed as Record<string, unknown>).stakeOdds),
@@ -560,14 +440,6 @@ export class SceneManager {
 			lineupsA: normalizeLineupsScene((parsed as Record<string, unknown>).lineupsA),
 			lineupsB: normalizeLineupsScene((parsed as Record<string, unknown>).lineupsB),
 			talent: normalizeTalentCamsScene((parsed as Record<string, unknown>).talent, defaultScenes.talent, 5),
-			talentCams1: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams1, defaultScenes.talentCams1, 1),
-			talentCams2: normalizeTalentCamsScene((parsed as Record<string, unknown>).talentCams2, defaultScenes.talentCams2, 2),
-			talentCams3: normalizeTalentCamsScene(
-				(parsed as Record<string, unknown>).talentCams3 ?? (parsed as Record<string, unknown>).talentDesk ?? (parsed as Record<string, unknown>).casterDesk,
-				defaultScenes.talentCams3,
-				3,
-			),
-			matchAnalysis: normalizeMatchAnalysisScene((parsed as Record<string, unknown>).matchAnalysis),
 		};
 
 		if (JSON.stringify(parsed) !== JSON.stringify(nextState)) {

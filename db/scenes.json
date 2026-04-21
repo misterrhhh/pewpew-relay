@@ -22,29 +22,12 @@
     "animation": "idle",
     "animationId": 1776794544446
   },
-  "pipCountdown": {
-    "matchIds": [],
-    "countdownMode": "fixedTime",
-    "fixedTime": "18:00",
-    "durationMinutes": 5,
-    "durationStartedAt": null,
-    "visible": false,
-    "animation": "idle",
-    "animationId": 0
-  },
-  "veto": {
-    "matchId": null,
-    "currentIndex": 0,
-    "visible": false,
-    "animation": "idle",
-    "animationId": 0
-  },
   "vetoL3": {
-    "matchId": null,
+    "matchId": "1c546374-1347-4345-aa36-8e80242b1ea6",
     "currentIndex": 0,
     "visible": false,
-    "animation": "idle",
-    "animationId": 0
+    "animation": "out",
+    "animationId": 1776797665795
   },
   "headToHead": {
     "title": "asd",
@@ -138,6 +121,23 @@
     "visible": false,
     "animation": "idle",
     "animationId": 1776793867222
+  },
+  "pipCountdown": {
+    "matchIds": [],
+    "countdownMode": "fixedTime",
+    "fixedTime": "18:00",
+    "durationMinutes": 5,
+    "durationStartedAt": null,
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
+  },
+  "veto": {
+    "matchId": null,
+    "currentIndex": 0,
+    "visible": false,
+    "animation": "idle",
+    "animationId": 0
   },
   "talentCams1": {
     "title": "Broadcast Talent",

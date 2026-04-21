@@ -12,12 +12,10 @@ import type {
 	LineupsSceneState,
 	LowerBracketSceneState,
 	Match,
-	MatchAnalysisSceneState,
 	MatchResponse,
 	MatchesCountdownSceneState,
 	MatchesSceneState,
 	MvpSceneState,
-	PipCountdownSceneState,
 	Player,
 	PlayerResponse,
 	StakeOddsResponse,
@@ -160,7 +158,7 @@ function buildSelectedMatchFeed(matchesById: Map<string, MatchResponse>, matchId
 }
 
 function buildCountdownFeed(
-	scene: MatchesCountdownSceneState | PipCountdownSceneState,
+	scene: MatchesCountdownSceneState,
 	matchesById: Map<string, MatchResponse>,
 ) {
 	const selectedMatches = scene.matchIds
@@ -262,22 +260,6 @@ function buildGridPlayerTeam(team: GridSeriesGameTeam | null) {
 	};
 }
 
-function buildTalentFeed(
-	scene: TalentCamsSceneState | MatchAnalysisSceneState,
-	talentById: Map<string, Talent>,
-	title?: string,
-) {
-	const selectedTalent = scene.talentIds.map((talentId, index) => ({
-		slot: index + 1,
-		talent: compactTalent(talentById.get(talentId ?? "") ?? null),
-	}));
-
-	return {
-		...(typeof title === "string" ? { title } : {}),
-		talent: selectedTalent,
-	};
-}
-
 export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager: SceneManager) {
 	const router = Router();
 
@@ -311,24 +293,6 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 		res.json(buildCountdownFeed(normalizedScene, matchesById));
 	});
 
-	router.get("/pip-countdown", (req, res) => {
-		const database = getDatabase();
-		const scene = sceneManager.getScene("pipCountdown") as PipCountdownSceneState | null;
-		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
-		const normalizedScene = scene ?? {
-			matchIds: [],
-			countdownMode: "fixedTime",
-			fixedTime: "18:00",
-			durationMinutes: 5,
-			durationStartedAt: null,
-			visible: false,
-			animation: "idle",
-			animationId: 0,
-		};
-
-		res.json(buildCountdownFeed(normalizedScene, matchesById));
-	});
-
 	router.get("/head-to-head", (req, res) => {
 		const database = getDatabase();
 		const scene = sceneManager.getScene("headToHead") as HeadToHeadSceneState | null;
@@ -345,10 +309,10 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 			animationId: 0,
 		};
 
-		res.json({
-			left: buildHeadToHeadSide(normalizedScene.left, playersById, teamsById, normalizedScene.title),
-			right: buildHeadToHeadSide(normalizedScene.right, playersById, teamsById, normalizedScene.title),
-		});
+		res.json([
+			buildHeadToHeadSide(normalizedScene.left, playersById, teamsById, normalizedScene.title),
+			buildHeadToHeadSide(normalizedScene.right, playersById, teamsById, normalizedScene.title),
+		]);
 	});
 
 	router.get("/mvp", (req, res) => {
@@ -467,15 +431,6 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 			};
 		});
 	}
-
-	router.get("/veto", (req, res) => {
-		const database = getDatabase();
-		const scene = sceneManager.getScene("veto") as VetoSceneState | null;
-		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
-		const normalizedScene = scene ?? { matchId: null, currentIndex: 0, visible: false, animation: "idle", animationId: 0 };
-		const match = matchesById.get(normalizedScene.matchId ?? "") ?? null;
-		res.json({ vetos: buildVetoList(req, match) });
-	});
 
 	router.get("/veto-l3", (req, res) => {
 		const database = getDatabase();
@@ -599,80 +554,6 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 		});
 
 		res.json({ talent });
-	});
-
-	router.get("/talent-cams-1", (req, res) => {
-		const database = getDatabase();
-		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
-		const scene = sceneManager.getScene("talentCams1") as TalentCamsSceneState | null;
-		const normalizedScene = scene ?? {
-			title: "Broadcast Talent",
-			talentIds: [null],
-			visible: false,
-			animation: "idle",
-			animationId: 0,
-		};
-
-		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
-	});
-
-	router.get("/talent-cams-2", (req, res) => {
-		const database = getDatabase();
-		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
-		const scene = sceneManager.getScene("talentCams2") as TalentCamsSceneState | null;
-		const normalizedScene = scene ?? {
-			title: "Broadcast Talent",
-			talentIds: [null, null],
-			visible: false,
-			animation: "idle",
-			animationId: 0,
-		};
-
-		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
-	});
-
-	router.get("/talent-cams-3", (req, res) => {
-		const database = getDatabase();
-		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
-		const scene = sceneManager.getScene("talentCams3") as TalentCamsSceneState | null;
-		const normalizedScene = scene ?? {
-			title: "Broadcast Talent",
-			talentIds: [null, null, null],
-			visible: false,
-			animation: "idle",
-			animationId: 0,
-		};
-
-		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
-	});
-
-	router.get("/talent-desk", (req, res) => {
-		const database = getDatabase();
-		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
-		const scene = sceneManager.getScene("talentCams3") as TalentCamsSceneState | null;
-		const normalizedScene = scene ?? {
-			title: "Broadcast Talent",
-			talentIds: [null, null, null],
-			visible: false,
-			animation: "idle",
-			animationId: 0,
-		};
-
-		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
-	});
-
-	router.get("/match-analysis", (req, res) => {
-		const database = getDatabase();
-		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
-		const scene = sceneManager.getScene("matchAnalysis") as MatchAnalysisSceneState | null;
-		const normalizedScene = scene ?? {
-			talentIds: [null, null],
-			visible: false,
-			animation: "idle",
-			animationId: 0,
-		};
-
-		res.json(buildTalentFeed(normalizedScene, talentById));
 	});
 
 	return router;

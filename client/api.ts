@@ -5,12 +5,10 @@ import type {
   HeadToHeadSceneState,
   LineupsSceneState,
   LowerBracketSceneState,
-  MatchAnalysisSceneState,
   MatchesCountdownSceneState,
   MatchesSceneState,
   MatchResponse,
   MvpSceneState,
-  PipCountdownSceneState,
   PlayerResponse,
   SceneStateMap,
   StakeOddsResponse,
@@ -74,12 +72,6 @@ export const api = {
   getMatchesCountdownScene: () => request<MatchesCountdownSceneState>("/api/scenes/matchesCountdown"),
   updateMatchesCountdownScene: (payload: Partial<MatchesCountdownSceneState>) =>
     request<MatchesCountdownSceneState>("/api/scenes/matchesCountdown", { method: "POST", body: JSON.stringify(payload) }),
-  getPipCountdownScene: () => request<PipCountdownSceneState>("/api/scenes/pipCountdown"),
-  updatePipCountdownScene: (payload: Partial<PipCountdownSceneState>) =>
-    request<PipCountdownSceneState>("/api/scenes/pipCountdown", { method: "POST", body: JSON.stringify(payload) }),
-  getVetoScene: () => request<VetoSceneState>("/api/scenes/veto"),
-  updateVetoScene: (payload: Partial<VetoSceneState>) =>
-    request<VetoSceneState>("/api/scenes/veto", { method: "POST", body: JSON.stringify(payload) }),
   getVetoL3Scene: () => request<VetoSceneState>("/api/scenes/vetoL3"),
   updateVetoL3Scene: (payload: Partial<VetoSceneState>) =>
     request<VetoSceneState>("/api/scenes/vetoL3", { method: "POST", body: JSON.stringify(payload) }),
@@ -113,21 +105,6 @@ export const api = {
   getTalentScene: () => request<TalentCamsSceneState>("/api/scenes/talent"),
   updateTalentScene: (payload: Partial<TalentCamsSceneState>) =>
     request<TalentCamsSceneState>("/api/scenes/talent", { method: "POST", body: JSON.stringify(payload) }),
-  getTalentCams1Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams1"),
-  updateTalentCams1Scene: (payload: Partial<TalentCamsSceneState>) =>
-    request<TalentCamsSceneState>("/api/scenes/talentCams1", { method: "POST", body: JSON.stringify(payload) }),
-  getTalentCams2Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams2"),
-  updateTalentCams2Scene: (payload: Partial<TalentCamsSceneState>) =>
-    request<TalentCamsSceneState>("/api/scenes/talentCams2", { method: "POST", body: JSON.stringify(payload) }),
-  getTalentCams3Scene: () => request<TalentCamsSceneState>("/api/scenes/talentCams3"),
-  updateTalentCams3Scene: (payload: Partial<TalentCamsSceneState>) =>
-    request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
-  getMatchAnalysisScene: () => request<MatchAnalysisSceneState>("/api/scenes/matchAnalysis"),
-  updateMatchAnalysisScene: (payload: Partial<MatchAnalysisSceneState>) =>
-    request<MatchAnalysisSceneState>("/api/scenes/matchAnalysis", { method: "POST", body: JSON.stringify(payload) }),
-  getTalentDeskScene: () => request<TalentCamsSceneState>("/api/scenes/talentCams3"),
-  updateTalentDeskScene: (payload: Partial<TalentCamsSceneState>) =>
-    request<TalentCamsSceneState>("/api/scenes/talentCams3", { method: "POST", body: JSON.stringify(payload) }),
   getStakeOdds: (matchId: string) => request<StakeOddsResponse>(`/api/stake-odds/${matchId}`),
   getGridSeriesState: () => request<GridSeriesState>("/api/grid-series-state"),
   getScene: <K extends keyof SceneStateMap>(sceneId: K) => request<SceneStateMap[K]>(`/api/scenes/${sceneId}`),

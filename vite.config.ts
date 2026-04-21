@@ -5,8 +5,6 @@ import react from "@vitejs/plugin-react";
 const sceneEntryRoutes = [
   "/scenes/head-to-head",
   "/scenes/mvp",
-  "/scenes/pip-countdown",
-  "/scenes/veto",
   "/scenes/veto-l3",
   "/scenes/matches",
   "/scenes/matches-countdown",
@@ -18,11 +16,6 @@ const sceneEntryRoutes = [
   "/scenes/lineups",
   "/scenes/lineups-a",
   "/scenes/lineups-b",
-  "/scenes/match-analysis",
-  "/scenes/talent-cams-3",
-  "/scenes/talent-cams-2",
-  "/scenes/talent-cams-1",
-  "/scenes/talent-desk",
 ];
 
 function isHtmlNavigation(pathname: string, acceptHeader?: string) {
@@ -91,8 +84,6 @@ export default defineConfig({
         dashboard: resolve(__dirname, "dashboard/index.html"),
         headToHead: resolve(__dirname, "scenes/head-to-head/index.html"),
         mvp: resolve(__dirname, "scenes/mvp/index.html"),
-        pipCountdown: resolve(__dirname, "scenes/pip-countdown/index.html"),
-        veto: resolve(__dirname, "scenes/veto/index.html"),
         vetoL3: resolve(__dirname, "scenes/veto-l3/index.html"),
         matches: resolve(__dirname, "scenes/matches/index.html"),
         matchesCountdown: resolve(__dirname, "scenes/matches-countdown/index.html"),
@@ -104,10 +95,6 @@ export default defineConfig({
         talent: resolve(__dirname, "scenes/talent/index.html"),
         lineupsA: resolve(__dirname, "scenes/lineups-a/index.html"),
         lineupsB: resolve(__dirname, "scenes/lineups-b/index.html"),
-        matchAnalysis: resolve(__dirname, "scenes/match-analysis/index.html"),
-        talentCams3: resolve(__dirname, "scenes/talent-cams-3/index.html"),
-        talentCams2: resolve(__dirname, "scenes/talent-cams-2/index.html"),
-        talentCams1: resolve(__dirname, "scenes/talent-cams-1/index.html"),
       },
     },
   },

@@ -8,22 +8,18 @@ import { GridScoreboardScenePage } from "./pages/GridScoreboardScenePage";
 import { LineupsScenePage, LineupsAScenePage, LineupsBScenePage } from "./pages/LineupsScenePage";
 import { LowerBracketScenePage } from "./pages/LowerBracketScenePage";
 import { MapsPage } from "./pages/MapsPage";
-import { MatchAnalysisScenePage } from "./pages/MatchAnalysisScenePage";
 import { MatchesPage } from "./pages/MatchesPage";
 import { MatchesCountdownScenePage } from "./pages/MatchesCountdownScenePage";
 import { MatchesScenePage } from "./pages/MatchesScenePage";
 import { MvpScenePage } from "./pages/MvpScenePage";
-import { PipCountdownScenePage } from "./pages/PipCountdownScenePage";
 import { PlayersPage } from "./pages/PlayersPage";
 import { SystemPage } from "./pages/SystemPage";
 import { StakeOddsScenePage } from "./pages/StakeOddsScenePage";
-import { TalentCams1ScenePage, TalentCams2ScenePage, TalentCams3ScenePage } from "./pages/TalentCamsScenePage";
 import { TalentScenePage } from "./pages/TalentScenePage";
 import { TalentPage } from "./pages/TalentPage";
 import { TeamsPage } from "./pages/TeamsPage";
 import { UpperBracketScenePage } from "./pages/UpperBracketScenePage";
 import { VetoL3ScenePage } from "./pages/VetoL3ScenePage";
-import { VetoScenePage } from "./pages/VetoScenePage";
 
 export function App() {
 	const [players, setPlayers] = useState<PlayerResponse[]>([]);
@@ -75,8 +71,6 @@ export function App() {
 						<Route path="/" element={<Navigate to="/scenes/head-to-head" replace />} />
 						<Route path="/scenes/head-to-head" element={<HeadToHeadScenePage players={players} teams={teams} />} />
 						<Route path="/scenes/mvp" element={<MvpScenePage players={players} teams={teams} />} />
-						<Route path="/scenes/pip-countdown" element={<PipCountdownScenePage matches={matches} />} />
-						<Route path="/scenes/veto" element={<VetoScenePage matches={matches} teams={teams} maps={maps} refresh={refresh} />} />
 						<Route path="/scenes/veto-l3" element={<VetoL3ScenePage matches={matches} teams={teams} maps={maps} refresh={refresh} />} />
 						<Route path="/scenes/matches" element={<MatchesScenePage matches={matches} />} />
 						<Route path="/scenes/matches-countdown" element={<MatchesCountdownScenePage matches={matches} />} />
@@ -87,12 +81,7 @@ export function App() {
 						<Route path="/scenes/lineups" element={<LineupsScenePage teams={teams} />} />
 						<Route path="/scenes/lineups-a" element={<LineupsAScenePage teams={teams} />} />
 						<Route path="/scenes/lineups-b" element={<LineupsBScenePage teams={teams} />} />
-						<Route path="/scenes/match-analysis" element={<MatchAnalysisScenePage talent={talent} />} />
 						<Route path="/scenes/talent" element={<TalentScenePage talent={talent} />} />
-						<Route path="/scenes/talent-cams-3" element={<TalentCams3ScenePage talent={talent} />} />
-						<Route path="/scenes/talent-cams-2" element={<TalentCams2ScenePage talent={talent} />} />
-						<Route path="/scenes/talent-cams-1" element={<TalentCams1ScenePage talent={talent} />} />
-						<Route path="/scenes/talent-desk" element={<Navigate to="/scenes/talent-cams-3" replace />} />
 						<Route path="/players" element={<PlayersPage players={players} teams={teams} refresh={refresh} />} />
 						<Route path="/teams" element={<TeamsPage teams={teams} refresh={refresh} />} />
 						<Route path="/maps" element={<MapsPage maps={maps} refresh={refresh} />} />

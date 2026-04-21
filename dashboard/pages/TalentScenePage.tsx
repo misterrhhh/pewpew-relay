@@ -6,11 +6,11 @@ import { IframePreview } from "../components/IframePreview";
 import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
-const SLOT_COUNT = 5;
+const SLOT_LABELS = ["Host", "Analyst 1", "Analyst 2", "Caster 1", "Caster 2"];
 
 const defaultSceneState: TalentCamsSceneState = {
 	title: "Talent",
-	talentIds: Array.from({ length: SLOT_COUNT }, () => null),
+	talentIds: Array.from({ length: SLOT_LABELS.length }, () => null),
 	visible: false,
 	animation: "idle",
 	animationId: 0,
@@ -85,9 +85,9 @@ export function TalentScenePage({ talent }: { talent: Talent[] }) {
 						<div className="panel-title">data</div>
 						<div className="panel-content scene-panel-content--stack">
 							<div className="form-grid scene-panel-form">
-								{Array.from({ length: SLOT_COUNT }, (_, slot) => (
+								{SLOT_LABELS.map((label, slot) => (
 									<div className="field" key={slot}>
-										<label>Spot {slot + 1}</label>
+										<label>{label}</label>
 										<select value={scene.talentIds[slot] ?? ""} onChange={(event) => setSlot(slot, event.target.value)}>
 											<option value="">Empty</option>
 											{sortedTalent.map((entry) => (

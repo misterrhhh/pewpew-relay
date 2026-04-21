@@ -118,17 +118,6 @@ export interface MatchesCountdownSceneState {
   animationId: number;
 }
 
-export interface PipCountdownSceneState {
-  matchIds: string[];
-  countdownMode: "fixedTime" | "duration";
-  fixedTime: string;
-  durationMinutes: number;
-  durationStartedAt: number | null;
-  visible: boolean;
-  animation: string;
-  animationId: number;
-}
-
 export interface VetoSceneState {
   matchId: string | null;
   currentIndex: number;
@@ -253,13 +242,6 @@ export interface TalentCamsSceneState {
 
 export type TalentDeskSceneState = TalentCamsSceneState;
 
-export interface MatchAnalysisSceneState {
-  talentIds: Array<string | null>;
-  visible: boolean;
-  animation: string;
-  animationId: number;
-}
-
 export interface StakeOddsResponse {
   matchId: string;
   stakeId: string;
@@ -275,8 +257,6 @@ export interface StakeOddsResponse {
 export interface SceneStateMap {
   matches: MatchesSceneState;
   matchesCountdown: MatchesCountdownSceneState;
-  pipCountdown: PipCountdownSceneState;
-  veto: VetoSceneState;
   vetoL3: VetoSceneState;
   headToHead: HeadToHeadSceneState;
   mvp: MvpSceneState;
@@ -288,15 +268,10 @@ export interface SceneStateMap {
   lineupsA: LineupsSceneState;
   lineupsB: LineupsSceneState;
   talent: TalentCamsSceneState;
-  talentCams1: TalentCamsSceneState;
-  talentCams2: TalentCamsSceneState;
-  talentCams3: TalentCamsSceneState;
-  matchAnalysis: MatchAnalysisSceneState;
   [key: string]:
     | Record<string, unknown>
     | MatchesSceneState
     | MatchesCountdownSceneState
-    | PipCountdownSceneState
     | VetoSceneState
     | HeadToHeadSceneState
     | MvpSceneState
@@ -306,7 +281,7 @@ export interface SceneStateMap {
     | GridScoreboardSceneState
     | LineupsSceneState
     | TalentCamsSceneState
-    | MatchAnalysisSceneState;
+;
 }
 
 export interface SceneUpdateMessage<T = unknown> {

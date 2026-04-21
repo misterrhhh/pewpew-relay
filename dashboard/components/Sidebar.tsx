@@ -20,14 +20,6 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>MVP</span>
 					</NavLink>
-					<NavLink className="nav-link" to="/scenes/pip-countdown">
-						<Clapperboard />
-						<span>PIP Countdown</span>
-					</NavLink>
-					<NavLink className="nav-link" to="/scenes/veto">
-						<Clapperboard />
-						<span>Veto</span>
-					</NavLink>
 					<NavLink className="nav-link" to="/scenes/veto-l3">
 						<Clapperboard />
 						<span>Vetos L3</span>
@@ -64,25 +56,9 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Lineups B</span>
 					</NavLink>
-					<NavLink className="nav-link" to="/scenes/match-analysis">
-						<Clapperboard />
-						<span>Match Analysis</span>
-					</NavLink>
 					<NavLink className="nav-link" to="/scenes/talent">
 						<Clapperboard />
 						<span>Talent</span>
-					</NavLink>
-					<NavLink className="nav-link" to="/scenes/talent-cams-3">
-						<Clapperboard />
-						<span>Talent Cams 3</span>
-					</NavLink>
-					<NavLink className="nav-link" to="/scenes/talent-cams-2">
-						<Clapperboard />
-						<span>Talent Cams 2</span>
-					</NavLink>
-					<NavLink className="nav-link" to="/scenes/talent-cams-1">
-						<Clapperboard />
-						<span>Talent Cams 1</span>
 					</NavLink>
 				</nav>
 			</div>
