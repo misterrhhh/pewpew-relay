@@ -330,9 +330,7 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 			animationId: 0,
 		};
 
-		res.json({
-			player: buildHeadToHeadSide(normalizedScene.player, playersById, teamsById, normalizedScene.title),
-		});
+		res.json([buildHeadToHeadSide(normalizedScene.player, playersById, teamsById, normalizedScene.title)]);
 	});
 
 	function buildLineupsFeed(req: Request, sceneKey: string) {
