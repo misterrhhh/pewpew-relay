@@ -1,0 +1,698 @@
+import { Router, type Request } from "express";
+import type { Database } from "better-sqlite3";
+import type {
+	GameMap,
+	GridScoreboardSceneState,
+	GridSeriesGame,
+	GridSeriesGameTeam,
+	GridSeriesMatchTeam,
+	GridSeriesState,
+	HeadToHeadPlayerState,
+	HeadToHeadSceneState,
+	LineupsSceneState,
+	LowerBracketSceneState,
+	Match,
+	MatchAnalysisSceneState,
+	MatchResponse,
+	MatchesCountdownSceneState,
+	MatchesSceneState,
+	MvpSceneState,
+	PipCountdownSceneState,
+	PlaceholderSceneState,
+	Player,
+	PlayerResponse,
+	StakeOddsResponse,
+	StakeOddsSceneState,
+	Talent,
+	TalentCamsSceneState,
+	Team,
+	TeamResponse,
+	UpperBracketSceneState,
+	VetoSceneState,
+} from "../../shared/types.js";
+import { toMatchFeedEntry } from "../../shared/matchesFeed.js";
+import { compareMatchDateValues } from "../../shared/utils.js";
+import { SceneManager } from "../services/sceneManager.js";
+import { parseVetos, serializeMatch, serializePlayer, serializeTeamWithPlayers, type SerializationContext } from "../services/serializers.js";
+
+type MatchStorageRecord = Omit<Match, "vetos"> & { vetos: string };
+
+function groupPlayersByTeam(players: Player[]) {
+	const playersByTeamId = new Map<string, Player[]>();
+
+	for (const player of players) {
+		if (!player.teamId) {
+			continue;
+		}
+
+		const teamPlayers = playersByTeamId.get(player.teamId) ?? [];
+		teamPlayers.push(player);
+		playersByTeamId.set(player.teamId, teamPlayers);
+	}
+
+	return playersByTeamId;
+}
+
+function buildMatchesSerializationContext(database: Database): SerializationContext {
+	const players = database.prepare("SELECT * FROM players ORDER BY rowid DESC").all() as Player[];
+	const teams = database.prepare("SELECT * FROM teams ORDER BY rowid DESC").all() as Team[];
+
+	return {
+		playersByTeamId: groupPlayersByTeam(players),
+		teamsById: new Map(teams.map((team) => [team.id, team])),
+	};
+}
+
+function listSerializedPlayers(req: Request, database: Database) {
+	const rows = database.prepare("SELECT * FROM players ORDER BY rowid DESC").all() as Player[];
+	return rows.map((row) => serializePlayer(req, row));
+}
+
+function listSerializedTeams(req: Request, database: Database) {
+	const players = database.prepare("SELECT * FROM players ORDER BY rowid DESC").all() as Player[];
+	const teams = database.prepare("SELECT * FROM teams ORDER BY rowid DESC").all() as Team[];
+	const playersByTeamId = groupPlayersByTeam(players);
+
+	return teams.map((team) => serializeTeamWithPlayers(req, team, playersByTeamId.get(team.id) ?? []));
+}
+
+function listSerializedMatches(req: Request, database: Database): MatchResponse[] {
+	const context = buildMatchesSerializationContext(database);
+	const rows = database.prepare("SELECT * FROM matches ORDER BY rowid DESC").all() as MatchStorageRecord[];
+
+	return rows.map((row) => serializeMatch(req, {
+		...row,
+		vetos: parseVetos(row.vetos),
+	}, context));
+}
+
+function listMaps(database: Database) {
+	const rows = database.prepare("SELECT * FROM maps ORDER BY rowid DESC").all() as Array<Omit<GameMap, "state"> & { state: number | boolean }>;
+	return rows.map((row) => ({
+		...row,
+		state: Boolean(row.state),
+	}));
+}
+
+function listTalent(database: Database) {
+	return database.prepare("SELECT * FROM talent ORDER BY rowid DESC").all() as Talent[];
+}
+
+function compactTeam(team: TeamResponse | null) {
+	if (!team) {
+		return null;
+	}
+
+	return {
+		id: team.id,
+		name: team.name,
+		short: team.short,
+		logo: team.logoUrl ?? "",
+		country: team.country,
+		color: team.color,
+	};
+}
+
+function compactPlayer(player: PlayerResponse | null) {
+	if (!player) {
+		return null;
+	}
+
+	return {
+		id: player.id,
+		nickname: player.nickname,
+		realname: player.realname,
+		country: player.country,
+		avatar: player.avatarUrl ?? "",
+		teamId: player.teamId,
+		steamid: player.steamid,
+	};
+}
+
+function compactTalent(entry: Talent | null) {
+	if (!entry) {
+		return null;
+	}
+
+	return {
+		id: entry.id,
+		name: entry.name,
+		nickname: entry.nickname,
+		role: entry.role,
+		social: entry.social,
+	};
+}
+
+function buildMatchSlots(matchesById: Map<string, MatchResponse>, matchIds: string[], size: number) {
+	return Array.from({ length: size }, (_, index) => {
+		const match = matchesById.get(matchIds[index] ?? "") ?? null;
+		return {
+			slot: index + 1,
+			match: match ? toMatchFeedEntry(match) : null,
+		};
+	});
+}
+
+function buildSelectedMatchFeed(matchesById: Map<string, MatchResponse>, matchIds: string[]) {
+	return matchIds
+		.map((matchId) => matchesById.get(matchId) ?? null)
+		.filter((match): match is MatchResponse => match !== null)
+		.map(toMatchFeedEntry);
+}
+
+function buildCountdownFeed(
+	scene: MatchesCountdownSceneState | PipCountdownSceneState,
+	matchesById: Map<string, MatchResponse>,
+) {
+	const selectedMatches = scene.matchIds
+		.map((matchId) => matchesById.get(matchId) ?? null)
+		.filter((match): match is MatchResponse => match !== null)
+		.sort((left, right) => compareMatchDateValues(left.time, right.time))
+		.map(toMatchFeedEntry);
+
+	return {
+		countdownMode: scene.countdownMode,
+		fixedTime: scene.fixedTime,
+		durationMinutes: scene.durationMinutes,
+		durationStartedAt: scene.durationStartedAt,
+		matches: selectedMatches,
+	};
+}
+
+function buildHeadToHeadSide(
+	side: HeadToHeadPlayerState,
+	playersById: Map<string, PlayerResponse>,
+	teamsById: Map<string, TeamResponse>,
+) {
+	const player = playersById.get(side.playerId ?? "") ?? null;
+	const team = teamsById.get(player?.teamId ?? "") ?? null;
+
+	return {
+		player: compactPlayer(player),
+		team: compactTeam(team),
+		stats: {
+			kills: side.kills,
+			deaths: side.deaths,
+			adr: side.adr,
+			rating3: side.rating3,
+		},
+	};
+}
+
+function getLatestGame(series: GridSeriesState | null) {
+	return series?.games.reduce<GridSeriesGame | null>((latest, game) => {
+		if (!latest || game.sequenceNumber > latest.sequenceNumber) {
+			return game;
+		}
+
+		return latest;
+	}, null) ?? null;
+}
+
+function getGridSideTeam<T>(teams: T[], side: "left" | "right") {
+	return teams[side === "left" ? 0 : 1] ?? null;
+}
+
+function getSeriesWins(teamName: string | null, teams: GridSeriesMatchTeam[]) {
+	if (!teamName) {
+		return 0;
+	}
+
+	const match = teams.find((entry) => entry.name.trim().toLowerCase() === teamName.trim().toLowerCase());
+	return match?.won ? 1 : 0;
+}
+
+async function fetchInternalJson<T>(req: Request, path: string) {
+	const port = Number(process.env.PORT ?? 3000);
+	const response = await fetch(`http://127.0.0.1:${port}${path}`, {
+		headers: {
+			accept: "application/json",
+		},
+	});
+
+	const payload = await response.json().catch(() => null);
+	if (!response.ok) {
+		const error = payload && typeof payload === "object" && "error" in payload ? payload.error : `Request failed with status ${response.status}`;
+		throw new Error(typeof error === "string" ? error : "Request failed.");
+	}
+
+	return payload as T;
+}
+
+function buildGridPlayerTeam(team: GridSeriesGameTeam | null) {
+	if (!team) {
+		return null;
+	}
+
+	return {
+		id: team.id,
+		name: team.name,
+		players: team.players.map((player) => ({
+			id: player.id,
+			localPlayerId: player.localPlayerId,
+			name: player.name,
+			gridName: player.gridName,
+			realname: player.realname,
+			avatar: player.avatarUrl ?? "",
+			kills: player.kills,
+			deaths: player.deaths,
+			assists: player.assists,
+		})),
+	};
+}
+
+function buildTalentFeed(
+	scene: TalentCamsSceneState | MatchAnalysisSceneState,
+	talentById: Map<string, Talent>,
+	title?: string,
+) {
+	const selectedTalent = scene.talentIds.map((talentId, index) => ({
+		slot: index + 1,
+		talent: compactTalent(talentById.get(talentId ?? "") ?? null),
+	}));
+
+	return {
+		...(typeof title === "string" ? { title } : {}),
+		talent: selectedTalent,
+	};
+}
+
+export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager: SceneManager) {
+	const router = Router();
+
+	router.get("/placeholder", (req, res) => {
+		const scene = sceneManager.getScene("placeholder") as PlaceholderSceneState | null;
+		const feed = scene ?? {
+			title: "",
+			message: "",
+		};
+		res.json({
+			title: feed.title,
+			message: feed.message,
+		});
+	});
+
+	router.get("/matches", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("matches") as MatchesSceneState | null;
+		const selectedMatchIds = Array.isArray(scene?.matchIds)
+			? scene.matchIds.filter((matchId): matchId is string => typeof matchId === "string" && matchId.trim() !== "")
+			: [];
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const feed = buildSelectedMatchFeed(matchesById, selectedMatchIds);
+
+		res.json(feed);
+	});
+
+	router.get("/matches-countdown", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("matchesCountdown") as MatchesCountdownSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const normalizedScene = scene ?? {
+			matchIds: [],
+			countdownMode: "fixedTime",
+			fixedTime: "18:00",
+			durationMinutes: 5,
+			durationStartedAt: null,
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildCountdownFeed(normalizedScene, matchesById));
+	});
+
+	router.get("/pip-countdown", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("pipCountdown") as PipCountdownSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const normalizedScene = scene ?? {
+			matchIds: [],
+			countdownMode: "fixedTime",
+			fixedTime: "18:00",
+			durationMinutes: 5,
+			durationStartedAt: null,
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildCountdownFeed(normalizedScene, matchesById));
+	});
+
+	router.get("/head-to-head", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("headToHead") as HeadToHeadSceneState | null;
+		const players = listSerializedPlayers(req, database);
+		const teams = listSerializedTeams(req, database);
+		const playersById = new Map(players.map((player) => [player.id, player]));
+		const teamsById = new Map(teams.map((team) => [team.id, team]));
+		const normalizedScene = scene ?? {
+			title: "Head to Head",
+			left: { playerId: null, kills: null, deaths: null, adr: null, rating3: null },
+			right: { playerId: null, kills: null, deaths: null, adr: null, rating3: null },
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json({
+			title: normalizedScene.title,
+			left: buildHeadToHeadSide(normalizedScene.left, playersById, teamsById),
+			right: buildHeadToHeadSide(normalizedScene.right, playersById, teamsById),
+		});
+	});
+
+	router.get("/mvp", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("mvp") as MvpSceneState | null;
+		const players = listSerializedPlayers(req, database);
+		const teams = listSerializedTeams(req, database);
+		const playersById = new Map(players.map((player) => [player.id, player]));
+		const teamsById = new Map(teams.map((team) => [team.id, team]));
+		const normalizedScene = scene ?? {
+			title: "MVP",
+			player: { playerId: null, kills: null, deaths: null, adr: null, rating3: null },
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json({
+			title: normalizedScene.title,
+			player: buildHeadToHeadSide(normalizedScene.player, playersById, teamsById),
+		});
+	});
+
+	router.get("/lineups", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("lineups") as LineupsSceneState | null;
+		const teamsById = new Map(listSerializedTeams(req, database).map((team) => [team.id, team]));
+		const normalizedScene = scene ?? {
+			teamId: null,
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+		const team = teamsById.get(normalizedScene.teamId ?? "") ?? null;
+
+		res.json({
+			team: team ? {
+				...compactTeam(team),
+				players: team.players.map((player) => compactPlayer(player)),
+			} : null,
+		});
+	});
+
+	router.get("/upper-bracket", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("upperBracket") as UpperBracketSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const normalizedScene = scene ?? {
+			matchIds: [],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json({
+			matches: buildMatchSlots(matchesById, normalizedScene.matchIds, 8),
+		});
+	});
+
+	router.get("/lower-bracket", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("lowerBracket") as LowerBracketSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const normalizedScene = scene ?? {
+			matchIds: [],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json({
+			matches: buildMatchSlots(matchesById, normalizedScene.matchIds, 6),
+		});
+	});
+
+	router.get("/veto", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("veto") as VetoSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const maps = listMaps(database);
+		const normalizedScene = scene ?? {
+			matchId: null,
+			currentIndex: 0,
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+		const match = matchesById.get(normalizedScene.matchId ?? "") ?? null;
+
+		res.json({
+			currentIndex: normalizedScene.currentIndex,
+			match: match ? {
+				id: match.id,
+				title: match.title,
+				mode: match.mode,
+				left: compactTeam(match.teamA),
+				right: compactTeam(match.teamB),
+			} : null,
+			activeMaps: maps.filter((entry) => entry.state).map((entry) => ({
+				id: entry.id,
+				name: entry.name,
+				code: entry.code,
+			})),
+			vetos: (match?.vetos ?? []).map((veto) => ({
+				order: veto.order,
+				active: normalizedScene.currentIndex >= veto.order,
+				type: veto.type,
+				map: veto.map,
+				pickerSide: veto.pickerSide,
+				picker: compactTeam(veto.picker),
+				winner: compactTeam(veto.winner),
+				score: veto.score,
+				state: veto.state ?? "visible",
+			})),
+		});
+	});
+
+	router.get("/veto-l3", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("vetoL3") as VetoSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const maps = listMaps(database);
+		const normalizedScene = scene ?? {
+			matchId: null,
+			currentIndex: 0,
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+		const match = matchesById.get(normalizedScene.matchId ?? "") ?? null;
+
+		res.json({
+			currentIndex: normalizedScene.currentIndex,
+			match: match ? {
+				id: match.id,
+				title: match.title,
+				mode: match.mode,
+				left: compactTeam(match.teamA),
+				right: compactTeam(match.teamB),
+			} : null,
+			activeMaps: maps.filter((entry) => entry.state).map((entry) => ({
+				id: entry.id,
+				name: entry.name,
+				code: entry.code,
+			})),
+			vetos: (match?.vetos ?? []).map((veto) => ({
+				order: veto.order,
+				active: normalizedScene.currentIndex >= veto.order,
+				type: veto.type,
+				map: veto.map,
+				pickerSide: veto.pickerSide,
+				picker: compactTeam(veto.picker),
+				winner: compactTeam(veto.winner),
+				score: veto.score,
+				state: veto.state ?? "visible",
+			})),
+		});
+	});
+
+	router.get("/stake-odds", async (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("stakeOdds") as StakeOddsSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const normalizedScene = scene ?? {
+			matchId: null,
+			swapSides: false,
+			playId: 0,
+		};
+		const match = matchesById.get(normalizedScene.matchId ?? "") ?? null;
+		let odds: StakeOddsResponse | null = null;
+		let error: string | null = null;
+
+		if (normalizedScene.matchId) {
+			try {
+				odds = await fetchInternalJson<StakeOddsResponse>(req, `/api/stake-odds/${normalizedScene.matchId}`);
+			} catch (nextError) {
+				error = (nextError as Error).message;
+			}
+		}
+
+		const leftTeam = normalizedScene.swapSides ? match?.teamB ?? null : match?.teamA ?? null;
+		const rightTeam = normalizedScene.swapSides ? match?.teamA ?? null : match?.teamB ?? null;
+		const leftOdds = odds ? (normalizedScene.swapSides ? odds.teamBOdds : odds.teamAOdds) : null;
+		const rightOdds = odds ? (normalizedScene.swapSides ? odds.teamAOdds : odds.teamBOdds) : null;
+
+		res.json({
+			matchId: normalizedScene.matchId,
+			swapSides: normalizedScene.swapSides,
+			playId: normalizedScene.playId,
+			fixtureName: odds?.fixtureName ?? null,
+			marketName: odds?.marketName ?? null,
+			updatedAt: odds?.updatedAt ?? null,
+			error,
+			left: {
+				team: compactTeam(leftTeam),
+				odds: leftOdds,
+			},
+			right: {
+				team: compactTeam(rightTeam),
+				odds: rightOdds,
+			},
+		});
+	});
+
+	router.get("/grid-scoreboard", async (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("gridScoreboard") as GridScoreboardSceneState | null;
+		const matchesById = new Map(listSerializedMatches(req, database).map((match) => [match.id, match]));
+		const normalizedScene = scene ?? {
+			matchId: null,
+			swapSides: false,
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+		const match = matchesById.get(normalizedScene.matchId ?? "") ?? null;
+		let series: GridSeriesState | null = null;
+		let error: string | null = null;
+
+		try {
+			series = await fetchInternalJson<GridSeriesState>(req, "/api/grid-series-state");
+		} catch (nextError) {
+			error = (nextError as Error).message;
+		}
+
+		const latestGame = getLatestGame(series);
+		const leftGridTeam = getGridSideTeam(latestGame?.teams ?? [], "left");
+		const rightGridTeam = getGridSideTeam(latestGame?.teams ?? [], "right");
+		const leftLocalTeam = normalizedScene.swapSides ? match?.teamB ?? null : match?.teamA ?? null;
+		const rightLocalTeam = normalizedScene.swapSides ? match?.teamA ?? null : match?.teamB ?? null;
+		const leftScore = getSeriesWins(getGridSideTeam(series?.teams ?? [], "left")?.name ?? null, series?.teams ?? []);
+		const rightScore = getSeriesWins(getGridSideTeam(series?.teams ?? [], "right")?.name ?? null, series?.teams ?? []);
+
+		res.json({
+			swapSides: normalizedScene.swapSides,
+			error,
+			match: match ? {
+				id: match.id,
+				title: match.title,
+				left: compactTeam(leftLocalTeam),
+				right: compactTeam(rightLocalTeam),
+			} : null,
+			series: series ? {
+				valid: series.valid,
+				updatedAt: series.updatedAt,
+				format: series.format,
+				started: series.started,
+				finished: series.finished,
+			} : null,
+			latestGame: latestGame ? {
+				sequenceNumber: latestGame.sequenceNumber,
+				left: buildGridPlayerTeam(leftGridTeam),
+				right: buildGridPlayerTeam(rightGridTeam),
+				leftScore,
+				rightScore,
+			} : null,
+		});
+	});
+
+	router.get("/talent-cams-1", (req, res) => {
+		const database = getDatabase();
+		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
+		const scene = sceneManager.getScene("talentCams1") as TalentCamsSceneState | null;
+		const normalizedScene = scene ?? {
+			title: "Broadcast Talent",
+			talentIds: [null],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
+	});
+
+	router.get("/talent-cams-2", (req, res) => {
+		const database = getDatabase();
+		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
+		const scene = sceneManager.getScene("talentCams2") as TalentCamsSceneState | null;
+		const normalizedScene = scene ?? {
+			title: "Broadcast Talent",
+			talentIds: [null, null],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
+	});
+
+	router.get("/talent-cams-3", (req, res) => {
+		const database = getDatabase();
+		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
+		const scene = sceneManager.getScene("talentCams3") as TalentCamsSceneState | null;
+		const normalizedScene = scene ?? {
+			title: "Broadcast Talent",
+			talentIds: [null, null, null],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
+	});
+
+	router.get("/talent-desk", (req, res) => {
+		const database = getDatabase();
+		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
+		const scene = sceneManager.getScene("talentCams3") as TalentCamsSceneState | null;
+		const normalizedScene = scene ?? {
+			title: "Broadcast Talent",
+			talentIds: [null, null, null],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildTalentFeed(normalizedScene, talentById, normalizedScene.title));
+	});
+
+	router.get("/match-analysis", (req, res) => {
+		const database = getDatabase();
+		const talentById = new Map(listTalent(database).map((entry) => [entry.id, entry]));
+		const scene = sceneManager.getScene("matchAnalysis") as MatchAnalysisSceneState | null;
+		const normalizedScene = scene ?? {
+			talentIds: [null, null],
+			visible: false,
+			animation: "idle",
+			animationId: 0,
+		};
+
+		res.json(buildTalentFeed(normalizedScene, talentById));
+	});
+
+	return router;
+}

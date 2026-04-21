@@ -69,6 +69,7 @@ export function UpperBracketScenePage({ matches }: { matches: MatchResponse[] })
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/upper-bracket/`;
+	const jsonUrl = `${window.location.origin}/json/upper-bracket`;
 
 	return (
 		<section className="page">
@@ -98,7 +99,7 @@ export function UpperBracketScenePage({ matches }: { matches: MatchResponse[] })
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Upper Bracket Scene" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Upper Bracket Scene" url={jsonUrl} />
 						</div>
 					</div>
 

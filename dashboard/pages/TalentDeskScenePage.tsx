@@ -71,6 +71,7 @@ export function TalentDeskScenePage({ talent }: { talent: Talent[] }) {
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/talent-desk/`;
+	const jsonUrl = `${window.location.origin}/json/talent-desk`;
 
 	return (
 		<section className="page">
@@ -100,7 +101,7 @@ export function TalentDeskScenePage({ talent }: { talent: Talent[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Talent Desk Scene" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Talent Desk Scene" url={jsonUrl} />
 						</div>
 					</div>
 

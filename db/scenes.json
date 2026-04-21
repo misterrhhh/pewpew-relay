@@ -13,9 +13,9 @@
       "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
       "36349e67-a067-4a4c-9e85-d8bb38c4f9f6"
     ],
-    "visible": true,
-    "animation": "in",
-    "animationId": 1776502690797
+    "visible": false,
+    "animation": "out",
+    "animationId": 1776779047303
   },
   "matchesCountdown": {
     "matchIds": [
@@ -45,7 +45,7 @@
     "durationStartedAt": null,
     "visible": true,
     "animation": "in",
-    "animationId": 1776448155787
+    "animationId": 1776779049122
   },
   "veto": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
@@ -79,7 +79,7 @@
     },
     "visible": true,
     "animation": "in",
-    "animationId": 1776504498698
+    "animationId": 1776703631866
   },
   "mvp": {
     "title": "MVP",
@@ -92,11 +92,11 @@
     },
     "visible": false,
     "animation": "out",
-    "animationId": 1776447691889
+    "animationId": 1776702849316
   },
   "relay": {
     "currentSceneId": "pipCountdown",
-    "playId": 1776448153643,
+    "playId": 1776779047289,
     "transitionStyle": "stinger"
   },
   "upperBracket": {
@@ -106,42 +106,44 @@
       "ee3d169b-8cce-483f-b25a-c7a29ae5621d",
       "36349e67-a067-4a4c-9e85-d8bb38c4f9f6",
       "5c5f4a92-f910-4ffc-bcd9-4f1ffeb33ae4",
-      "d890fdb8-c016-451f-bcb8-91604369b70a"
+      "d890fdb8-c016-451f-bcb8-91604369b70a",
+      "a72d4d76-44b1-4faa-82c9-14add063633d",
+      "60a122b4-e5da-40af-803e-d3149c1b4209"
     ],
     "visible": false,
     "animation": "out",
-    "animationId": 1776446566841
+    "animationId": 1776702878907
   },
   "lowerBracket": {
     "matchIds": [
-      "48a83a11-c984-436f-b8be-44cb36d92098",
+      "d890fdb8-c016-451f-bcb8-91604369b70a",
       "11d01357-673d-4691-a4c9-06db0468bc3d",
       "741b6a2f-fd67-4dc7-a928-7e5e1c169ff1",
       "3727c22e-5952-4966-a002-9dde4b9183f5",
       "117af3fc-cfdc-478f-92cc-93f17d79ac6f",
       "60a122b4-e5da-40af-803e-d3149c1b4209"
     ],
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446576955
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776703681456
   },
   "stakeOdds": {
     "matchId": "746d6423-0210-42f6-9512-40d932570314",
     "swapSides": false,
-    "playId": 1776261853086
+    "playId": 1776703617769
   },
   "gridScoreboard": {
-    "matchId": "60a122b4-e5da-40af-803e-d3149c1b4209",
+    "matchId": "741b6a2f-fd67-4dc7-a928-7e5e1c169ff1",
     "swapSides": false,
     "visible": false,
     "animation": "out",
-    "animationId": 1776445050721
+    "animationId": 1776701359219
   },
   "lineups": {
-    "teamId": "0ff94096-ab9f-4eb7-85be-4a85c9ca08ff",
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776446595030
+    "teamId": "5bd178d2-407a-487a-92a1-7228b3a003cb",
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776703603110
   },
   "talentCams1": {
     "title": "crazy",

@@ -8,6 +8,7 @@ import { clientDistDirectory, imagesDirectory, scenesFile } from "./services/pat
 import { SceneManager } from "./services/sceneManager.js";
 import { createEntityRouter } from "./routes/entities.js";
 import { createGridSeriesStateRouter } from "./routes/gridSeriesState.js";
+import { createJsonFeedsRouter } from "./routes/jsonFeeds.js";
 import { createSceneRouter } from "./routes/scenes.js";
 import { createStakeOddsRouter } from "./routes/stakeOdds.js";
 import { createSystemRouter } from "./routes/system.js";
@@ -37,6 +38,7 @@ app.get("/api/health", (_req, res) => {
   res.json({ ok: true });
 });
 
+app.use("/json", createJsonFeedsRouter(getDatabase, sceneManager));
 app.use("/api/scenes", createSceneRouter(sceneManager));
 app.use("/api/grid-series-state", createGridSeriesStateRouter(getDatabase));
 app.use("/api/stake-odds", createStakeOddsRouter(getDatabase));

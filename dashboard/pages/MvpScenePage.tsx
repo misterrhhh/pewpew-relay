@@ -62,6 +62,7 @@ export function MvpScenePage({
 	const selectedPlayer = players.find((player) => player.id === scene.player.playerId) ?? null;
 	const selectedTeam = teams.find((team) => team.id === selectedPlayer?.teamId) ?? null;
 	const previewUrl = `${window.location.origin}/scenes/mvp/`;
+	const jsonUrl = `${window.location.origin}/json/mvp`;
 
 	async function pushUpdate(next: Partial<MvpSceneState>) {
 		try {
@@ -109,7 +110,7 @@ export function MvpScenePage({
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="MVP" />
+							<OpenSceneJsonButton data={scene} sceneLabel="MVP" url={jsonUrl} />
 						</div>
 					</div>
 

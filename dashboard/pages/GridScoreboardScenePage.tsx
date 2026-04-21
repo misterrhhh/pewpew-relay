@@ -52,6 +52,7 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 	);
 	const selectedMatch = matches.find((match) => match.id === scene.matchId) ?? null;
 	const previewUrl = `${window.location.origin}/scenes/grid-scoreboard/`;
+	const jsonUrl = `${window.location.origin}/json/grid-scoreboard`;
 
 	async function loadSeriesState() {
 		setLoadingSeries(true);
@@ -135,7 +136,7 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="GRID Scoreboard" />
+							<OpenSceneJsonButton data={scene} sceneLabel="GRID Scoreboard" url={jsonUrl} />
 						</div>
 					</div>
 

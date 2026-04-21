@@ -53,6 +53,7 @@ export function PlaceholderScenePage() {
   }
 
   const previewUrl = `${window.location.origin}/scenes/placeholder`;
+  const jsonUrl = `${window.location.origin}/json/placeholder`;
 
   return (
     <section className="page">
@@ -83,7 +84,7 @@ export function PlaceholderScenePage() {
                   <ExternalLink />
                   Open Scene
                 </button>
-                <OpenSceneJsonButton data={scene} sceneLabel="Placeholder Scene" />
+                <OpenSceneJsonButton data={scene} sceneLabel="Placeholder Scene" url={jsonUrl} />
               </div>
               <div className="status">{status.message}</div>
             </div>

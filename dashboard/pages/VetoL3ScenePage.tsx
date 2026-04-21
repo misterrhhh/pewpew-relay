@@ -3,6 +3,7 @@ import { Save, ExternalLink, ArrowRight, ArrowLeft } from "lucide-react";
 import { api } from "../../client/api";
 import type { GameMap, MatchResponse, TeamResponse, Veto, VetoSceneState } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
+import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
 
 const defaultSceneState: VetoSceneState = {
@@ -149,6 +150,7 @@ export function VetoL3ScenePage({
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/veto-l3/`;
+	const jsonUrl = `${window.location.origin}/json/veto-l3`;
 
 	return (
 		<section className="page">
@@ -178,6 +180,7 @@ export function VetoL3ScenePage({
 								<ExternalLink />
 								Open Scene
 							</button>
+							<OpenSceneJsonButton data={scene} sceneLabel="Veto L3 Scene" url={jsonUrl} />
 						</div>
 					</div>
 

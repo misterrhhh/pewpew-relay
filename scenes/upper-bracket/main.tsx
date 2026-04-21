@@ -88,7 +88,9 @@ function BracketMatchCard({ label, match, id }: { label: string; match: MatchRes
 	const score = match && match.scoreA !== null && match.scoreA !== undefined && match.scoreB !== null && match.scoreB !== undefined
 		? `${match.scoreA}-${match.scoreB}`
 		: null;
-	const stateLabel = match?.state === "upcoming" || match?.state === "next"
+	const stateLabel = match?.state === "finished"
+		? "ENDED"
+		: match?.state === "upcoming" || match?.state === "next"
 		? formatMatchTime(match.time)
 		: match?.state?.toUpperCase() ?? "TBD";
 

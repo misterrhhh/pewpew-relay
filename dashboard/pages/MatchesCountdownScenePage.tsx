@@ -88,6 +88,7 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
 		.filter((match): match is MatchResponse => match !== null)
 		.sort((left, right) => compareMatchDateValues(left.time, right.time));
 	const previewUrl = `${window.location.origin}/scenes/matches-countdown/`;
+	const jsonUrl = `${window.location.origin}/json/matches-countdown`;
 
 	return (
 		<section className="page">
@@ -117,7 +118,7 @@ export function MatchesCountdownScenePage({ matches }: { matches: MatchResponse[
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Matches Countdown Scene" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Matches Countdown Scene" url={jsonUrl} />
 						</div>
 					</div>
 

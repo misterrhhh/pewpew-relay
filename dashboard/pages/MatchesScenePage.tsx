@@ -72,6 +72,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 		.map((matchId) => matches.find((match) => match.id === matchId) ?? null)
 		.filter((match): match is MatchResponse => match !== null);
 	const previewUrl = `${window.location.origin}/scenes/matches/`;
+	const matchesFeedUrl = `${window.location.origin}/json/matches`;
 
 	return (
 		<section className="page">
@@ -101,7 +102,7 @@ export function MatchesScenePage({ matches }: { matches: MatchResponse[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Matches Scene" />
+							<OpenSceneJsonButton data={selectedMatches} sceneLabel="Matches Feed" url={matchesFeedUrl} />
 						</div>
 					</div>
 

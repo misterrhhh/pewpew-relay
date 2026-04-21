@@ -29,6 +29,7 @@ export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
 	);
 	const selectedTeam = teams.find((team) => team.id === scene.teamId) ?? null;
 	const previewUrl = `${window.location.origin}/scenes/lineups/`;
+	const jsonUrl = `${window.location.origin}/json/lineups`;
 
 	async function pushUpdate(next: Partial<LineupsSceneState>) {
 		try {
@@ -76,7 +77,7 @@ export function LineupsScenePage({ teams }: { teams: TeamResponse[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Lineups" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Lineups" url={jsonUrl} />
 						</div>
 					</div>
 

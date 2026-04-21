@@ -2,6 +2,7 @@ type OpenSceneJsonButtonProps = {
 	data: unknown;
 	sceneLabel: string;
 	className?: string;
+	url?: string;
 };
 
 function openSceneJsonWindow(sceneLabel: string, data: unknown) {
@@ -52,12 +53,20 @@ export function OpenSceneJsonButton({
 	data,
 	sceneLabel,
 	className,
+	url,
 }: OpenSceneJsonButtonProps) {
 	return (
 		<button
 			type="button"
 			className={className}
-			onClick={() => openSceneJsonWindow(sceneLabel, data)}
+			onClick={() => {
+				if (url) {
+					window.open(url, "_blank");
+					return;
+				}
+
+				openSceneJsonWindow(sceneLabel, data);
+			}}
 		>
 			Open JSON
 		</button>

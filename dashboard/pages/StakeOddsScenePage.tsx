@@ -35,6 +35,7 @@ export function StakeOddsScenePage({ matches }: { matches: MatchResponse[] }) {
 	);
 	const selectedMatch = matches.find((match) => match.id === scene.matchId) ?? null;
 	const previewUrl = `${window.location.origin}/scenes/stake-odds/`;
+	const jsonUrl = `${window.location.origin}/json/stake-odds`;
 
 	async function loadOdds(matchId: string | null) {
 		if (!matchId) {
@@ -110,7 +111,7 @@ export function StakeOddsScenePage({ matches }: { matches: MatchResponse[] }) {
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Stake Odds" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Stake Odds" url={jsonUrl} />
 						</div>
 					</div>
 

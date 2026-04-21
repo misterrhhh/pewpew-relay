@@ -150,6 +150,7 @@ export function VetoScenePage({
 	}
 
 	const previewUrl = `${window.location.origin}/scenes/veto/`;
+	const jsonUrl = `${window.location.origin}/json/veto`;
 
 	return (
 		<section className="page">
@@ -180,7 +181,7 @@ export function VetoScenePage({
 								<ExternalLink />
 								Open Scene
 							</button>
-							<OpenSceneJsonButton data={scene} sceneLabel="Veto Scene" />
+							<OpenSceneJsonButton data={scene} sceneLabel="Veto Scene" url={jsonUrl} />
 						</div>
 					</div>
 
