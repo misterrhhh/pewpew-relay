@@ -1,0 +1,36 @@
+.popup-stage {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+  border-left: 4px solid;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.popup-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  span {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+}
+
+.popup-text {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.popup-indicator {
+  height: 3px;
+  width: 100%;
+  border-radius: 2px;
+}

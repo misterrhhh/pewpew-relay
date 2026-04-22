@@ -10,6 +10,8 @@ import type {
   MatchResponse,
   MvpSceneState,
   PlayerResponse,
+  PopupSceneState,
+  RosterSceneState,
   SceneStateMap,
   StakeOddsResponse,
   StakeOddsSceneState,
@@ -105,6 +107,12 @@ export const api = {
   getTalentScene: () => request<TalentCamsSceneState>("/api/scenes/talent"),
   updateTalentScene: (payload: Partial<TalentCamsSceneState>) =>
     request<TalentCamsSceneState>("/api/scenes/talent", { method: "POST", body: JSON.stringify(payload) }),
+  getRosterScene: () => request<RosterSceneState>("/api/scenes/roster"),
+  updateRosterScene: (payload: Partial<RosterSceneState>) =>
+    request<RosterSceneState>("/api/scenes/roster", { method: "POST", body: JSON.stringify(payload) }),
+  getPopupScene: () => request<PopupSceneState>("/api/scenes/popup"),
+  updatePopupScene: (payload: Partial<PopupSceneState>) =>
+    request<PopupSceneState>("/api/scenes/popup", { method: "POST", body: JSON.stringify(payload) }),
   getStakeOdds: (matchId: string) => request<StakeOddsResponse>(`/api/stake-odds/${matchId}`),
   getGridSeriesState: () => request<GridSeriesState>("/api/grid-series-state"),
   getScene: <K extends keyof SceneStateMap>(sceneId: K) => request<SceneStateMap[K]>(`/api/scenes/${sceneId}`),

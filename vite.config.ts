@@ -16,6 +16,8 @@ const sceneEntryRoutes = [
   "/scenes/lineups",
   "/scenes/lineups-a",
   "/scenes/lineups-b",
+  "/scenes/roster",
+  "/scenes/popup",
 ];
 
 function isHtmlNavigation(pathname: string, acceptHeader?: string) {
@@ -95,6 +97,8 @@ export default defineConfig({
         talent: resolve(__dirname, "scenes/talent/index.html"),
         lineupsA: resolve(__dirname, "scenes/lineups-a/index.html"),
         lineupsB: resolve(__dirname, "scenes/lineups-b/index.html"),
+        roster: resolve(__dirname, "scenes/roster/index.html"),
+        popup: resolve(__dirname, "scenes/popup/index.html"),
       },
     },
   },

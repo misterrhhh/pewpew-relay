@@ -6,6 +6,8 @@ import { Sidebar } from "./components/Sidebar";
 import { HeadToHeadScenePage } from "./pages/HeadToHeadScenePage";
 import { GridScoreboardScenePage } from "./pages/GridScoreboardScenePage";
 import { LineupsScenePage, LineupsAScenePage, LineupsBScenePage } from "./pages/LineupsScenePage";
+import { RosterScenePage } from "./pages/RosterScenePage";
+import { PopupScenePage } from "./pages/PopupScenePage";
 import { LowerBracketScenePage } from "./pages/LowerBracketScenePage";
 import { MapsPage } from "./pages/MapsPage";
 import { MatchesPage } from "./pages/MatchesPage";
@@ -82,6 +84,8 @@ export function App() {
 						<Route path="/scenes/lineups-a" element={<LineupsAScenePage teams={teams} />} />
 						<Route path="/scenes/lineups-b" element={<LineupsBScenePage teams={teams} />} />
 						<Route path="/scenes/talent" element={<TalentScenePage talent={talent} />} />
+						<Route path="/scenes/roster" element={<RosterScenePage teams={teams} />} />
+						<Route path="/scenes/popup" element={<PopupScenePage teams={teams} />} />
 						<Route path="/players" element={<PlayersPage players={players} teams={teams} refresh={refresh} />} />
 						<Route path="/teams" element={<TeamsPage teams={teams} refresh={refresh} />} />
 						<Route path="/maps" element={<MapsPage maps={maps} refresh={refresh} />} />

@@ -60,6 +60,14 @@ export function Sidebar() {
 						<Clapperboard />
 						<span>Talent</span>
 					</NavLink>
+					<NavLink className="nav-link" to="/scenes/roster">
+						<Clapperboard />
+						<span>Roster</span>
+					</NavLink>
+					<NavLink className="nav-link" to="/scenes/popup">
+						<Clapperboard />
+						<span>Popup</span>
+					</NavLink>
 				</nav>
 			</div>
 

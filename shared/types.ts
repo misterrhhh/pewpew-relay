@@ -232,9 +232,27 @@ export interface LineupsSceneState {
   animationId: number;
 }
 
+export interface RosterSceneState {
+  teamId: string | null;
+  title: string;
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
+export interface PopupSceneState {
+  teamId: string | null;
+  text: string;
+  sentiment: "positive" | "negative";
+  visible: boolean;
+  animation: string;
+  animationId: number;
+}
+
 export interface TalentCamsSceneState {
   title: string;
   talentIds: Array<string | null>;
+  fullscreenId: string | null;
   visible: boolean;
   animation: string;
   animationId: number;
@@ -268,6 +286,8 @@ export interface SceneStateMap {
   lineupsA: LineupsSceneState;
   lineupsB: LineupsSceneState;
   talent: TalentCamsSceneState;
+  roster: RosterSceneState;
+  popup: PopupSceneState;
   [key: string]:
     | Record<string, unknown>
     | MatchesSceneState
@@ -281,6 +301,8 @@ export interface SceneStateMap {
     | GridScoreboardSceneState
     | LineupsSceneState
     | TalentCamsSceneState
+    | RosterSceneState
+    | PopupSceneState
 ;
 }
 

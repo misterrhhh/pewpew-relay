@@ -99,6 +99,17 @@ export function TalentScenePage({ talent }: { talent: Talent[] }) {
 									</div>
 								))}
 							</div>
+								<div className="field">
+									<label>Fullscreen</label>
+									<select value={scene.fullscreenId ?? ""} onChange={(event) => setScene({ ...scene, fullscreenId: event.target.value || null })}>
+										<option value="">None</option>
+										{sortedTalent.map((entry) => (
+											<option key={entry.id} value={entry.id}>
+												{talentLabel(entry)}
+											</option>
+										))}
+									</select>
+								</div>
 							<div className="status">{status.message}</div>
 						</div>
 					</div>

@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import type { SceneStateMap } from "../../shared/types.js";
+import type { PopupSceneState, RosterSceneState, SceneStateMap } from "../../shared/types.js";
 
 type SceneListener = (sceneId: string, data: unknown) => void;
 
@@ -105,6 +105,22 @@ const defaultScenes: SceneStateMap = {
 	talent: {
 		title: "Talent",
 		talentIds: [null, null, null, null, null],
+		fullscreenId: null,
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	roster: {
+		teamId: null,
+		title: "",
+		visible: false,
+		animation: "idle",
+		animationId: 0,
+	},
+	popup: {
+		teamId: null,
+		text: "",
+		sentiment: "positive",
 		visible: false,
 		animation: "idle",
 		animationId: 0,
@@ -345,6 +361,52 @@ function normalizeGridScoreboardScene(input: unknown) {
 	};
 }
 
+function normalizePopupScene(input: unknown): PopupSceneState {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.popup);
+	}
+
+	const legacy = input as {
+		teamId?: unknown;
+		text?: unknown;
+		sentiment?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	return {
+		teamId: typeof legacy.teamId === "string" && legacy.teamId.trim() !== "" ? legacy.teamId : null,
+		text: typeof legacy.text === "string" ? legacy.text : defaultScenes.popup.text,
+		sentiment: legacy.sentiment === "negative" ? "negative" : "positive",
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.popup.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.popup.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.popup.animationId,
+	};
+}
+
+function normalizeRosterScene(input: unknown): RosterSceneState {
+	if (typeof input !== "object" || input === null) {
+		return structuredClone(defaultScenes.roster);
+	}
+
+	const legacy = input as {
+		teamId?: unknown;
+		title?: unknown;
+		visible?: unknown;
+		animation?: unknown;
+		animationId?: unknown;
+	};
+
+	return {
+		teamId: typeof legacy.teamId === "string" && legacy.teamId.trim() !== "" ? legacy.teamId : null,
+		title: typeof legacy.title === "string" ? legacy.title : defaultScenes.roster.title,
+		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.roster.visible,
+		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.roster.animation,
+		animationId: typeof legacy.animationId === "number" ? legacy.animationId : defaultScenes.roster.animationId,
+	};
+}
+
 function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talent"], count: number) {
 	if (typeof input !== "object" || input === null) {
 		return structuredClone(fallback);
@@ -354,6 +416,7 @@ function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talen
 		title?: unknown;
 		talentIds?: unknown;
 		casterIds?: unknown;
+		fullscreenId?: unknown;
 		visible?: unknown;
 		animation?: unknown;
 		animationId?: unknown;
@@ -373,6 +436,7 @@ function normalizeTalentCamsScene(input: unknown, fallback: SceneStateMap["talen
 	return {
 		title: typeof legacy.title === "string" ? legacy.title : fallback.title,
 		talentIds,
+		fullscreenId: typeof legacy.fullscreenId === "string" && legacy.fullscreenId.trim() !== "" ? legacy.fullscreenId : null,
 		visible: typeof legacy.visible === "boolean" ? legacy.visible : fallback.visible,
 		animation: typeof legacy.animation === "string" ? legacy.animation : fallback.animation,
 		animationId: typeof legacy.animationId === "number" ? legacy.animationId : fallback.animationId,
@@ -440,6 +504,8 @@ export class SceneManager {
 			lineupsA: normalizeLineupsScene((parsed as Record<string, unknown>).lineupsA),
 			lineupsB: normalizeLineupsScene((parsed as Record<string, unknown>).lineupsB),
 			talent: normalizeTalentCamsScene((parsed as Record<string, unknown>).talent, defaultScenes.talent, 5),
+			roster: normalizeRosterScene((parsed as Record<string, unknown>).roster),
+			popup: normalizePopupScene((parsed as Record<string, unknown>).popup),
 		};
 
 		if (JSON.stringify(parsed) !== JSON.stringify(nextState)) {

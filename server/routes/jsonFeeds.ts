@@ -18,6 +18,8 @@ import type {
 	MvpSceneState,
 	Player,
 	PlayerResponse,
+	PopupSceneState,
+	RosterSceneState,
 	StakeOddsResponse,
 	StakeOddsSceneState,
 	Talent,
@@ -362,6 +364,46 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 	router.get("/lineups-a", (req, res) => { res.json(buildLineupsFeed(req, "lineupsA")); });
 	router.get("/lineups-b", (req, res) => { res.json(buildLineupsFeed(req, "lineupsB")); });
 
+	router.get("/popup", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("popup") as PopupSceneState | null;
+		const teamsById = new Map(listSerializedTeams(req, database).map((team) => [team.id, team]));
+		const normalizedScene = scene ?? { teamId: null, text: "", sentiment: "positive" as const, visible: false, animation: "idle", animationId: 0 };
+		const team = teamsById.get(normalizedScene.teamId ?? "") ?? null;
+
+		res.json([{
+			teamName: team?.name ?? "",
+			teamLogo: team?.logoUrl ?? "",
+			color: normalizedScene.sentiment === "negative" ? "#f5425a" : "#42f54b",
+			text: normalizedScene.text,
+		}]);
+	});
+
+	router.get("/roster", (req, res) => {
+		const database = getDatabase();
+		const scene = sceneManager.getScene("roster") as RosterSceneState | null;
+		const teamsById = new Map(listSerializedTeams(req, database).map((team) => [team.id, team]));
+		const normalizedScene = scene ?? { teamId: null, title: "", visible: false, animation: "idle", animationId: 0 };
+		const team = teamsById.get(normalizedScene.teamId ?? "") ?? null;
+
+		const items = team ? [
+			...team.players.slice(0, 5).map((player) => ({
+				avatar: player.avatarUrl ?? "",
+				longname: player.realname,
+				shortname: player.nickname,
+				title: normalizedScene.title,
+			})),
+			{
+				avatar: team.logoUrl ?? "",
+				longname: team.name,
+				shortname: team.short,
+				title: normalizedScene.title,
+			},
+		] : [];
+
+		res.json(items);
+	});
+
 	router.get("/upper-bracket", (req, res) => {
 		const database = getDatabase();
 		const scene = sceneManager.getScene("upperBracket") as UpperBracketSceneState | null;
@@ -546,10 +588,14 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 		const talentIds: Array<string | null> = scene?.talentIds ?? [null, null, null, null, null];
 
 		const emptySlot = { id: null, name: null, nickname: null, role: null, social: null };
-		const talent = Array.from({ length: 5 }, (_, i) => {
-			const entry = talentById.get(talentIds[i] ?? "") ?? null;
-			return entry ? compactTalent(entry) : { ...emptySlot };
-		});
+		const fullscreenEntry = talentById.get(scene?.fullscreenId ?? "") ?? null;
+		const talent = [
+			...Array.from({ length: 5 }, (_, i) => {
+				const entry = talentById.get(talentIds[i] ?? "") ?? null;
+				return entry ? compactTalent(entry) : { ...emptySlot };
+			}),
+			fullscreenEntry ? compactTalent(fullscreenEntry) : { ...emptySlot },
+		];
 
 		res.json({ talent });
 	});

@@ -124,9 +124,25 @@
       null,
       null
     ],
+    "fullscreenId": "e2037d6c-34cc-4750-ab74-be7048e734c6",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776875842189
+    "animationId": 1776876387339
+  },
+  "roster": {
+    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
+    "title": "asdasdasd",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776865367963
+  },
+  "popup": {
+    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
+    "text": "o uni ta a baitar desde a ronda 1 e mesmo assim matou 2",
+    "sentiment": "positive",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776876865242
   },
   "pipCountdown": {
     "matchIds": [],
