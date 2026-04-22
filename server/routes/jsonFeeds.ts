@@ -32,7 +32,7 @@ import type {
 import { toMatchFeedEntry } from "../../shared/matchesFeed.js";
 import { compareMatchDateValues } from "../../shared/utils.js";
 import { SceneManager } from "../services/sceneManager.js";
-import { parseVetos, serializeMatch, serializePlayer, serializeTeamWithPlayers, type SerializationContext } from "../services/serializers.js";
+import { parseVetos, resolveUrl, serializeMatch, serializePlayer, serializeTeamWithPlayers, type SerializationContext } from "../services/serializers.js";
 
 type MatchStorageRecord = Omit<Match, "vetos"> & { vetos: string };
 
@@ -371,10 +371,12 @@ export function createJsonFeedsRouter(getDatabase: () => Database, sceneManager:
 		const normalizedScene = scene ?? { teamId: null, text: "", sentiment: "positive" as const, visible: false, animation: "idle", animationId: 0 };
 		const team = teamsById.get(normalizedScene.teamId ?? "") ?? null;
 
+		const assetName = normalizedScene.sentiment === "negative" ? "POP-NEGATIVE" : "POP-POSITIVE";
 		res.json([{
 			teamName: team?.name ?? "",
+			teamShort: team?.short ?? "",
 			teamLogo: team?.logoUrl ?? "",
-			color: normalizedScene.sentiment === "negative" ? "#f5425a" : "#42f54b",
+			asset: resolveUrl(req, `/asset-images/${assetName}.png`),
 			text: normalizedScene.text,
 		}]);
 	});

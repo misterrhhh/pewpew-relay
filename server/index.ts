@@ -4,7 +4,7 @@ import path from "node:path";
 import http from "node:http";
 import express from "express";
 import { closeDatabase, getDatabase, initializeDatabase } from "./services/database.js";
-import { clientDistDirectory, imagesDirectory, mapAssetsDirectory, miscAssetsDirectory, scenesFile } from "./services/paths.js";
+import { clientDistDirectory, imageAssetsDirectory, imagesDirectory, mapAssetsDirectory, miscAssetsDirectory, scenesFile } from "./services/paths.js";
 import { SceneManager } from "./services/sceneManager.js";
 import { createEntityRouter } from "./routes/entities.js";
 import { createGridSeriesStateRouter } from "./routes/gridSeriesState.js";
@@ -34,6 +34,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static(imagesDirectory, { maxAge: "1y" }));
 app.use("/misc", express.static(miscAssetsDirectory, { maxAge: "1y" }));
+app.use("/asset-images", express.static(imageAssetsDirectory, { maxAge: "1y" }));
 app.use("/maps", express.static(mapAssetsDirectory, { maxAge: "1y" }));
 
 app.get("/api/health", (_req, res) => {
