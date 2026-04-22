@@ -3,19 +3,19 @@
     "matchIds": [
       "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
       "31fd018e-9393-4728-bb94-98ff0888c0df",
-      "cb404509-9c6b-48fd-ab47-3879c91f63de",
-      "04e168ef-c81a-4b1c-8c69-8cc4816f3719"
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776859258354
+    "animationId": 1776868400523
   },
   "matchesCountdown": {
     "matchIds": [
-      "cb404509-9c6b-48fd-ab47-3879c91f63de",
       "31fd018e-9393-4728-bb94-98ff0888c0df",
       "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
-      "04e168ef-c81a-4b1c-8c69-8cc4816f3719"
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
     ],
     "countdownMode": "fixedTime",
     "fixedTime": "18:00",
@@ -23,14 +23,14 @@
     "durationStartedAt": null,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776853703654
+    "animationId": 1776868357096
   },
   "vetoL3": {
     "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
-    "currentIndex": 1,
+    "currentIndex": 7,
     "visible": true,
     "animation": "in",
-    "animationId": 1776860767371
+    "animationId": 1776873132296
   },
   "headToHead": {
     "title": "LAST MONTH",
@@ -119,14 +119,14 @@
     "title": "Talent",
     "talentIds": [
       "dc0d83c9-4193-43d5-8775-af47fda5e006",
-      "c0d04526-4b0b-4646-889a-b5b606c8825c",
-      "149cc040-b73c-492b-b917-24ceb28f128a",
-      "d09db3f5-9d36-49cf-9f90-8dcf2943d522",
-      "40e522c3-e995-4d74-9bb7-167bd97d3495"
+      null,
+      null,
+      null,
+      null
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776858056594
+    "animationId": 1776875842189
   },
   "pipCountdown": {
     "matchIds": [],
