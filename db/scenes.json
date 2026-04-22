@@ -1,18 +1,21 @@
 {
   "matches": {
     "matchIds": [
-      "1c546374-1347-4345-aa36-8e80242b1ea6",
-      "99388f9d-bcab-479c-8771-12bbc0482671",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776792868299
+    "animationId": 1776859258354
   },
   "matchesCountdown": {
     "matchIds": [
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
+      "cb404509-9c6b-48fd-ab47-3879c91f63de",
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719"
     ],
     "countdownMode": "fixedTime",
     "fixedTime": "18:00",
@@ -20,76 +23,79 @@
     "durationStartedAt": null,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776794544446
+    "animationId": 1776853703654
   },
   "vetoL3": {
-    "matchId": "1c546374-1347-4345-aa36-8e80242b1ea6",
-    "currentIndex": 0,
-    "visible": false,
-    "animation": "out",
-    "animationId": 1776797665795
+    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
+    "currentIndex": 1,
+    "visible": true,
+    "animation": "in",
+    "animationId": 1776860767371
   },
   "headToHead": {
-    "title": "asd",
+    "title": "LAST MONTH",
     "left": {
       "playerId": "9afcd95a-5a33-455f-a8a0-003fda190f00",
-      "kills": 13,
-      "deaths": 4,
-      "adr": 22,
-      "rating3": 1.54
+      "kills": 252,
+      "deaths": 195,
+      "adr": 75.2,
+      "rating3": 1.2
     },
     "right": {
-      "playerId": "62b205a6-b711-4a2e-903c-82b2cce92214",
-      "kills": 33,
-      "deaths": 12,
-      "adr": 133,
-      "rating3": 1.34
+      "playerId": "418fc368-82aa-415c-9d99-ab6ac8e0338f",
+      "kills": 177,
+      "deaths": 147,
+      "adr": 73.2,
+      "rating3": 1.19
     },
     "visible": false,
     "animation": "idle",
-    "animationId": 1776794235154
+    "animationId": 1776856453310
   },
   "mvp": {
     "title": "MVP",
     "player": {
-      "playerId": "7c53b92d-2637-42f1-acde-c82c5b2c1dc9",
-      "kills": 12,
-      "deaths": 12,
-      "adr": 12,
-      "rating3": 12
+      "playerId": "62e497f5-126d-4c67-a166-94c055cebafd",
+      "kills": 11,
+      "deaths": 11,
+      "adr": 121,
+      "rating3": 1.11
     },
     "visible": false,
     "animation": "idle",
-    "animationId": 1776794120234
+    "animationId": 1776853265317
   },
   "upperBracket": {
     "matchIds": [
-      "1c546374-1347-4345-aa36-8e80242b1ea6",
-      "99388f9d-bcab-479c-8771-12bbc0482671",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776792800077
+    "animationId": 1776853737980
   },
   "lowerBracket": {
-    "matchIds": [],
+    "matchIds": [
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
+    ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776792978352
+    "animationId": 1776853763241
   },
   "stakeOdds": {
-    "matchId": null,
+    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
     "swapSides": false,
     "playId": 0
   },
   "gridScoreboard": {
-    "matchId": null,
+    "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
     "swapSides": false,
     "visible": false,
     "animation": "idle",
-    "animationId": 0
+    "animationId": 1776853810213
   },
   "lineups": {
     "teamId": null,
@@ -98,29 +104,29 @@
     "animationId": 0
   },
   "lineupsA": {
-    "teamId": "277114ed-dca0-4549-95c9-d3b72c82f230",
-    "visible": false,
-    "animation": "idle",
-    "animationId": 1776793057304
-  },
-  "lineupsB": {
     "teamId": "51b0de42-131f-4671-94f2-787bd8b04dc9",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776793025565
+    "animationId": 1776856235586
+  },
+  "lineupsB": {
+    "teamId": "dfa05b5f-5446-457c-8a90-ef0668649aa5",
+    "visible": false,
+    "animation": "idle",
+    "animationId": 1776856259273
   },
   "talent": {
     "title": "Talent",
     "talentIds": [
-      "0f052cb4-702a-4235-a6f3-67466cd08544",
-      null,
-      "52608044-6aa3-4a54-a81b-6e0556cc12fc",
-      "e2037d6c-34cc-4750-ab74-be7048e734c6",
-      null
+      "dc0d83c9-4193-43d5-8775-af47fda5e006",
+      "c0d04526-4b0b-4646-889a-b5b606c8825c",
+      "149cc040-b73c-492b-b917-24ceb28f128a",
+      "d09db3f5-9d36-49cf-9f90-8dcf2943d522",
+      "40e522c3-e995-4d74-9bb7-167bd97d3495"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776793867222
+    "animationId": 1776858056594
   },
   "pipCountdown": {
     "matchIds": [],
