@@ -27,14 +27,15 @@ const defaultSceneState: GridScoreboardSceneState = {
 	animationId: 0,
 };
 
-function getLatestGame(series: GridSeriesState | null) {
-	return series?.games.reduce<GridSeriesGame | null>((latest, game) => {
-		if (!latest || game.sequenceNumber > latest.sequenceNumber) {
-			return game;
-		}
-
+function resolveGame(series: GridSeriesState | null, gameSequenceNumber: number | null): GridSeriesGame | null {
+	if (!series || series.games.length === 0) return null;
+	if (gameSequenceNumber !== null) {
+		return series.games.find((g) => g.sequenceNumber === gameSequenceNumber) ?? null;
+	}
+	return series.games.reduce<GridSeriesGame | null>((latest, game) => {
+		if (!latest || game.sequenceNumber > latest.sequenceNumber) return game;
 		return latest;
-	}, null) ?? null;
+	}, null);
 }
 
 function getSideTeam<T>(teams: T[], side: "left" | "right") {
@@ -244,11 +245,14 @@ function GridScoreboardScene() {
 	}, []);
 
 	useEffect(() => {
+		if (!scene.seriesId) return;
+
 		let cancelled = false;
+		const seriesId = scene.seriesId;
 
 		async function loadSeriesState() {
 			try {
-				const nextSeries = await api.getGridSeriesState();
+				const nextSeries = await api.getGridSeriesState(seriesId);
 				if (!cancelled) {
 					setSeries(nextSeries);
 					setError("");
@@ -270,15 +274,15 @@ function GridScoreboardScene() {
 			cancelled = true;
 			window.clearInterval(timer);
 		};
-	}, []);
+	}, [scene.seriesId]);
 
 	const selectedMatch = useMemo(
 		() => matches.find((match) => match.id === scene.matchId) ?? null,
 		[matches, scene.matchId],
 	);
-	const latestGame = useMemo(() => getLatestGame(series), [series]);
-	const leftGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], scene.swapSides ? "right" : "left"), [latestGame, scene.swapSides]);
-	const rightGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], scene.swapSides ? "left" : "right"), [latestGame, scene.swapSides]);
+	const activeGame = useMemo(() => resolveGame(series, scene.gameSequenceNumber), [series, scene.gameSequenceNumber]);
+	const leftGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(activeGame?.teams ?? [], scene.swapSides ? "right" : "left"), [activeGame, scene.swapSides]);
+	const rightGridTeam = useMemo(() => getSideTeam<GridSeriesGameTeam>(activeGame?.teams ?? [], scene.swapSides ? "left" : "right"), [activeGame, scene.swapSides]);
 	const leftLocalTeam = scene.swapSides ? selectedMatch?.teamB ?? null : selectedMatch?.teamA ?? null;
 	const rightLocalTeam = scene.swapSides ? selectedMatch?.teamA ?? null : selectedMatch?.teamB ?? null;
 	const leftScore = getSeriesWins(getSideTeam(series?.teams ?? [], "left")?.name ?? null, series?.teams ?? []);

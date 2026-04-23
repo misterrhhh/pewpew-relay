@@ -67,18 +67,18 @@
   },
   "upperBracket": {
     "matchIds": [
-      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
-      "cb404509-9c6b-48fd-ab47-3879c91f63de",
-      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
-      "31fd018e-9393-4728-bb94-98ff0888c0df",
-      "89347c95-3c4c-48ab-ae4c-4b8aef7c56f1",
+      "1c546374-1347-4345-aa36-8e80242b1ea6",
+      "99388f9d-bcab-479c-8771-12bbc0482671",
+      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
+      "8400431f-fca1-4cdb-9cf2-a1c0098b4772",
+      "83383f39-a057-443e-89aa-ff14044e00f8",
       "1767eed5-9b50-4f90-8043-68541df178dc",
       "af63055c-9aec-41cb-a361-4fec8b64de27",
       "dac9643e-ca15-44d8-bcaa-3626c2ff6176"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776966998607
+    "animationId": 1776976840761
   },
   "lowerBracket": {
     "matchIds": [
@@ -99,11 +99,13 @@
     "playId": 0
   },
   "gridScoreboard": {
-    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
+    "matchId": "743e7bab-a7fa-4eab-9274-1264af9742be",
     "swapSides": false,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776974789605
+    "animationId": 1776979436158,
+    "seriesId": "2933403",
+    "gameSequenceNumber": 2
   },
   "lineups": {
     "teamId": null,

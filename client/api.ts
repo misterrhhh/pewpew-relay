@@ -1,5 +1,6 @@
 import type {
   GameMap,
+  GridCentralSeries,
   GridScoreboardSceneState,
   GridSeriesState,
   HeadToHeadSceneState,
@@ -114,7 +115,8 @@ export const api = {
   updatePopupScene: (payload: Partial<PopupSceneState>) =>
     request<PopupSceneState>("/api/scenes/popup", { method: "POST", body: JSON.stringify(payload) }),
   getStakeOdds: (matchId: string) => request<StakeOddsResponse>(`/api/stake-odds/${matchId}`),
-  getGridSeriesState: () => request<GridSeriesState>("/api/grid-series-state"),
+  listGridCentralSeries: () => request<GridCentralSeries[]>("/api/grid-central-series"),
+  getGridSeriesState: (seriesId: string) => request<GridSeriesState>(`/api/grid-series-state?seriesId=${encodeURIComponent(seriesId)}`),
   getScene: <K extends keyof SceneStateMap>(sceneId: K) => request<SceneStateMap[K]>(`/api/scenes/${sceneId}`),
   updateScene: <K extends keyof SceneStateMap>(sceneId: K, payload: Partial<SceneStateMap[K]>) =>
     request<SceneStateMap[K]>(`/api/scenes/${sceneId}`, { method: "POST", body: JSON.stringify(payload) }),

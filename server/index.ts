@@ -7,6 +7,7 @@ import { closeDatabase, getDatabase, initializeDatabase } from "./services/datab
 import { clientDistDirectory, imageAssetsDirectory, imagesDirectory, mapAssetsDirectory, miscAssetsDirectory, scenesFile } from "./services/paths.js";
 import { SceneManager } from "./services/sceneManager.js";
 import { createEntityRouter } from "./routes/entities.js";
+import { createGridCentralSeriesRouter } from "./routes/gridCentralSeries.js";
 import { createGridSeriesStateRouter } from "./routes/gridSeriesState.js";
 import { createJsonFeedsRouter } from "./routes/jsonFeeds.js";
 import { createSceneRouter } from "./routes/scenes.js";
@@ -43,6 +44,7 @@ app.get("/api/health", (_req, res) => {
 
 app.use("/json", createJsonFeedsRouter(getDatabase, sceneManager));
 app.use("/api/scenes", createSceneRouter(sceneManager));
+app.use("/api/grid-central-series", createGridCentralSeriesRouter());
 app.use("/api/grid-series-state", createGridSeriesStateRouter(getDatabase));
 app.use("/api/stake-odds", createStakeOddsRouter(getDatabase));
 app.use("/api/upload", createUploadRouter());

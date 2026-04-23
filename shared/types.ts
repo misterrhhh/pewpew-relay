@@ -219,10 +219,21 @@ export interface GridSeriesState {
 
 export interface GridScoreboardSceneState {
   matchId: string | null;
+  seriesId: string | null;
+  gameSequenceNumber: number | null;
   swapSides: boolean;
   visible: boolean;
   animation: string;
   animationId: number;
+}
+
+export interface GridCentralSeries {
+  id: string;
+  title: string | null;
+  tournament: string | null;
+  startTimeScheduled: string | null;
+  format: string | null;
+  teams: string[];
 }
 
 export interface LineupsSceneState {

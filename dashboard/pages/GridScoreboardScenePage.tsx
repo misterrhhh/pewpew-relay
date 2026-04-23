@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeftRight, ExternalLink, RefreshCw, Save } from "lucide-react";
 import { api } from "../../client/api";
-import type { GridScoreboardSceneState, GridSeriesGame, GridSeriesGameTeam, GridSeriesState, MatchResponse } from "../../shared/types";
+import type { GridCentralSeries, GridScoreboardSceneState, GridSeriesGame, GridSeriesGameTeam, GridSeriesState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
 import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
+import { formatMatchDateLabel } from "../../shared/utils";
 
 const defaultSceneState: GridScoreboardSceneState = {
 	matchId: null,
+	seriesId: null,
+	gameSequenceNumber: null,
 	swapSides: false,
 	visible: false,
 	animation: "idle",
@@ -15,17 +18,15 @@ const defaultSceneState: GridScoreboardSceneState = {
 };
 
 function matchLabel(match: MatchResponse) {
-	return `${match.title ?? "Untitled match"} - ${match.teamA?.name ?? "Unknown"} vs ${match.teamB?.name ?? "Unknown"}`;
+	const date = match.time ? ` · ${formatMatchDateLabel(match.time)}` : "";
+	return `${match.title ?? "Untitled match"} - ${match.teamA?.name ?? "Unknown"} vs ${match.teamB?.name ?? "Unknown"}${date}`;
 }
 
-function getLatestGame(series: GridSeriesState | null) {
-	return series?.games.reduce<GridSeriesGame | null>((latest, game) => {
-		if (!latest || game.sequenceNumber > latest.sequenceNumber) {
-			return game;
-		}
-
-		return latest;
-	}, null) ?? null;
+function seriesLabel(series: GridCentralSeries) {
+	const teams = series.teams.length > 0 ? series.teams.join(" vs ") : "TBD vs TBD";
+	const date = series.startTimeScheduled ? ` · ${formatMatchDateLabel(series.startTimeScheduled)}` : "";
+	const format = series.format ? ` (${series.format})` : "";
+	return `[${series.id}] ${teams}${format}${date}`;
 }
 
 function getSideTeam<T>(teams: T[], swapSides: boolean, side: "left" | "right") {
@@ -35,6 +36,8 @@ function getSideTeam<T>(teams: T[], swapSides: boolean, side: "left" | "right") 
 
 export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] }) {
 	const [scene, setScene] = useState<GridScoreboardSceneState>(defaultSceneState);
+	const [centralSeries, setCentralSeries] = useState<GridCentralSeries[]>([]);
+	const [loadingCentral, setLoadingCentral] = useState(false);
 	const [series, setSeries] = useState<GridSeriesState | null>(null);
 	const [loadingSeries, setLoadingSeries] = useState(false);
 	const [seriesError, setSeriesError] = useState("");
@@ -46,6 +49,14 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 			.catch((error) => status.show((error as Error).message));
 	}, []);
 
+	useEffect(() => {
+		setLoadingCentral(true);
+		api.listGridCentralSeries()
+			.then(setCentralSeries)
+			.catch(() => setCentralSeries([]))
+			.finally(() => setLoadingCentral(false));
+	}, []);
+
 	const sortedMatches = useMemo(
 		() => [...matches].sort((left, right) => right.time.localeCompare(left.time)),
 		[matches],
@@ -54,11 +65,11 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 	const previewUrl = `${window.location.origin}/scenes/grid-scoreboard/`;
 	const jsonUrl = `${window.location.origin}/json/grid-scoreboard`;
 
-	async function loadSeriesState() {
+	async function loadSeriesState(seriesId: string) {
 		setLoadingSeries(true);
 		setSeriesError("");
 		try {
-			const nextSeries = await api.getGridSeriesState();
+			const nextSeries = await api.getGridSeriesState(seriesId);
 			setSeries(nextSeries);
 		} catch (error) {
 			setSeries(null);
@@ -69,8 +80,10 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 	}
 
 	useEffect(() => {
-		void loadSeriesState();
-	}, []);
+		if (scene.seriesId) {
+			void loadSeriesState(scene.seriesId);
+		}
+	}, [scene.seriesId]);
 
 	async function pushUpdate(next: Partial<GridScoreboardSceneState>) {
 		try {
@@ -82,9 +95,23 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 		}
 	}
 
-	const latestGame = getLatestGame(series);
-	const leftGridTeam = getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], false, "left");
-	const rightGridTeam = getSideTeam<GridSeriesGameTeam>(latestGame?.teams ?? [], false, "right");
+	function handleSeriesChange(seriesId: string) {
+		setScene((current) => ({ ...current, seriesId: seriesId || null, gameSequenceNumber: null }));
+		setSeries(null);
+		if (seriesId) {
+			void loadSeriesState(seriesId);
+		}
+	}
+
+	const availableGames = series?.games ?? [];
+	const leftGridTeam = getSideTeam<GridSeriesGameTeam>(
+		(availableGames.find((g) => g.sequenceNumber === scene.gameSequenceNumber) ?? availableGames[availableGames.length - 1])?.teams ?? [],
+		scene.swapSides, "left",
+	);
+	const rightGridTeam = getSideTeam<GridSeriesGameTeam>(
+		(availableGames.find((g) => g.sequenceNumber === scene.gameSequenceNumber) ?? availableGames[availableGames.length - 1])?.teams ?? [],
+		scene.swapSides, "right",
+	);
 	const leftLocalTeam = scene.swapSides ? selectedMatch?.teamB : selectedMatch?.teamA;
 	const rightLocalTeam = scene.swapSides ? selectedMatch?.teamA : selectedMatch?.teamB;
 
@@ -112,10 +139,26 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 								<ArrowLeftRight />
 								Swap Sides
 							</button>
-							<button type="button" className="secondary" onClick={() => void loadSeriesState()}>
+							<button
+								type="button"
+								className="secondary"
+								onClick={() => {
+									setLoadingCentral(true);
+									api.listGridCentralSeries()
+										.then(setCentralSeries)
+										.catch(() => setCentralSeries([]))
+										.finally(() => setLoadingCentral(false));
+								}}
+							>
 								<RefreshCw />
-								Refresh Data
+								Refresh Series List
 							</button>
+							{scene.seriesId && (
+								<button type="button" className="secondary" onClick={() => void loadSeriesState(scene.seriesId!)}>
+									<RefreshCw />
+									Refresh Data
+								</button>
+							)}
 							<button type="button" onClick={() => window.open(previewUrl, "_blank")}>
 								<ExternalLink />
 								Open Scene
@@ -140,26 +183,62 @@ export function GridScoreboardScenePage({ matches }: { matches: MatchResponse[] 
 							</div>
 
 							<div className="field">
+								<label>GRID Series</label>
+								<select
+									value={scene.seriesId ?? ""}
+									onChange={(event) => handleSeriesChange(event.target.value)}
+								>
+									<option value="">{loadingCentral ? "Loading series..." : "Select series"}</option>
+									{centralSeries.map((s) => (
+										<option key={s.id} value={s.id}>
+											{seriesLabel(s)}
+										</option>
+									))}
+								</select>
+							</div>
+
+							{availableGames.length > 0 && (
+								<div className="field">
+									<label>Game</label>
+									<select
+										value={scene.gameSequenceNumber ?? ""}
+										onChange={(event) => setScene({ ...scene, gameSequenceNumber: event.target.value ? Number(event.target.value) : null })}
+									>
+										<option value="">Latest game</option>
+										{[...availableGames]
+											.sort((a, b) => a.sequenceNumber - b.sequenceNumber)
+											.map((game) => (
+												<option key={game.sequenceNumber} value={game.sequenceNumber}>
+													Game {game.sequenceNumber}{game.mapName ? ` — ${game.mapName}` : ""}
+												</option>
+											))}
+									</select>
+								</div>
+							)}
+
+							<div className="field">
 								<label>Status</label>
 								<div>{scene.swapSides ? "Header order swapped manually." : "Default header order."}</div>
 								<div>{selectedMatch ? `${leftLocalTeam?.name ?? "Left"} vs ${rightLocalTeam?.name ?? "Right"}` : "No match selected."}</div>
 								<div>{series?.format ? `Series: ${series.format}` : "Series format unavailable."}</div>
 							</div>
 
-							<div className="field">
-								<label>Latest game</label>
-								{loadingSeries ? <div>Loading GRID data...</div> : null}
-								{!loadingSeries && latestGame ? (
-									<div>
-										<div>Game {latestGame.sequenceNumber}</div>
-										<div>Left: {leftGridTeam?.name ?? "-"}</div>
-										<div>Right: {rightGridTeam?.name ?? "-"}</div>
-										<div>Updated: {series?.updatedAt ?? "-"}</div>
-									</div>
-								) : null}
-								{!loadingSeries && !latestGame && !seriesError ? <div>No game data loaded.</div> : null}
-								{seriesError ? <div>{seriesError}</div> : null}
-							</div>
+							{scene.seriesId && (
+								<div className="field">
+									<label>Live data</label>
+									{loadingSeries ? <div>Loading GRID data...</div> : null}
+									{!loadingSeries && availableGames.length > 0 ? (
+										<div>
+											<div>{availableGames.length} game(s) available</div>
+											<div>Left: {leftGridTeam?.name ?? "-"}</div>
+											<div>Right: {rightGridTeam?.name ?? "-"}</div>
+											<div>Updated: {series?.updatedAt ?? "-"}</div>
+										</div>
+									) : null}
+									{!loadingSeries && availableGames.length === 0 && !seriesError ? <div>No game data loaded.</div> : null}
+									{seriesError ? <div>{seriesError}</div> : null}
+								</div>
+							)}
 
 							<div className="status">{status.message}</div>
 						</div>

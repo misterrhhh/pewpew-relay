@@ -4,9 +4,10 @@ import type { Player } from "../../shared/types.js";
 import type { GridSeriesGame, GridSeriesGameTeam, GridSeriesMatchTeam, GridSeriesPlayer, GridSeriesSegment, GridSeriesState } from "../../shared/types.js";
 import { serializePlayer } from "../services/serializers.js";
 
-const GRID_SERIES_QUERY = `
+function buildSeriesQuery(seriesId: string) {
+  return `
 query GetLiveDotaSeriesState {
-  seriesState(id: "28") {
+  seriesState(id: "${seriesId}") {
     valid
     updatedAt
     format
@@ -16,7 +17,7 @@ query GetLiveDotaSeriesState {
       name
       won
     }
-    games(filter: { started: true, finished: false }) {
+    games {
       sequenceNumber
       map {
         name
@@ -42,6 +43,7 @@ query GetLiveDotaSeriesState {
   }
 }
 `;
+}
 
 type GridGraphQLError = {
   message?: unknown;
@@ -255,6 +257,13 @@ export function createGridSeriesStateRouter(getDatabase: () => Database) {
       return;
     }
 
+    const seriesId = typeof req.query.seriesId === "string" ? req.query.seriesId.trim() : null;
+
+    if (!seriesId) {
+      res.status(400).json({ error: "seriesId query parameter is required." });
+      return;
+    }
+
     try {
       const database = getDatabase();
       const localPlayers = database.prepare("SELECT * FROM players ORDER BY rowid DESC").all() as Player[];
@@ -269,7 +278,7 @@ export function createGridSeriesStateRouter(getDatabase: () => Database) {
           "x-api-key": authKey,
           "user-agent": "pewpewrelay/1.0",
         },
-        body: JSON.stringify({ query: GRID_SERIES_QUERY }),
+        body: JSON.stringify({ query: buildSeriesQuery(seriesId) }),
         signal: AbortSignal.timeout(10000),
       });
 
