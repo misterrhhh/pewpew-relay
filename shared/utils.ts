@@ -15,14 +15,26 @@ export function formatMatchTime(dateValue: string) {
     return "";
   }
 
-  const match = dateValue.match(/(\d{2}):(\d{2})/);
-  if (match) {
-    return `${match[1]}:${match[2]}`;
+  const fixedTime = dateValue.match(/^(\d{2}):(\d{2})$/);
+  if (fixedTime) {
+    return `${fixedTime[1]}:${fixedTime[2]}`;
   }
 
   const parsed = new Date(dateValue);
   if (Number.isNaN(parsed.getTime())) {
     return dateValue;
+  }
+
+  const now = new Date();
+  const isToday =
+    parsed.getFullYear() === now.getFullYear() &&
+    parsed.getMonth() === now.getMonth() &&
+    parsed.getDate() === now.getDate();
+
+  if (!isToday) {
+    const day = parsed.getDate().toString().padStart(2, "0");
+    const month = (parsed.getMonth() + 1).toString().padStart(2, "0");
+    return `${day}/${month}`;
   }
 
   return parsed.toLocaleTimeString("en-GB", {
@@ -46,6 +58,25 @@ export function compareMatchDateValues(left: string, right: string) {
 export function parseMatchDateValue(value: string) {
   const parsed = Date.parse(value.includes("T") ? value : value.replace(" ", "T"));
   return Number.isNaN(parsed) ? null : parsed;
+}
+
+export function formatMatchDateLabel(dateValue: string) {
+  if (!dateValue) return "";
+
+  if (/^\d{2}:\d{2}$/.test(dateValue)) {
+    return dateValue;
+  }
+
+  const parsed = new Date(dateValue);
+  if (Number.isNaN(parsed.getTime())) return dateValue;
+
+  return parsed.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
 }
 
 export function formatCountdown(totalMilliseconds: number) {

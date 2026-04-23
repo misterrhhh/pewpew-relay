@@ -5,6 +5,7 @@ import type { LowerBracketSceneState, MatchResponse } from "../../shared/types";
 import { IframePreview } from "../components/IframePreview";
 import { OpenSceneJsonButton } from "../components/OpenSceneJsonButton";
 import { useStatus } from "../components/useStatus";
+import { formatMatchDateLabel } from "../../shared/utils";
 
 const defaultSceneState: LowerBracketSceneState = {
 	matchIds: [],
@@ -14,7 +15,8 @@ const defaultSceneState: LowerBracketSceneState = {
 };
 
 function matchLabel(match: MatchResponse) {
-	return `${match.title ?? "Untitled match"} - ${match.teamA?.name ?? "Unknown"} vs ${match.teamB?.name ?? "Unknown"}`;
+	const date = match.time ? ` · ${formatMatchDateLabel(match.time)}` : "";
+	return `${match.title ?? "Untitled match"} - ${match.teamA?.name ?? "Unknown"} vs ${match.teamB?.name ?? "Unknown"}${date}`;
 }
 
 export function LowerBracketScenePage({ matches }: { matches: MatchResponse[] }) {
