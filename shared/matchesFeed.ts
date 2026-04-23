@@ -1,5 +1,5 @@
 import type { MatchFeedEntry, MatchResponse } from "./types.js";
-import { formatMatchTime } from "./utils.js";
+import { formatTimeOnly } from "./utils.js";
 
 const matchStateLabels: Record<NonNullable<MatchResponse["state"]>, string> = {
 	finished: "FINISHED",
@@ -37,6 +37,6 @@ export function toMatchFeedEntry(match: MatchResponse): MatchFeedEntry {
 		score: formatMatchScore(match),
 		state: match.state ? matchStateLabels[match.state] : "",
 		stateColor: match.state ? matchStateColors[match.state] : "#FFFFFF",
-		time: formatMatchTime(match.time),
+		time: formatTimeOnly(match.time),
 	};
 }

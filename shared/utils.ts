@@ -60,6 +60,21 @@ export function parseMatchDateValue(value: string) {
   return Number.isNaN(parsed) ? null : parsed;
 }
 
+export function formatTimeOnly(dateValue: string) {
+  if (!dateValue) return "";
+
+  if (/^\d{2}:\d{2}$/.test(dateValue)) return dateValue;
+
+  const parsed = new Date(dateValue);
+  if (Number.isNaN(parsed.getTime())) return dateValue;
+
+  return parsed.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+}
+
 export function formatMatchDateLabel(dateValue: string) {
   if (!dateValue) return "";
 
