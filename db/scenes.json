@@ -1,21 +1,21 @@
 {
   "matches": {
     "matchIds": [
-      "743e7bab-a7fa-4eab-9274-1264af9742be",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "1c546374-1347-4345-aa36-8e80242b1ea6"
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776954827570
+    "animationId": 1776962608612
   },
   "matchesCountdown": {
     "matchIds": [
-      "743e7bab-a7fa-4eab-9274-1264af9742be",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "99388f9d-bcab-479c-8771-12bbc0482671"
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
     ],
     "countdownMode": "fixedTime",
     "fixedTime": "18:00",
@@ -23,14 +23,14 @@
     "durationStartedAt": null,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776954860332
+    "animationId": 1776962605705
   },
   "vetoL3": {
-    "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
-    "currentIndex": 1,
+    "matchId": "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+    "currentIndex": 7,
     "visible": true,
     "animation": "in",
-    "animationId": 1776945519641
+    "animationId": 1776957693270
   },
   "headToHead": {
     "title": "LAST MONTH",
@@ -39,7 +39,7 @@
       "kills": 545,
       "deaths": 395,
       "adr": 86.1,
-      "rating3": 1.2127
+      "rating3": 1.27
     },
     "right": {
       "playerId": "616100fb-5b42-4810-86cc-1a33c950846d",
@@ -50,7 +50,7 @@
     },
     "visible": false,
     "animation": "idle",
-    "animationId": 1776950366140
+    "animationId": 1776956197055
   },
   "mvp": {
     "title": "MVP",
@@ -67,15 +67,18 @@
   },
   "upperBracket": {
     "matchIds": [
-      "1c546374-1347-4345-aa36-8e80242b1ea6",
-      "99388f9d-bcab-479c-8771-12bbc0482671",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772",
-      "743e7bab-a7fa-4eab-9274-1264af9742be"
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "89347c95-3c4c-48ab-ae4c-4b8aef7c56f1",
+      "1767eed5-9b50-4f90-8043-68541df178dc",
+      "af63055c-9aec-41cb-a361-4fec8b64de27",
+      "dac9643e-ca15-44d8-bcaa-3626c2ff6176"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776954414493
+    "animationId": 1776963142714
   },
   "lowerBracket": {
     "matchIds": [
@@ -88,7 +91,7 @@
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776952327098
+    "animationId": 1776962616553
   },
   "stakeOdds": {
     "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
@@ -96,11 +99,11 @@
     "playId": 0
   },
   "gridScoreboard": {
-    "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+    "matchId": "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
     "swapSides": false,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776948226684
+    "animationId": 1776958112984
   },
   "lineups": {
     "teamId": null,
@@ -135,19 +138,19 @@
     "animationId": 1776953860062
   },
   "roster": {
-    "teamId": "51b0de42-131f-4671-94f2-787bd8b04dc9",
-    "title": "SERIES WINNER",
+    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
+    "title": "MAP WINNER",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776951847911
+    "animationId": 1776962471300
   },
   "popup": {
-    "teamId": "51b0de42-131f-4671-94f2-787bd8b04dc9",
-    "text": "Hot recent form with 71% winrate last month, strong momentum entering playoffs",
+    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
+    "text": "Ancient reliability with 67% winrate across 21 maps last half-year provides veto leverage and consistency",
     "sentiment": "positive",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776949822521
+    "animationId": 1776962257441
   },
   "pipCountdown": {
     "matchIds": [],
