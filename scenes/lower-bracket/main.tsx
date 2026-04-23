@@ -91,13 +91,16 @@ function BracketMatchCard({
 		: null;
 	const stateLabel = match?.state === "finished"
 		? "ENDED"
-		: match?.state === "upcoming" || match?.state === "next"
+		: match?.state === "next"
+		? "NEXT"
+		: match?.state === "upcoming"
 		? formatMatchTime(match.time)
 		: match?.state?.toUpperCase() ?? "TBD";
 	const isEmpty = !match;
+	const isNext = match?.state === "next";
 
 	return (
-		<div className={`bracket-card ${id} ${isEmpty ? "empty" : ""}`}>
+		<div className={`bracket-card ${id} ${isEmpty ? "empty" : ""} ${isNext ? "next" : ""}`}>
 			
 			<div className="card-team">
 				<div className="card-logo">{teamALogo ? <img src={teamALogo} alt={teamA?.name ?? "Team A"} /> : null}</div>

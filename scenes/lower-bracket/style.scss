@@ -64,6 +64,13 @@
 		}
 	}
 
+	&.next {
+		.card-center .card-info {
+			background-color: #FFDE00;
+			color: #000;
+		}
+	}
+
 	.card-label {
 		position: absolute;
 		left: 0;

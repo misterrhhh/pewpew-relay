@@ -67,6 +67,13 @@
 		}
 	}
 
+	&.next {
+		.card-center .card-info {
+			background-color: #FFDE00;
+			color: #000;
+		}
+	}
+
 	.card-team {
 		display: flex;
 		flex-direction: column;
