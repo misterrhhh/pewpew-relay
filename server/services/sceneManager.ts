@@ -79,6 +79,8 @@ const defaultScenes: SceneStateMap = {
 	},
 	gridScoreboard: {
 		matchId: null,
+		seriesId: null,
+		gameSequenceNumber: null,
 		swapSides: false,
 		visible: false,
 		animation: "idle",
@@ -346,6 +348,8 @@ function normalizeGridScoreboardScene(input: unknown) {
 
 	const legacy = input as {
 		matchId?: unknown;
+		seriesId?: unknown;
+		gameSequenceNumber?: unknown;
 		swapSides?: unknown;
 		visible?: unknown;
 		animation?: unknown;
@@ -354,6 +358,8 @@ function normalizeGridScoreboardScene(input: unknown) {
 
 	return {
 		matchId: typeof legacy.matchId === "string" && legacy.matchId.trim() !== "" ? legacy.matchId : null,
+		seriesId: typeof legacy.seriesId === "string" && legacy.seriesId.trim() !== "" ? legacy.seriesId : null,
+		gameSequenceNumber: typeof legacy.gameSequenceNumber === "number" ? legacy.gameSequenceNumber : null,
 		swapSides: typeof legacy.swapSides === "boolean" ? legacy.swapSides : defaultScenes.gridScoreboard.swapSides,
 		visible: typeof legacy.visible === "boolean" ? legacy.visible : defaultScenes.gridScoreboard.visible,
 		animation: typeof legacy.animation === "string" ? legacy.animation : defaultScenes.gridScoreboard.animation,
