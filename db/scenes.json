@@ -1,21 +1,21 @@
 {
   "matches": {
     "matchIds": [
-      "1c546374-1347-4345-aa36-8e80242b1ea6",
-      "99388f9d-bcab-479c-8771-12bbc0482671",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
+      "7cf35f7e-ce71-4065-8333-830c3463cc25",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776963967180
+    "animationId": 1776976370495
   },
   "matchesCountdown": {
     "matchIds": [
-      "1c546374-1347-4345-aa36-8e80242b1ea6",
-      "99388f9d-bcab-479c-8771-12bbc0482671",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772"
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de"
     ],
     "countdownMode": "fixedTime",
     "fixedTime": "18:00",
@@ -23,75 +23,75 @@
     "durationStartedAt": null,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776963980371
+    "animationId": 1776965937054
   },
   "vetoL3": {
-    "matchId": "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
     "currentIndex": 7,
     "visible": true,
     "animation": "in",
-    "animationId": 1776957693270
+    "animationId": 1776972547225
   },
   "headToHead": {
-    "title": "LAST MONTH",
+    "title": "LAST 6 MONTHS",
     "left": {
-      "playerId": "0f428add-160c-4c35-a840-9f8a575313bf",
-      "kills": 545,
-      "deaths": 395,
-      "adr": 86.1,
-      "rating3": 1.27
+      "playerId": "62e497f5-126d-4c67-a166-94c055cebafd",
+      "kills": null,
+      "deaths": null,
+      "adr": null,
+      "rating3": null
     },
     "right": {
-      "playerId": "616100fb-5b42-4810-86cc-1a33c950846d",
-      "kills": 198,
-      "deaths": 210,
-      "adr": 73,
-      "rating3": 0.97
+      "playerId": "2a2716f6-98ab-4a91-bf48-072fb1648248",
+      "kills": 2009,
+      "deaths": 1678,
+      "adr": 71.3,
+      "rating3": 1.08
     },
     "visible": false,
     "animation": "idle",
-    "animationId": 1776956197055
+    "animationId": 1776964996959
   },
   "mvp": {
     "title": "MVP",
     "player": {
-      "playerId": "d3c89de3-ac29-457c-8963-05ae1582312b",
-      "kills": 32,
-      "deaths": 18,
-      "adr": 83.4,
-      "rating3": 1.46
+      "playerId": "0f428add-160c-4c35-a840-9f8a575313bf",
+      "kills": 52,
+      "deaths": 45,
+      "adr": 77.5,
+      "rating3": 1.24
     },
     "visible": false,
     "animation": "idle",
-    "animationId": 1776952678473
+    "animationId": 1776968252810
   },
   "upperBracket": {
     "matchIds": [
-      "1c546374-1347-4345-aa36-8e80242b1ea6",
-      "99388f9d-bcab-479c-8771-12bbc0482671",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
-      "8400431f-fca1-4cdb-9cf2-a1c0098b4772",
-      "743e7bab-a7fa-4eab-9274-1264af9742be",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+      "cb404509-9c6b-48fd-ab47-3879c91f63de",
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "89347c95-3c4c-48ab-ae4c-4b8aef7c56f1",
       "1767eed5-9b50-4f90-8043-68541df178dc",
       "af63055c-9aec-41cb-a361-4fec8b64de27",
       "dac9643e-ca15-44d8-bcaa-3626c2ff6176"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776963739529
+    "animationId": 1776966998607
   },
   "lowerBracket": {
     "matchIds": [
       "0c5985b4-96e5-4fa3-8d62-b2e9c1e64778",
-      "743e7bab-a7fa-4eab-9274-1264af9742be",
-      "8b4953f8-228c-4f0e-871e-938a2ab3c74d",
+      "d22f8ef8-d654-4812-ab5b-1dc07567003b",
+      "894d6c81-dbcd-461d-9f22-afc1be43b424",
       "7cf35f7e-ce71-4065-8333-830c3463cc25",
       "1ff51f47-aeaa-46c4-95ec-be95955dbf3d",
       "1110c9cf-94cb-417e-b636-2880d03ba016"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776963987274
+    "animationId": 1776966114264
   },
   "stakeOdds": {
     "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
@@ -99,11 +99,11 @@
     "playId": 0
   },
   "gridScoreboard": {
-    "matchId": "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
     "swapSides": false,
     "visible": false,
     "animation": "idle",
-    "animationId": 1776958112984
+    "animationId": 1776974789605
   },
   "lineups": {
     "teamId": null,
@@ -112,16 +112,16 @@
     "animationId": 0
   },
   "lineupsA": {
-    "teamId": "3b2d6367-14a1-4398-9639-5504cdf79060",
+    "teamId": "b4575305-44d2-4119-a8a8-89c1981f1845",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776950275141
+    "animationId": 1776964938851
   },
   "lineupsB": {
-    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
+    "teamId": "277114ed-dca0-4549-95c9-d3b72c82f230",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776950281056
+    "animationId": 1776964945078
   },
   "talent": {
     "title": "Talent",
@@ -138,19 +138,19 @@
     "animationId": 1776953860062
   },
   "roster": {
-    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
+    "teamId": "b4575305-44d2-4119-a8a8-89c1981f1845",
     "title": "MAP WINNER",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776962471300
+    "animationId": 1776972994081
   },
   "popup": {
-    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
-    "text": "Ancient reliability with 67% winrate across 21 maps last half-year provides veto leverage and consistency",
+    "teamId": "b4575305-44d2-4119-a8a8-89c1981f1845",
+    "text": "Exceptional Nuke form: 68% winrate over 25 maps, frequently first-picked",
     "sentiment": "positive",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776962257441
+    "animationId": 1776973076582
   },
   "pipCountdown": {
     "matchIds": [],
