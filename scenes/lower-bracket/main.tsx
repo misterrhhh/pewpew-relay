@@ -101,7 +101,7 @@ function BracketMatchCard({
 			
 			<div className="card-team">
 				<div className="card-logo">{teamALogo ? <img src={teamALogo} alt={teamA?.name ?? "Team A"} /> : null}</div>
-				<div className="card-name">{teamA?.name ?? "TBD"}</div>
+				<div className="card-name">{teamA?.short ?? "TBD"}</div>
 			</div>
 
 			<div className="card-center">
@@ -113,7 +113,7 @@ function BracketMatchCard({
 
 			<div className="card-team">
 				<div className="card-logo">{teamBLogo ? <img src={teamBLogo} alt={teamB?.name ?? "Team B"} /> : null}</div>
-				<div className="card-name">{teamB?.name ?? "TBD"}</div>
+				<div className="card-name">{teamB?.short ?? "TBD"}</div>
 			</div>
 		</div>
 	);

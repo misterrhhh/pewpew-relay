@@ -26,11 +26,11 @@
     "animationId": 1776868357096
   },
   "vetoL3": {
-    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
-    "currentIndex": 7,
+    "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
+    "currentIndex": 1,
     "visible": true,
     "animation": "in",
-    "animationId": 1776873132296
+    "animationId": 1776945519641
   },
   "headToHead": {
     "title": "LAST MONTH",
@@ -42,15 +42,15 @@
       "rating3": 1.2
     },
     "right": {
-      "playerId": "418fc368-82aa-415c-9d99-ab6ac8e0338f",
-      "kills": 177,
-      "deaths": 147,
-      "adr": 73.2,
-      "rating3": 1.19
+      "playerId": "f0cf0959-d774-4c3d-91fd-d34022f9a456",
+      "kills": 173,
+      "deaths": 155,
+      "adr": 68,
+      "rating3": 1.03
     },
     "visible": false,
     "animation": "idle",
-    "animationId": 1776856453310
+    "animationId": 1776942169401
   },
   "mvp": {
     "title": "MVP",
@@ -67,26 +67,28 @@
   },
   "upperBracket": {
     "matchIds": [
-      "31fd018e-9393-4728-bb94-98ff0888c0df",
-      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
       "cb404509-9c6b-48fd-ab47-3879c91f63de",
-      "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e"
+      "04e168ef-c81a-4b1c-8c69-8cc4816f3719",
+      "31fd018e-9393-4728-bb94-98ff0888c0df",
+      "89347c95-3c4c-48ab-ae4c-4b8aef7c56f1",
+      "1767eed5-9b50-4f90-8043-68541df178dc"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776853737980
+    "animationId": 1776938259609
   },
   "lowerBracket": {
     "matchIds": [
-      "31fd018e-9393-4728-bb94-98ff0888c0df",
-      "cb404509-9c6b-48fd-ab47-3879c91f63de"
+      "0c5985b4-96e5-4fa3-8d62-b2e9c1e64778",
+      "d22f8ef8-d654-4812-ab5b-1dc07567003b"
     ],
     "visible": false,
     "animation": "idle",
-    "animationId": 1776853763241
+    "animationId": 1776947379033
   },
   "stakeOdds": {
-    "matchId": "cb404509-9c6b-48fd-ab47-3879c91f63de",
+    "matchId": "3b4a0afa-5b7f-4e20-9d52-c080d4e6824e",
     "swapSides": false,
     "playId": 0
   },
@@ -119,30 +121,30 @@
     "title": "Talent",
     "talentIds": [
       "dc0d83c9-4193-43d5-8775-af47fda5e006",
-      null,
-      null,
-      null,
-      null
+      "c0d04526-4b0b-4646-889a-b5b606c8825c",
+      "149cc040-b73c-492b-b917-24ceb28f128a",
+      "d09db3f5-9d36-49cf-9f90-8dcf2943d522",
+      "40e522c3-e995-4d74-9bb7-167bd97d3495"
     ],
-    "fullscreenId": "e2037d6c-34cc-4750-ab74-be7048e734c6",
+    "fullscreenId": "dc0d83c9-4193-43d5-8775-af47fda5e006",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776876387339
+    "animationId": 1776939693458
   },
   "roster": {
-    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
-    "title": "asdasdasd",
+    "teamId": "0889031e-1c38-4cef-a9c9-0ed61792bd47",
+    "title": "SERIES WINNER",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776865367963
+    "animationId": 1776941442305
   },
   "popup": {
-    "teamId": "9b9bf4a4-02df-4175-995c-9d640cd51c54",
-    "text": "o uni ta a baitar desde a ronda 1 e mesmo assim matou 2",
+    "teamId": "51b0de42-131f-4671-94f2-787bd8b04dc9",
+    "text": "SNAFIAUSF FUASFHUISF HSUFHIAUSHFSAF HFSUIFHSAIHF HSUFASA",
     "sentiment": "positive",
     "visible": false,
     "animation": "idle",
-    "animationId": 1776876865242
+    "animationId": 1776941355291
   },
   "pipCountdown": {
     "matchIds": [],
