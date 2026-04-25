@@ -148,7 +148,7 @@ function MatchCard({ match, scene }: { match: MatchResponse | null; scene: GridS
 		<div className="ms-card" key={`${match.id}-${scene.animationId}`} data-animation={scene.animation}>
 			<div className="card-team">
 				<div className="card-logo">{teamALogo ? <img src={teamALogo} alt="" /> : null}</div>
-				<div className="card-name">{teamA?.name ?? "TBD"}</div>
+				<div className="card-name">{teamA?.short ?? "TBD"}</div>
 			</div>
 			<div className="card-center">
 				<div className="card-state">
@@ -160,7 +160,7 @@ function MatchCard({ match, scene }: { match: MatchResponse | null; scene: GridS
 			</div>
 			<div className="card-team">
 				<div className="card-logo">{teamBLogo ? <img src={teamBLogo} alt="" /> : null}</div>
-				<div className="card-name">{teamB?.name ?? "TBD"}</div>
+				<div className="card-name">{teamB?.short ?? "TBD"}</div>
 			</div>
 		</div>
 	);

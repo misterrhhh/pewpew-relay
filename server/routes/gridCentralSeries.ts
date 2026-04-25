@@ -4,6 +4,7 @@ import type { GridCentralSeries } from "../../shared/types.js";
 const GRID_CENTRAL_QUERY = `
 query GetAllSeriesInNext24Hours {
   allSeries(
+    first: 50
     filter: {
       startTimeScheduled: {
         gte: "2024-04-24T15:00:07+02:00"
